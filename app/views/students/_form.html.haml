@@ -13,16 +13,16 @@
     = f.label :batch
     = f.text_field :batch
   .field
-    = f.label :last
+    = f.label :Surname
     = f.text_field :last
   .field
-    = f.label :given
+    = f.label :Given
     = f.text_field :given
   .field
-    = f.label :middle
+    = f.label :Middle
     = f.text_field :middle
   .field
-    = f.label :nick
+    = f.label :Nickname
     = f.text_field :nick
   .field
     = f.label :address
@@ -41,54 +41,54 @@
     = f.text_field :email
   .field
     = f.label :religion
-    = f.text_field :religion
+    = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others']]
   .field
-    = f.label :entry
-    = f.text_field :entry
+    = f.label :entry_point
+    = f.select :entry, [['Kindergarten','Kindergarten'],['Lateral Entry','Lateral Entry'],['Vaas Program','Vaas Program']]
   .field
-    = f.label :graduate
     = f.check_box :graduate
+    = f.label :alumni
   .field
-    = f.label :upcat
     = f.check_box :upcat
+    = f.label :UPCAT_passer
   .field
-    = f.label :disciplinary
     = f.check_box :disciplinary
+    = f.label :has_disciplinary_record
   .field
     = f.label :father
     = f.text_field :father
   .field
-    = f.label :foccupation
+    = f.label :occupation
     = f.text_field :foccupation
   .field
-    = f.label :foffice
+    = f.label :office
     = f.text_field :foffice
   .field
-    = f.label :fcontact
+    = f.label :contact_numbers
     = f.text_field :fcontact
   .field
     = f.label :mother
     = f.text_field :mother
   .field
-    = f.label :moccupation
+    = f.label :occupation
     = f.text_field :moccupation
   .field
-    = f.label :moffice
+    = f.label :office
     = f.text_field :moffice
   .field
-    = f.label :mcontact
+    = f.label :contact_numbers
     = f.text_field :mcontact
   .field
     = f.label :guardian
     = f.text_field :guardian
   .field
-    = f.label :relationship
+    = f.label :relationship_with_student
     = f.text_field :relationship
   .field
-    = f.label :gaddress
+    = f.label :address
     = f.text_field :gaddress
   .field
-    = f.label :gcontact
+    = f.label :contact_details 
     = f.text_field :gcontact
   .actions
     = f.submit 'Save'

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118134306) do
+ActiveRecord::Schema.define(:version => 20120119023444) do
+
+  create_table "batches", :force => true do |t|
+    t.integer  "year"
+    t.integer  "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

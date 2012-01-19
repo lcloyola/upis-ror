@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Year:
+  = @batch.year
+%p
+  %b Remarks:
+  = @batch.remarks
+
+= link_to 'Edit', edit_batch_path(@batch)
+\|
+= link_to 'Back', batches_path

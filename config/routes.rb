@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :batches
+
   devise_for :users do
     root :to => "home#index"
   end

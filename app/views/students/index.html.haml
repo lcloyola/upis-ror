@@ -1,0 +1,73 @@
+%h1 Listing students
+
+%table
+  %tr
+    %th Student no
+    %th Batch
+    %th Last
+    %th Given
+    %th Middle
+    %th Nick
+    %th Address
+    %th Birthday
+    %th Mobile
+    %th Landline
+    %th Email
+    %th Religion
+    %th Entry
+    %th Graduate
+    %th Upcat
+    %th Disciplinary
+    %th Father
+    %th Foccupation
+    %th Foffice
+    %th Fcontact
+    %th Mother
+    %th Moccupation
+    %th Moffice
+    %th Mcontact
+    %th Guardian
+    %th Relationship
+    %th Gaddress
+    %th Gcontact
+    %th
+    %th
+    %th
+
+  - @students.each do |student|
+    %tr
+      %td= student.student_no
+      %td= student.batch
+      %td= student.last
+      %td= student.given
+      %td= student.middle
+      %td= student.nick
+      %td= student.address
+      %td= student.birthday
+      %td= student.mobile
+      %td= student.landline
+      %td= student.email
+      %td= student.religion
+      %td= student.entry
+      %td= student.graduate
+      %td= student.upcat
+      %td= student.disciplinary
+      %td= student.father
+      %td= student.foccupation
+      %td= student.foffice
+      %td= student.fcontact
+      %td= student.mother
+      %td= student.moccupation
+      %td= student.moffice
+      %td= student.mcontact
+      %td= student.guardian
+      %td= student.relationship
+      %td= student.gaddress
+      %td= student.gcontact
+      %td= link_to 'Show', student
+      %td= link_to 'Edit', edit_student_path(student)
+      %td= link_to 'Destroy', student, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Student', new_student_path

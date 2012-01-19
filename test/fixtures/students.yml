@@ -1,0 +1,61 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  student_no: 1
+  batch: 
+  last: MyString
+  given: MyString
+  middle: MyString
+  nick: MyString
+  address: MyText
+  birthday: 2012-01-19
+  mobile: MyString
+  landline: MyString
+  email: MyString
+  religion: MyString
+  entry: MyString
+  graduate: false
+  upcat: false
+  disciplinary: false
+  father: MyString
+  foccupation: MyString
+  foffice: MyString
+  fcontact: MyString
+  mother: MyString
+  moccupation: MyString
+  moffice: MyString
+  mcontact: MyString
+  guardian: MyString
+  relationship: MyString
+  gaddress: MyString
+  gcontact: MyString
+
+two:
+  student_no: 1
+  batch: 
+  last: MyString
+  given: MyString
+  middle: MyString
+  nick: MyString
+  address: MyText
+  birthday: 2012-01-19
+  mobile: MyString
+  landline: MyString
+  email: MyString
+  religion: MyString
+  entry: MyString
+  graduate: false
+  upcat: false
+  disciplinary: false
+  father: MyString
+  foccupation: MyString
+  foffice: MyString
+  fcontact: MyString
+  mother: MyString
+  moccupation: MyString
+  moffice: MyString
+  mcontact: MyString
+  guardian: MyString
+  relationship: MyString
+  gaddress: MyString
+  gcontact: MyString

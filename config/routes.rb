@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :students
+
   resources :batches
 
   devise_for :users do

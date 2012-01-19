@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119025818) do
+ActiveRecord::Schema.define(:version => 20120119033438) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -19,6 +19,41 @@ ActiveRecord::Schema.define(:version => 20120119025818) do
     t.datetime "updated_at"
     t.string   "remarks"
   end
+
+  create_table "students", :force => true do |t|
+    t.integer  "student_no"
+    t.integer  "batch_id"
+    t.string   "last"
+    t.string   "given"
+    t.string   "middle"
+    t.string   "nick"
+    t.text     "address"
+    t.date     "birthday"
+    t.string   "mobile"
+    t.string   "landline"
+    t.string   "email"
+    t.string   "religion"
+    t.string   "entry"
+    t.boolean  "graduate"
+    t.boolean  "upcat"
+    t.boolean  "disciplinary"
+    t.string   "father"
+    t.string   "foccupation"
+    t.string   "foffice"
+    t.string   "fcontact"
+    t.string   "mother"
+    t.string   "moccupation"
+    t.string   "moffice"
+    t.string   "mcontact"
+    t.string   "guardian"
+    t.string   "relationship"
+    t.string   "gaddress"
+    t.string   "gcontact"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "students", ["batch_id"], :name => "index_students_on_batch_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

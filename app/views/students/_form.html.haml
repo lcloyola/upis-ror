@@ -1,0 +1,94 @@
+= form_for @student do |f|
+  -if @student.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@student.errors.count, "error")} prohibited this student from being saved:"
+      %ul
+        - @student.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :student_no
+    = f.number_field :student_no
+  .field
+    = f.label :batch
+    = f.text_field :batch
+  .field
+    = f.label :last
+    = f.text_field :last
+  .field
+    = f.label :given
+    = f.text_field :given
+  .field
+    = f.label :middle
+    = f.text_field :middle
+  .field
+    = f.label :nick
+    = f.text_field :nick
+  .field
+    = f.label :address
+    = f.text_area :address
+  .field
+    = f.label :birthday
+    = f.date_select :birthday
+  .field
+    = f.label :mobile
+    = f.text_field :mobile
+  .field
+    = f.label :landline
+    = f.text_field :landline
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :religion
+    = f.text_field :religion
+  .field
+    = f.label :entry
+    = f.text_field :entry
+  .field
+    = f.label :graduate
+    = f.check_box :graduate
+  .field
+    = f.label :upcat
+    = f.check_box :upcat
+  .field
+    = f.label :disciplinary
+    = f.check_box :disciplinary
+  .field
+    = f.label :father
+    = f.text_field :father
+  .field
+    = f.label :foccupation
+    = f.text_field :foccupation
+  .field
+    = f.label :foffice
+    = f.text_field :foffice
+  .field
+    = f.label :fcontact
+    = f.text_field :fcontact
+  .field
+    = f.label :mother
+    = f.text_field :mother
+  .field
+    = f.label :moccupation
+    = f.text_field :moccupation
+  .field
+    = f.label :moffice
+    = f.text_field :moffice
+  .field
+    = f.label :mcontact
+    = f.text_field :mcontact
+  .field
+    = f.label :guardian
+    = f.text_field :guardian
+  .field
+    = f.label :relationship
+    = f.text_field :relationship
+  .field
+    = f.label :gaddress
+    = f.text_field :gaddress
+  .field
+    = f.label :gcontact
+    = f.text_field :gcontact
+  .actions
+    = f.submit 'Save'

@@ -24,7 +24,8 @@ class StudentsController < ApplicationController
   # GET /students/new
   # GET /students/new.json
   def new
-    @student = Student.new
+    @batch = Batch.find(params[:batch_id])
+    @student = Student.new(:batch_id => @batch.id)
 
     respond_to do |format|
       format.html # new.html.erb

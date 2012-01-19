@@ -1,7 +1,9 @@
 Upis::Application.routes.draw do
   resources :students
 
-  resources :batches
+  resources :batches do
+    resources :students, :on => :member
+  end
 
   devise_for :users do
     root :to => "home#index"

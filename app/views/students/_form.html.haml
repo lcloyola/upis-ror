@@ -1,3 +1,4 @@
+%h3= "Batch #{@batch.year}"
 = form_for @student do |f|
   -if @student.errors.any?
     #error_explanation
@@ -9,9 +10,6 @@
   .field
     = f.label :student_no
     = f.number_field :student_no
-  .field
-    = f.label :batch
-    = f.text_field :batch
   .field
     = f.label :Surname
     = f.text_field :last

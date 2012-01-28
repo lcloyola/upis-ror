@@ -25,7 +25,8 @@ class StudentsController < ApplicationController
   # GET /students/new.json
   def new
     @batch = Batch.find(params[:batch_id])
-    @student = Student.new(:batch_id => @batch.id)
+    @student = Student.new()
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,8 +42,10 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(params[:student])
-
+    @batch = Batch.find(params[:batch_id])
+    @student = @batch.students.new(params[:student])
+    assign_student_no()
+    
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
@@ -79,6 +82,16 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to students_url }
       format.json { head :ok }
+    end
+  end
+  
+private
+  def assign_student_no
+    @batchmate = Student.where('batch_id = ?', @batch.id).order('student_no ASC')
+    if @batchmate.empty?
+      @student.student_no = @batch.year * 100000 + 1
+    else 
+      @student.student_no = @batchmate.last.student_no + 1
     end
   end
 end

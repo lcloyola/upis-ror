@@ -1,15 +1,11 @@
 %h3= "Batch #{@batch.year}"
-= form_for @student do |f|
-  -if @student.errors.any?
+= form_for([@batch, @batch.students.build]) do |f|
+  -if @batch.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@student.errors.count, "error")} prohibited this student from being saved:"
+      %h2= "#{pluralize(@batch.errors.count, "error")} prohibited this student from being saved:"
       %ul
-        - @student.errors.full_messages.each do |msg|
+        - @batch.students.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :student_no
-    = f.number_field :student_no
   .field
     = f.label :Surname
     = f.text_field :last

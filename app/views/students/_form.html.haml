@@ -1,3 +1,6 @@
+= debug @batch
+%h= @batch
+
 %h3= "Batch #{@batch.year}"
 = form_for([@batch, @batch.students.build]) do |f|
   -if @batch.errors.any?
@@ -23,7 +26,7 @@
     = f.text_area :address
   .field
     = f.label :birthday
-    = f.date_select :birthday
+    = f.date_select :birthday, :start_year => Time.now.year - 25
   .field
     = f.label :mobile
     = f.text_field :mobile

@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @students = Student.where('batch_id = ?', params[:batch_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,6 +37,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @student = Student.find(params[:id])
+    @batch = Batch.find(@student.batch_id)
   end
 
   # POST /students

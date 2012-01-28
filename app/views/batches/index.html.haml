@@ -12,10 +12,9 @@
     %tr
       %td= batch.year
       %td= batch.remarks
-      %td= link_to 'Show', batch
+      %td= link_to 'Show', batch_students_path(batch)
       %td= link_to 'Edit', edit_batch_path(batch)
       %td= link_to 'New Student', new_batch_student_url(batch)
-      %td= link_to 'Destroy', batch, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

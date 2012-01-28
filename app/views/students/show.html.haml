@@ -1,3 +1,5 @@
+%h1= "#{@student.last}, #{@student.given} #{@student.middle}."
+%h3= "Batch #{@student.batch.year}"
 %p#notice= notice
 
 %p
@@ -5,7 +7,7 @@
   = @student.student_no
 %p
   %b Batch:
-  = @student.batch
+  = @student.batch.year
 %p
   %b Last:
   = @student.last

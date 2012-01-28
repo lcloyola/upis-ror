@@ -1,6 +1,97 @@
-%h1 Editing student
+%h1= "#{@student.last}, #{@student.given} #{@student.middle}."
+%h3= "Batch #{@batch.year}"
+= form_for @student do |f|
+  -if @student.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@student.errors.count, "error")} prohibited this student from being saved:"
+      %ul
+        - @student.errors.full_messages.each do |msg|
+          %li= msg
 
-= render 'form'
+  .field
+    = f.label :student_no
+    = f.text_field :student_no, :readonly => true 
+  .field
+    = f.label :Surname
+    = f.text_field :last
+  .field
+    = f.label :Given
+    = f.text_field :given
+  .field
+    = f.label :Middle
+    = f.text_field :middle
+  .field
+    = f.label :Nickname
+    = f.text_field :nick
+  .field
+    = f.label :address
+    = f.text_area :address
+  .field
+    = f.label :birthday
+    = f.date_select :birthday, :start_year => Time.now.year - 25
+  .field
+    = f.label :mobile
+    = f.text_field :mobile
+  .field
+    = f.label :landline
+    = f.text_field :landline
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :religion
+    = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others']]
+  .field
+    = f.label :entry_point
+    = f.select :entry, [['Kindergarten','Kindergarten'],['Lateral Entry','Lateral Entry'],['Vaas Program','Vaas Program']]
+  .field
+    = f.check_box :graduate
+    = f.label :alumni
+  .field
+    = f.check_box :upcat
+    = f.label :UPCAT_passer
+  .field
+    = f.check_box :disciplinary
+    = f.label :has_disciplinary_record
+  .field
+    = f.label :father
+    = f.text_field :father
+  .field
+    = f.label :occupation
+    = f.text_field :foccupation
+  .field
+    = f.label :office
+    = f.text_field :foffice
+  .field
+    = f.label :contact_numbers
+    = f.text_field :fcontact
+  .field
+    = f.label :mother
+    = f.text_field :mother
+  .field
+    = f.label :occupation
+    = f.text_field :moccupation
+  .field
+    = f.label :office
+    = f.text_field :moffice
+  .field
+    = f.label :contact_numbers
+    = f.text_field :mcontact
+  .field
+    = f.label :guardian
+    = f.text_field :guardian
+  .field
+    = f.label :relationship_with_student
+    = f.text_field :relationship
+  .field
+    = f.label :address
+    = f.text_field :gaddress
+  .field
+    = f.label :contact_details 
+    = f.text_field :gcontact
+  .actions
+    = f.submit 'Save'
+
 
 = link_to 'Show', @student
 \|

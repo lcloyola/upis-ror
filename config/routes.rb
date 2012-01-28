@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :departments
+
   resources :students
 
   resources :batches do

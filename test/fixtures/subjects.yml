@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  department: 
+  units: 1
+  year: 1
+
+two:
+  name: MyString
+  department: 
+  units: 1
+  year: 1

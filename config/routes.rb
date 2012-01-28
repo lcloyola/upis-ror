@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :subjects
+
   resources :departments
 
   resources :students

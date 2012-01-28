@@ -1,6 +1,11 @@
 class BatchesController < ApplicationController
   # GET /batches
   # GET /batches.json
+  before_filter :authenticate_user!, :except => [:index]
+  before_filter do
+    redirect_to new_user_session_path unless current_user && current_user.admin?
+  end
+  
   def index
     @batches = Batch.all
 

@@ -9,12 +9,26 @@
     = csrf_meta_tags
 
   %body
-  
-    - if user_signed_in?
-      = link_to current_user.email, edit_user_registration_path
-      = link_to 'Logout', destroy_user_session_path, :method => :delete
-    - else
-      = link_to "Sign up!", new_user_registration_path
-      = link_to "Log in!", new_user_session_path
-      
-      = yield
+    #dash
+      - if user_signed_in?
+        = link_to current_user.email, edit_user_registration_path
+        = link_to 'Logout', destroy_user_session_path, :method => :delete
+      - else
+        = link_to "Sign up!", new_user_registration_path
+        = link_to "Log in!", new_user_session_path
+    .container_24
+      #header
+        %h1 UPIS Grade DB
+      .grid_6
+        #sidepane
+          - if user_signed_in?
+            Blah blah
+          - else
+            Welcome to UPIS Grade DB! Please login to Continue.
+      .grid_18
+        #content
+          = yield
+      .clear
+      .grid_24
+        #footer
+          %a= 'copyleft'

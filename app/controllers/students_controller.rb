@@ -1,6 +1,9 @@
 class StudentsController < ApplicationController
-  # GET /students
-  # GET /students.json
+  before_filter :authenticate_user!, :except => [:index]
+  before_filter do
+    redirect_to new_user_session_path unless current_user && current_user.admin?
+  end
+  
   def index
     @students = Student.where('batch_id = ?', params[:batch_id])
 

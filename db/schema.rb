@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119033438) do
+ActiveRecord::Schema.define(:version => 20120128063258) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20120119033438) do
   add_index "students", ["batch_id"], :name => "index_students_on_batch_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20120119033438) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",                                 :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

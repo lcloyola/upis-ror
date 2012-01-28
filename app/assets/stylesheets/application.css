@@ -9,6 +9,15 @@ body {
   background: url('../images/wood.jpg');
   margin: auto 0px;
 }
+.container_24 {
+  padding-top: 15px;
+}
+.grid_6 {
+  background: #EEE;
+}
+.grid_18 {
+  background: #FFF;
+}
 #dash {
   background: #555;
   color: #FFF;
@@ -25,16 +34,6 @@ body {
 }
 #header h1{
 }
-.container_24 {
-  padding-top: 15px;
-}
-.grid_6 {
-  background: #EEE;
-  
-}
-.grid_18 {
-  background: #FFF;
-}
 #sidepane {
   padding: 5px;
   min-height: 450px;
@@ -47,4 +46,11 @@ body {
   background: rgba(100, 100, 100, .75);
   width: 100%;
   text-align: center;
+}
+#sidepane h1, #sidepane h2, #sidepane h3 {
+  color: #444;
+}
+#sidepane ul {
+  list-style: none;
+  padding: 5px;
 }

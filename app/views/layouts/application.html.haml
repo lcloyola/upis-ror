@@ -21,8 +21,11 @@
         %h1 UPIS Grade DB
       .grid_6
         #sidepane
-          - if user_signed_in?
-            Blah blah
+          - if user_signed_in? && current_user.admin?
+            %ul
+              %h3 Student Management
+              %li
+                = link_to 'Batches', batches_path
           - else
             Welcome to UPIS Grade DB! Please login to Continue.
       .grid_18

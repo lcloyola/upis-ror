@@ -1,0 +1,23 @@
+%h1 Listing schoolyears
+
+%table
+  %tr
+    %th Start
+    %th Remarks
+    %th Current
+    %th
+    %th
+    %th
+
+  - @schoolyears.each do |schoolyear|
+    %tr
+      %td= schoolyear.start
+      %td= schoolyear.remarks
+      %td= schoolyear.current
+      %td= link_to 'Show', schoolyear
+      %td= link_to 'Edit', edit_schoolyear_path(schoolyear)
+      %td= link_to 'Destroy', schoolyear, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Schoolyear', new_schoolyear_path

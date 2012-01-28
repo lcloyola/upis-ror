@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Start:
+  = @schoolyear.start
+%p
+  %b Remarks:
+  = @schoolyear.remarks
+%p
+  %b Current:
+  = @schoolyear.current
+
+= link_to 'Edit', edit_schoolyear_path(@schoolyear)
+\|
+= link_to 'Back', schoolyears_path

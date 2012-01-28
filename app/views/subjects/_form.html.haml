@@ -11,10 +11,10 @@
     = f.text_field :name
   .field
     = f.label :department
-    = f.text_field :department
+    = collection_select :subject, :department_id, Department.all, :id, :name
   .field
     = f.label :units
-    = f.number_field :units
+    = f.number_field :units, :precision => 2
   .field
     = f.label :year
     = f.number_field :year

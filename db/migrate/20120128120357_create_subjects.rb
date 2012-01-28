@@ -3,7 +3,7 @@ class CreateSubjects < ActiveRecord::Migration
     create_table :subjects do |t|
       t.string :name
       t.references :department
-      t.integer :units
+      t.decimal :units, :scale => 2
       t.integer :year
 
       t.timestamps

@@ -25,6 +25,7 @@ class SubjectsController < ApplicationController
   # GET /subjects/new.json
   def new
     @subject = Subject.new
+    @departments = Department.all
 
     respond_to do |format|
       format.html # new.html.erb

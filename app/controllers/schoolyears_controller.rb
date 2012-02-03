@@ -80,4 +80,15 @@ class SchoolyearsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def make_current
+    @schoolyear = Schoolyear.find(params[:id])
+    Schoolyear.update_all(:current => false)
+    @schoolyear[:current] = true
+    @schoolyear.save
+    respond_to do |format|
+      format.html { redirect_to schoolyears_url }
+      format.json { head :ok }
+    end
+  end
 end

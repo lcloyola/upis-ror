@@ -1,5 +1,9 @@
 Upis::Application.routes.draw do
-  resources :schoolyears
+  resources :schoolyears do
+    member do
+      get 'make_current'
+    end
+  end
 
   resources :subjects
 

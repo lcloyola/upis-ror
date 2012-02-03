@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20120128142738) do
   create_table "schoolyears", :force => true do |t|
     t.integer  "start"
     t.text     "remarks"
-    t.boolean  "current"
+    t.boolean  "current",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

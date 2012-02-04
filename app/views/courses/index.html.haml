@@ -13,11 +13,13 @@
 
   - @courses.each do |course|
     %tr
-      %td= course.subject
-      %td= course.faculty
-      %td= course.schoolyear
+      %td
+        = course.subject.name
+        = "(#{course.subject.units})"
+      %td= course.faculty.fullname
+      %td= course.schoolyear.start
       %td= course.sem
-      %td= course.section
+      %td= course.section.name
       %td= link_to 'Show', course
       %td= link_to 'Edit', edit_course_path(course)
       %td= link_to 'Destroy', course, :confirm => 'Are you sure?', :method => :delete

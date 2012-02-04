@@ -2,10 +2,11 @@
 
 %p
   %b Subject:
-  = @course.subject
+  = @course.subject.name
+  = "#{@course.subject.units} )"
 %p
   %b Faculty:
-  = @course.faculty
+  = @course.faculty.fullname
 %p
   %b Schoolyear:
   = @course.schoolyear

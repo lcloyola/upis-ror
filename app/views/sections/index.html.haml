@@ -13,9 +13,11 @@
 
   - @sections.each do |section|
     %tr
-      %td= section.schoolyear
-      %td= section.faculty
-      %td= section.batch
+      %td= section.schoolyear.start
+      %td
+        = section.faculty.last
+        = section.faculty.given
+      %td= section.batch.year
       %td= section.year
       %td= section.name
       %td= link_to 'Show', section

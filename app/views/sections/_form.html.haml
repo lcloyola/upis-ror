@@ -8,16 +8,16 @@
 
   .field
     = f.label :schoolyear
-    = f.text_field :schoolyear
+    = collection_select :section, :schoolyear_id, Schoolyear.all, :id, :start
   .field
     = f.label :faculty
-    = f.text_field :faculty
+    = collection_select :section, :faculty_id, Faculty.all, :id, :last
   .field
     = f.label :batch
-    = f.text_field :batch
+    = collection_select :section, :batch_id, Batch.all, :id, :year
   .field
     = f.label :year
-    = f.number_field :year
+    = f.select :year, [['1st',1],['2nd',2],['3rd',3],['4th',4],['5th', 5]]
   .field
     = f.label :name
     = f.text_field :name

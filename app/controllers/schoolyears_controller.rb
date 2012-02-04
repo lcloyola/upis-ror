@@ -45,6 +45,10 @@ class SchoolyearsController < ApplicationController
 
     respond_to do |format|
       if @schoolyear.save
+        if @schoolyear[:id] == 1
+          @schoolyear[:current] = true
+          @schoolyear.save
+        end
         format.html { redirect_to @schoolyear, notice: 'Schoolyear was successfully created.' }
         format.json { render json: @schoolyear, status: :created, location: @schoolyear }
       else
@@ -84,9 +88,12 @@ class SchoolyearsController < ApplicationController
   
   def make_current
     @schoolyear = Schoolyear.find(params[:id])
-    Schoolyear.update_all(:current => false)
-    @schoolyear[:current] = true
-    @schoolyear.save
+    
+    unless(@schoolyear[:current])
+      Schoolyear.update_all(:current => false)
+      @schoolyear[:current] = true
+      @schoolyear.save
+    end
     respond_to do |format|
       format.html { redirect_to schoolyears_url }
       format.json { head :ok }

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  last: MyString
+  given: MyString
+  middle: MyString
+  department: 
+  appointment: 2012-02-04
+  email: MyString
+  mobile: MyString
+
+two:
+  last: MyString
+  given: MyString
+  middle: MyString
+  department: 
+  appointment: 2012-02-04
+  email: MyString
+  mobile: MyString

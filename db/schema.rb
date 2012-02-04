@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120128142738) do
+ActiveRecord::Schema.define(:version => 20120204074932) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -25,6 +25,20 @@ ActiveRecord::Schema.define(:version => 20120128142738) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "faculties", :force => true do |t|
+    t.string   "last"
+    t.string   "given"
+    t.string   "middle"
+    t.integer  "department_id"
+    t.date     "appointment"
+    t.string   "email"
+    t.string   "mobile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "faculties", ["department_id"], :name => "index_faculties_on_department_id"
 
   create_table "schoolyears", :force => true do |t|
     t.integer  "start"

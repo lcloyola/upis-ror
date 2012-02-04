@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Last:
+  = @faculty.last
+%p
+  %b Given:
+  = @faculty.given
+%p
+  %b Middle:
+  = @faculty.middle
+%p
+  %b Department:
+  = @faculty.department
+%p
+  %b Appointment:
+  = @faculty.appointment
+%p
+  %b Email:
+  = @faculty.email
+%p
+  %b Mobile:
+  = @faculty.mobile
+
+= link_to 'Edit', edit_faculty_path(@faculty)
+\|
+= link_to 'Back', faculties_path

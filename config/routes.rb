@@ -1,5 +1,9 @@
 Upis::Application.routes.draw do
-  resources :sections
+  resources :sections do
+    member do
+      get 'add_students'
+    end
+  end
 
   resources :faculties
 

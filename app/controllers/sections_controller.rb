@@ -80,4 +80,14 @@ class SectionsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def add_students
+    @section = Section.find(params[:id])
+    @students = Student.where(':batch_id = ?', @section[:batch_id])
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @section }
+    end
+  end
 end

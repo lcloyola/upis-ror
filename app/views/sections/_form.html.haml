@@ -11,7 +11,7 @@
     = collection_select :section, :schoolyear_id, Schoolyear.all, :id, :start
   .field
     = f.label :faculty
-    = collection_select :section, :faculty_id, Faculty.all, :id, :last
+    = collection_select :section, :faculty_id, Faculty.all, :id, :fullname
   .field
     = f.label :batch
     = collection_select :section, :batch_id, Batch.all, :id, :year

@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :sections
+
   resources :faculties
 
   resources :schoolyears do

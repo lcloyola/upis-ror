@@ -17,7 +17,7 @@
     = f.text_field :middle
   .field
     = f.label :department
-    = f.text_field :department
+    = collection_select :subject, :department_id, Department.all, :id, :name
   .field
     = f.label :appointment
     = f.date_select :appointment

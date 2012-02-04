@@ -24,7 +24,8 @@
           - if user_signed_in? && current_user.admin?
             %ul
               %h3 Student Management
-              %li= link_to 'Batches', batches_path
+              %li= link_to 'Students', batches_path
+              %li= link_to 'Faculty', faculties_path
               %li= link_to 'Departments', departments_path
               %li= link_to 'Subjects', subjects_path
               %h3 School Year

@@ -25,7 +25,8 @@ class SchoolyearsController < ApplicationController
   # GET /schoolyears/new.json
   def new
     @schoolyear = Schoolyear.new
-
+    @departments = Department.all
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @schoolyear }

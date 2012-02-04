@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Subject:
+  = @course.subject
+%p
+  %b Faculty:
+  = @course.faculty
+%p
+  %b Schoolyear:
+  = @course.schoolyear
+%p
+  %b Sem:
+  = @course.sem
+%p
+  %b Section:
+  = @course.section
+
+= link_to 'Edit', edit_course_path(@course)
+\|
+= link_to 'Back', courses_path

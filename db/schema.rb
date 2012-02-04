@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120204085002) do
+ActiveRecord::Schema.define(:version => 20120204102019) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -19,6 +19,21 @@ ActiveRecord::Schema.define(:version => 20120204085002) do
     t.datetime "updated_at"
     t.string   "remarks"
   end
+
+  create_table "courses", :force => true do |t|
+    t.integer  "subject_id"
+    t.integer  "faculty_id"
+    t.integer  "schoolyear_id"
+    t.integer  "sem"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "courses", ["faculty_id"], :name => "index_courses_on_faculty_id"
+  add_index "courses", ["schoolyear_id"], :name => "index_courses_on_schoolyear_id"
+  add_index "courses", ["section_id"], :name => "index_courses_on_section_id"
+  add_index "courses", ["subject_id"], :name => "index_courses_on_subject_id"
 
   create_table "departments", :force => true do |t|
     t.string   "name"

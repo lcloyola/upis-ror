@@ -1,31 +1,33 @@
 %h1 Listing faculties
-
-%table
-  %tr
-    %th Last
-    %th Given
-    %th Middle
-    %th Department
-    %th Appointment
-    %th Email
-    %th Mobile
-    %th
-    %th
-    %th
-
-  - @faculties.each do |faculty|
+-if !Department.all.empty?
+  %table
     %tr
-      %td= faculty.last
-      %td= faculty.given
-      %td= faculty.middle
-      %td= faculty.department.name
-      %td= faculty.appointment
-      %td= faculty.email
-      %td= faculty.mobile
-      %td= link_to 'Show', faculty
-      %td= link_to 'Edit', edit_faculty_path(faculty)
-      %td= link_to 'Destroy', faculty, :confirm => 'Are you sure?', :method => :delete
+      %th Last
+      %th Given
+      %th Middle
+      %th Department
+      %th Appointment
+      %th Email
+      %th Mobile
+      %th
+      %th
+      %th
 
-%br
+    - @faculties.each do |faculty|
+      %tr
+        %td= faculty.last
+        %td= faculty.given
+        %td= faculty.middle
+        %td= faculty.department.name
+        %td= faculty.appointment
+        %td= faculty.email
+        %td= faculty.mobile
+        %td= link_to 'Show', faculty
+        %td= link_to 'Edit', edit_faculty_path(faculty)
+        %td= link_to 'Destroy', faculty, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Faculty', new_faculty_path
+  %br
+
+  = link_to 'New Faculty', new_faculty_path
+-else
+  = link_to 'Please create departments first', new_department_path

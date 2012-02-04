@@ -1,29 +1,31 @@
 %h1 Listing sections
-
-%table
-  %tr
-    %th Schoolyear
-    %th Faculty
-    %th Batch
-    %th Year
-    %th Name
-    %th
-    %th
-    %th
-
-  - @sections.each do |section|
+-if !Faculty.all.empty?
+  %table
     %tr
-      %td= section.schoolyear.start
-      %td
-        = section.faculty.last
-        = section.faculty.given
-      %td= section.batch.year
-      %td= section.year
-      %td= section.name
-      %td= link_to 'Show', section
-      %td= link_to 'Edit', edit_section_path(section)
-      %td= link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
+      %th Schoolyear
+      %th Faculty
+      %th Batch
+      %th Year
+      %th Name
+      %th
+      %th
+      %th
 
-%br
+    - @sections.each do |section|
+      %tr
+        %td= section.schoolyear.start
+        %td
+          = section.faculty.last
+          = section.faculty.given
+        %td= section.batch.year
+        %td= section.year
+        %td= section.name
+        %td= link_to 'Show', section
+        %td= link_to 'Edit', edit_section_path(section)
+        %td= link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Section', new_section_path
+  %br
+
+  = link_to 'New Section', new_section_path
+-else
+  = link_to 'Please create faculties first', new_faculty_path

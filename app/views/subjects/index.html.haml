@@ -1,26 +1,28 @@
 %script{:type => "text/javascript",
       :src  => "javascripts/script_sort.js"}
 %h1 Listing subjects
-
-%table{:id => "sortable", :class => "tablesorter"}
-  %thead
-    %tr
-      %th Name
-      %th Department
-      %th Units
-      %th Year
-
-  %tbody
-    - @subjects.each do |subject|
+-if !Department.all.empty?
+  %table{:id => "sortable", :class => "tablesorter"}
+    %thead
       %tr
-        %td= subject.name
-        %td= subject.department.name
-        %td= subject.units
-        %td= subject.year
-        %td= link_to 'Show', subject
-        %td= link_to 'Edit', edit_subject_path(subject)
-        %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
+        %th Name
+        %th Department
+        %th Units
+        %th Year
 
-%br
+    %tbody
+      - @subjects.each do |subject|
+        %tr
+          %td= subject.name
+          %td= subject.department.name
+          %td= subject.units
+          %td= subject.year
+          %td= link_to 'Show', subject
+          %td= link_to 'Edit', edit_subject_path(subject)
+          %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Subject', new_subject_path
+  %br
+
+  = link_to 'New Subject', new_subject_path
+-else
+  = link_to 'Please create departments first', new_department_path

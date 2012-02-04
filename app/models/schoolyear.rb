@@ -4,4 +4,5 @@ class Schoolyear < ActiveRecord::Base
   validates_uniqueness_of :start
   
   has_many:sections
+  has_many :courses
 end

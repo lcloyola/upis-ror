@@ -4,4 +4,5 @@ class Batch < ActiveRecord::Base
     validates_uniqueness_of :year
     
     has_many:students
+    has_many:sections
 end

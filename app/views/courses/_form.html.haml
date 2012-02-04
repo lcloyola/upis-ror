@@ -5,21 +5,20 @@
       %ul
         - @course.errors.full_messages.each do |msg|
           %li= msg
-
   .field
     = f.label :schoolyear
-    = f.text_field :schoolyear
+    = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :start
   .field
     = f.label :subject
-    = f.text_field :subject
+    = collection_select :course, :subject_id, Subject.all, :id, :details
   .field
     = f.label :faculty
-    = f.text_field :faculty
+    = collection_select :course, :faculty_id, Faculty.all, :id, :fullname
   .field
     = f.label :sem
-    = f.number_field :sem
+    = f.select :sem, [['1st',1],['2nd',2]]
   .field
     = f.label :section
-    = f.text_field :section
+    = collection_select :course, :section_id, @sections, :id, :name
   .actions
     = f.submit 'Save'

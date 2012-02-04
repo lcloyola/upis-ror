@@ -16,6 +16,7 @@
       %td= schoolyear.current
       %td= link_to 'Show', schoolyear
       %td= link_to 'Make Current', make_current_schoolyear_url(schoolyear)
+      %td= link_to 'New Class', new_course_path(schoolyear.id)
       %td= link_to 'Edit', edit_schoolyear_path(schoolyear)
       %td= link_to 'Destroy', schoolyear, :confirm => 'Are you sure?', :method => :delete
 

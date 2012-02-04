@@ -24,8 +24,10 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    @course = Course.new
-
+    @schoolyear = Schoolyear.find(params[:id])
+    @course = Course.new("schoolyear_id" => @schoolyear.id);
+    @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @course }
@@ -40,8 +42,10 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(params[:course])
-
+    @schoolyear = Schoolyear.find(params[:course][:schoolyear_id])
+    params[:course].delete :id
+    @course = @schoolyear.courses.new(params[:course])
+    
     respond_to do |format|
       if @course.save
         format.html { redirect_to @course, notice: 'Course was successfully created.' }

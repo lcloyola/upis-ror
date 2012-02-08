@@ -1,5 +1,5 @@
 %h1 Listing sections
--if !Faculty.all.empty?
+-if !Faculty.all.empty? && !Schoolyear.all.empty? && !Batch.all.empty?
   %table
     %tr
       %th Schoolyear
@@ -28,4 +28,4 @@
 
   = link_to 'New Section', new_section_path
 -else
-  = link_to 'Please create faculties first', new_faculty_path
+  Please create faculties, schoolyear and batch first.

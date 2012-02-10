@@ -8,4 +8,5 @@ class Course < ActiveRecord::Base
   belongs_to :faculty
   belongs_to :schoolyear
   belongs_to :section
+  belongs_to :enrollee
 end

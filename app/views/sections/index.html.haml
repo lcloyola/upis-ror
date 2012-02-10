@@ -21,6 +21,7 @@
         %td= section.year
         %td= section.name
         %td= link_to 'Show', section
+        %td= link_to 'Add Students', add_students_section_url(section)
         %td= link_to 'Edit', edit_section_path(section)
         %td= link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
 

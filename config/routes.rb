@@ -4,6 +4,7 @@ Upis::Application.routes.draw do
   resources :sections do
     member do
       get 'add_students'
+      put 'enroll_to_section'
     end
   end
 

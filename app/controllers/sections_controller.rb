@@ -83,11 +83,17 @@ class SectionsController < ApplicationController
   
   def add_students
     @section = Section.find(params[:id])
-    @students = Student.where(':batch_id = ?', @section[:batch_id])
-    
+    @students = Student.where('batch_id = ?', @section[:batch_id])    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @section }
+    end
+  end
+  
+  def enroll_to_section
+    respond_to do |format|
+      format.html { redirect_to sections_url }
+      format.json { head :ok }
     end
   end
 end

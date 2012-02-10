@@ -84,4 +84,18 @@ class CoursesController < ApplicationController
       format.json { head :ok }
     end
   end
+private
+  def enroll_section
+    #TODO: validation--no students yet
+    @students = Student.where('section_id = ?', @course.section_id)
+    @students.each do |student|
+      enroll_individual_student()
+    end
+  end
+  def enroll_individual_student
+    #unless @student.enrolled?(@course.id)
+      @enrollment = Enrollee.new("course_id" => @course.id, "student_id" => @student.id)
+      @enrollment.save
+    #end
+  end
 end

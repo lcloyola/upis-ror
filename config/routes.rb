@@ -15,6 +15,10 @@ Upis::Application.routes.draw do
     end
   end
   
+  resources :courses do
+    put 'enroll_students', :on => :member
+  end
+  
   resources :subjects
 
   resources :departments

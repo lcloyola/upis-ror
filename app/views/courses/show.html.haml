@@ -1,22 +1,39 @@
 %p#notice= notice
+%p
+  = @course.semname
+  = @course.schoolyear.name
+%h1= @course.subject.details
+%h2= @course.faculty.fullname
+%h3= @course.section.name
 
-%p
-  %b Subject:
-  = @course.subject.name
-  = "#{@course.subject.units} )"
-%p
-  %b Faculty:
-  = @course.faculty.fullname
-%p
-  %b Schoolyear:
-  = @course.schoolyear
-%p
-  %b Sem:
-  = @course.sem
-%p
-  %b Section:
-  = @course.section
+= form_for(@course, :url => enroll_students_course_path) do |f|
+  -if @course.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = select_tag "students[]", options_from_collection_for_select(@students, "id", "fullname", params[:id].to_i), :multiple => true, :class =>"multiselect" 
+  .actions
+    = f.submit 'Enroll'
 
+-unless(@course.students.empty?)
+  %table
+    %thead
+      %tr
+        %th Student No
+        %th Student
+        %th 1st Q
+        %th 1st Q
+    %tbody
+    - @course.enrollees.each do |e|
+      %tr
+        %td= e.student.student_no
+        %td= e.student.fullname
+        %td= e.quartera
+        %td= e.quarterb        
+        
 = link_to 'Edit', edit_course_path(@course)
 \|
 = link_to 'Back', courses_path

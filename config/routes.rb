@@ -1,5 +1,5 @@
 Upis::Application.routes.draw do
-  #resources :courses
+  resources :courses
 
   resources :sections do
     member do

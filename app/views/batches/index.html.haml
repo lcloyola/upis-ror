@@ -4,17 +4,15 @@
   %tr
     %th Year
     %th Remarks
-    %th
-    %th
-    %th
+    %th{:colspan => 3} Action
 
   - @batches.each do |batch|
     %tr
       %td= batch.year
       %td= batch.remarks
+      %td= link_to 'New Student', new_batch_student_url(batch)
       %td= link_to 'Show', batch_students_path(batch)
       %td= link_to 'Edit', edit_batch_path(batch)
-      %td= link_to 'New Student', new_batch_student_url(batch)
 
 %br
 

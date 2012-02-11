@@ -1,6 +1,4 @@
 Upis::Application.routes.draw do
-  #resources :courses
-
   resources :sections do
     member do
       get 'add_students'
@@ -16,7 +14,11 @@ Upis::Application.routes.draw do
       get 'make_current'
     end
   end
-
+  
+  resources :courses do
+    put 'enroll_students', :on => :member
+  end
+  
   resources :subjects
 
   resources :departments

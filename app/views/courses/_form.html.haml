@@ -1,27 +1,24 @@
--if Schoolyear.all.empty? || Subject.all.empty? || Faculty.all.empty? || @sections.empty?
-  Please create Schoolyears, subjects, sections and faculties first.<br>
--else
-  = form_for @course do |f|
-    -if @course.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
-        %ul
-          - @course.errors.full_messages.each do |msg|
-            %li= msg
-    .field
-      = f.label :schoolyear
-      = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :start
-    .field
-      = f.label :subject
-      = collection_select :course, :subject_id, Subject.all, :id, :details
-    .field
-      = f.label :faculty
-      = collection_select :course, :faculty_id, Faculty.all, :id, :fullname
-    .field
-      = f.label :sem
-      = f.select :sem, [['1st',1],['2nd',2]]
-    .field
-      = f.label :section
-      = collection_select :course, :section_id, @sections, :id, :name
-    .actions
-      = f.submit 'Save'
+= form_for @course do |f|
+  -if @course.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
+      %ul
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :schoolyear
+    = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :start
+  .field
+    = f.label :subject
+    = collection_select :course, :subject_id, Subject.all, :id, :details
+  .field
+    = f.label :faculty
+    = collection_select :course, :faculty_id, Faculty.all, :id, :fullname
+  .field
+    = f.label :sem
+    = f.select :sem, [['1st',1],['2nd',2]]
+  .field
+    = f.label :section
+    = collection_select :course, :section_id, @sections, :id, :name
+  .actions
+    = f.submit 'Save'

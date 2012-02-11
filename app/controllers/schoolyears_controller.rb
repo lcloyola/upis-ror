@@ -13,6 +13,7 @@ class SchoolyearsController < ApplicationController
   # GET /schoolyears/1
   # GET /schoolyears/1.json
   def show
+    @schoolyears = Schoolyear.all
     @schoolyear = Schoolyear.find(params[:id])
 
     respond_to do |format|

@@ -42,6 +42,19 @@ body {
   padding: 10px;
   min-height: 450px;
 }
+#content a,
+#content a:visited {
+  background: #666;
+  color: #FFF;
+  text-decoration: none;
+  padding: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#content a:hover {
+  background: #888;
+}
 #footer {
   background: rgba(100, 100, 100, .75);
   width: 100%;
@@ -54,13 +67,25 @@ body {
   list-style: none;
   padding: 5px;
 }
+table {
+  margin: 5px;
+}
+tr {
+  background: #EFEFEF;
+}
+th.header, th {
+    background-color: #CCC;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 3px 2px;
+}
 th.header {
     background-image: url(../images/sort.gif);
-    cursor: pointer;
-    font-weight: bold;
     background-repeat: no-repeat;
     background-position: center left;
+    cursor: pointer;
     padding-left: 20px;
-    border-right: 1px solid #dad9c7;
-    margin-left: -1px;
+}
+td {
+  padding: 1px;
 }

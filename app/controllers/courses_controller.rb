@@ -14,7 +14,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
-
+    @students = Student.all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @course }
@@ -37,6 +37,7 @@ class CoursesController < ApplicationController
   # GET /courses/1/edit
   def edit
     @course = Course.find(params[:id])
+    @sections = Section.where('schoolyear_id = ?', @course.schoolyear_id)
   end
 
   # POST /courses
@@ -97,5 +98,11 @@ private
       @enrollment = Enrollee.new("course_id" => @course.id, "student_id" => @student.id)
       @enrollment.save
     #end
+  end
+  def enroll_students
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @course }sjaf
+    end
   end
 end

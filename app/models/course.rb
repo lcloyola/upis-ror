@@ -8,5 +8,13 @@ class Course < ActiveRecord::Base
   belongs_to :faculty
   belongs_to :schoolyear
   belongs_to :section
-  belongs_to :enrollee
+  has_many :enrollees, :foreign_key => :course_id, :dependent => :destroy
+  has_many :students, :through => :enrollees, :source => :student, :dependent => :destroy
+   
+  def semname
+    if self.sem == 1
+      return "1st sem"
+    end
+    return "2nd sem"
+  end
 end

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120210094449) do
     t.datetime "updated_at"
   end
 
+  add_index "enrollees", ["course_id", "student_id"], :name => "index_enrollees_on_course_id_and_student_id", :unique => true
   add_index "enrollees", ["course_id"], :name => "index_enrollees_on_course_id"
   add_index "enrollees", ["student_id"], :name => "index_enrollees_on_student_id"
 

@@ -1,5 +1,7 @@
 %h1= "New class for #{@schoolyear.start}"
-
-= render 'form'
+-if Schoolyear.all.empty? || Subject.all.empty? || Faculty.all.empty? || @sections.empty?
+  Please create Schoolyears, subjects, sections and faculties first.<br>
+-else
+  = render 'form'
 
 = link_to 'Back', courses_path

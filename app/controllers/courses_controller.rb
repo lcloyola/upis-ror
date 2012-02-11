@@ -37,6 +37,7 @@ class CoursesController < ApplicationController
   # GET /courses/1/edit
   def edit
     @course = Course.find(params[:id])
+    @sections = Section.where('schoolyear_id = ?', @course.schoolyear_id)
   end
 
   # POST /courses

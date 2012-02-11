@@ -5,4 +5,9 @@ class Schoolyear < ActiveRecord::Base
   
   has_many:sections
   has_many :courses
+  
+  def name
+    return "#{self.start} \- #{self.start + 1}"
+  end
+  
 end

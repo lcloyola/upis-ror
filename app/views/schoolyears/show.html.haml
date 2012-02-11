@@ -1,15 +1,32 @@
 %p#notice= notice
-
-%p
-  %b Start:
-  = @schoolyear.start
-%p
-  %b Remarks:
-  = @schoolyear.remarks
+%h1
+  = @schoolyear.name
 %p
   %b Current:
   = @schoolyear.current
 
+%p= @schoolyear.remarks
+%table
+  %thead
+    %tr
+      %th AY
+      %th Subject
+      %th Department
+      %th Section
+      %th Semester
+      %th Faculty
+      %th{:colspan => 2} Actions
+    %tbody
+    - @schoolyear.courses.each do |c|
+      %tr
+        %td= c.schoolyear.name
+        %td= c.subject.details
+        %td= c.subject.department.name
+        %td= c.section.name
+        %td= c.sem
+        %td= c.faculty.fullname
+        %td= link_to 'Show', course_path(c)
+        %td= link_to 'Edit', edit_course_path(c)
 = link_to 'Edit', edit_schoolyear_path(@schoolyear)
 \|
 = link_to 'Back', schoolyears_path

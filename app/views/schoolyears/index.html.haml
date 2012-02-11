@@ -4,19 +4,19 @@
   %tr
     %th Start
     %th Remarks
-    %th{:colspan => 3} Action
+    %th{:colspan => 4} Action
 
   - @schoolyears.each do |schoolyear|
     %tr
       %td
         -if schoolyear.current
-          %strong= schoolyear.start
+          %strong= schoolyear.name
         -else
-          = schoolyear.start
+          = schoolyear.name
       %td= schoolyear.remarks
-      %td= link_to 'New Class', new_course_path(schoolyear.id)
-      %td= link_to 'View Classes', courses_path(schoolyear)
-      %td= link_to 'Make Current', make_current_schoolyear_url(schoolyear)
+      %td= link_to 'New Class', new_course_path(schoolyear)
+      %td= link_to 'Show', schoolyear_path(schoolyear)
+      %td= link_to 'Set Current', make_current_schoolyear_url(schoolyear)
       %td= link_to 'Edit', edit_schoolyear_path(schoolyear)
       %td= # link_to 'Destroy', schoolyear, :confirm => 'Are you sure?', :method => :delete
 

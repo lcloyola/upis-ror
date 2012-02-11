@@ -70,11 +70,14 @@ body {
 table {
   margin: 5px;
 }
+tr {
+  background: #EFEFEF;
+}
 th.header, th {
     background-color: #CCC;
     font-weight: bold;
-    font-size: 14px;
-    padding: 5px;
+    font-size: 13px;
+    padding: 3px 2px;
 }
 th.header {
     background-image: url(../images/sort.gif);
@@ -84,5 +87,5 @@ th.header {
     padding-left: 20px;
 }
 td {
-  padding: 2px;
+  padding: 1px;
 }

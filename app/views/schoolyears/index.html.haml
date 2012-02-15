@@ -14,7 +14,7 @@
         -else
           = schoolyear.name
       %td= schoolyear.remarks
-      %td= link_to 'New Class', new_course_path(schoolyear)
+      %td= link_to 'New Class', "courses/new/#{schoolyear.id}"
       %td= link_to 'Show', schoolyear_path(schoolyear)
       %td= link_to 'Set Current', make_current_schoolyear_url(schoolyear)
       %td= link_to 'Edit', edit_schoolyear_path(schoolyear)

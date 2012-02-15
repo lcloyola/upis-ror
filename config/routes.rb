@@ -9,15 +9,14 @@ Upis::Application.routes.draw do
   resources :faculties
 
   resources :schoolyears do
-    member do
-      resources :courses
-      get 'make_current'
-    end
+      get 'make_current', :on => :member
   end
   
   resources :courses do
     put 'enroll_students', :on => :member
   end
+  
+  match 'courses/new/:schoolyear_id/' => 'courses#new'
   
   resources :subjects
 

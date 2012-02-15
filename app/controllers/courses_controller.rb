@@ -24,7 +24,7 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    @schoolyear = Schoolyear.find(params[:id])
+    @schoolyear = Schoolyear.find(params[:schoolyear_id])
     @course = Course.new("schoolyear_id" => @schoolyear.id);
     @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
     
@@ -102,7 +102,7 @@ private
   def enroll_students
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @course }sjaf
+      format.json { render json: @course }
     end
   end
 end

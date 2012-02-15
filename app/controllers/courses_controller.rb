@@ -85,6 +85,7 @@ class CoursesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
   def enroll_students
     @course = Course.find(params[:id])
     params[:students].each do |student_id|
@@ -93,9 +94,23 @@ class CoursesController < ApplicationController
       enroll_individual_student()
     end
     respond_to do |format|
-      format.html {redirect_to courses_url }
+      format.html {redirect_to Course.find(params[:id]) }
     end
   end
+  def unenroll_student
+    @student = Student.find(params[:student_id])
+    #TODO: validate course, student existence?
+    if @student.enrolled?(params[:course_id])
+      @enrollee = Enrollee.where('course_id = ? and student_id = ?', params[:course_id], @student.id).first
+      unless @enrollee.nil?
+        @enrollee.destroy
+      end
+    end
+    respond_to do |format|
+      format.html {redirect_to Course.find(params[:course_id]) }
+    end
+  end
+  
 private
   def enroll_section
     #TODO: validation--no students yet

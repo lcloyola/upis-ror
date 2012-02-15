@@ -6,4 +6,11 @@ class Student < ActiveRecord::Base
   def fullname
     "#{last} #{given} #{middle}"
   end
+  
+  def enrolled?(course_id = nil)
+    unless Enrollee.where("course_id = ? AND student_id = ?", course_id, self.id).empty?
+      return true
+    end
+    return false
+  end
 end

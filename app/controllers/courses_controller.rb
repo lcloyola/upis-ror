@@ -85,6 +85,17 @@ class CoursesController < ApplicationController
       format.json { head :ok }
     end
   end
+  def enroll_students
+    @course = Course.find(params[:id])
+    params[:students].each do |student_id|
+      @student = Student.find(student_id)
+      #TODO: validate student existence
+      enroll_individual_student()
+    end
+    respond_to do |format|
+      format.html {redirect_to courses_url }
+    end
+  end
 private
   def enroll_section
     #TODO: validation--no students yet
@@ -94,15 +105,9 @@ private
     end
   end
   def enroll_individual_student
-    #unless @student.enrolled?(@course.id)
+    unless @student.enrolled?(@course.id)
       @enrollment = Enrollee.new("course_id" => @course.id, "student_id" => @student.id)
       @enrollment.save
-    #end
-  end
-  def enroll_students
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @course }
     end
   end
 end

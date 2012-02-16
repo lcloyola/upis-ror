@@ -1,7 +1,14 @@
-= form_for(@course.enrollees, :url => "courses/#{@course.id}/update_grades") do |f|
-    
+%h1= @course.subject.name
+%h2= @course.section.name
+= form_for(@course.enrollees, :url => "update_grades") do |f|
+  = #TODO: fix validations
   - @course.enrollees.each do |enrollee|
     = enrollee.student.student_no
+    = enrollee.student.fullname
     = f.fields_for enrollee, :index => enrollee.id do |enrollee_f|
       .field
         = enrollee_f.text_field :quartera
+      .field
+        = enrollee_f.text_field :quarterb
+  .actions
+    = f.submit 'Save'

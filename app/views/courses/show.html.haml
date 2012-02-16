@@ -5,7 +5,9 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
-
+= link_to 'Edit', edit_course_path(@course)
+= link_to 'Back', courses_path
+= link_to 'Update Grades', grading_sheet_course_path(@course)
 -unless(@course.students.empty?)
   %table
     %thead
@@ -36,7 +38,3 @@
     = select_tag "students[]", options_from_collection_for_select(@students, "id", "fullname"), :multiple => true, :class =>"multiselect" 
   .actions
     = f.submit 'Enroll'
-            
-= link_to 'Edit', edit_course_path(@course)
-\|
-= link_to 'Back', courses_path

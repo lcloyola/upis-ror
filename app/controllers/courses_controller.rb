@@ -46,6 +46,7 @@ class CoursesController < ApplicationController
     @schoolyear = Schoolyear.find(params[:course][:schoolyear_id])
     params[:course].delete :id
     @course = @schoolyear.courses.new(params[:course])
+    @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
     
     respond_to do |format|
       if @course.save

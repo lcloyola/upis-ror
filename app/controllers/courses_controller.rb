@@ -111,6 +111,18 @@ class CoursesController < ApplicationController
     end
   end
   
+  def grading_sheet
+    @course = Course.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.json { render json: @course }
+    end
+  end
+  
+  def update_grades
+  
+  end
 private
   def enroll_section
     #TODO: validation--no students yet

@@ -15,6 +15,8 @@ Upis::Application.routes.draw do
   resources :courses do
     put 'enroll_students', :on => :member
     get 'unenroll/:student_id' =>  'courses#unenroll_student'
+    get 'grading_sheet', :on => :member
+    put 'update_grades', :on => :member
   end
   
   match 'courses/new/:schoolyear_id/' => 'courses#new'

@@ -1,0 +1,7 @@
+= form_for(@course.enrollees, :url => "courses/#{@course.id}/update_grades") do |f|
+    
+  - @course.enrollees.each do |enrollee|
+    = enrollee.student.student_no
+    = f.fields_for enrollee, :index => enrollee.id do |enrollee_f|
+      .field
+        = enrollee_f.text_field :quartera

@@ -10,7 +10,8 @@ class Course < ActiveRecord::Base
   belongs_to :section
   has_many :enrollees, :foreign_key => :course_id, :dependent => :destroy
   has_many :students, :through => :enrollees, :source => :student, :dependent => :destroy
-   
+  accepts_nested_attributes_for :enrollees
+  
   def semname
     if self.sem == 1
       return "1st sem"

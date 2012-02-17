@@ -1,14 +1,6 @@
 %p#notice= notice
 
-%p
-  %b Last:
-  = @faculty.last
-%p
-  %b Given:
-  = @faculty.given
-%p
-  %b Middle:
-  = @faculty.middle
+%h1= @faculty.fullname
 %p
   %b Department:
   = @faculty.department.name

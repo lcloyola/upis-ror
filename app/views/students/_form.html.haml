@@ -2,7 +2,7 @@
 %h= @batch
 
 %h3= "Batch #{@batch.year}"
-= form_for([@batch, @batch.students.build]) do |f|
+= form_for :html => {:class=>"form-stacked"}, [@batch, @batch.students.build] do |f|
   -if @batch.errors.any?
     #error_explanation
       %h2= "#{pluralize(@batch.errors.count, "error")} prohibited this student from being saved:"

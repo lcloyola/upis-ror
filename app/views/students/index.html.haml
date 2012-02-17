@@ -1,26 +1,26 @@
-%h1 Listing students
-
-%table
-  %tr
-    %th Student no
-    %th Batch
-    %th Last
-    %th Given
-    %th Middle
-    %th Nick
-    %th
-    %th
-                        
-  - @students.each do |student|
+= link_to 'New Student', new_batch_student_url(@batch)
+|
+= link_to 'Back', batches_path
+%h1= "Batch #{@batch.year}"
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
     %tr
-      %td= student.student_no
-      %td= student.batch.year
-      %td= student.last
-      %td= student.given
-      %td= student.middle
-      %td= student.nick
-      %td= link_to 'Show', student
-      %td= link_to 'Edit', edit_batch_student_url(student.batch, student)
-
-%br
-  = link_to 'New Student', new_batch_student_url(@batch)
+      %th Student no
+      %th Batch
+      %th Last
+      %th Given
+      %th Middle
+      %th Nick
+      %th
+      %th
+  %tbody
+    - @students.each do |student|
+      %tr
+        %td= student.student_no
+        %td= student.batch.year
+        %td= student.last
+        %td= student.given
+        %td= student.middle
+        %td= student.nick
+        %td= link_to 'Show', student
+        %td= link_to 'Edit', edit_batch_student_url(student.batch, student)

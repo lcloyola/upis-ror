@@ -146,4 +146,10 @@ private
       @enrollment.save
     end
   end
+  def enroll_students
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @course }
+    end
+  end
 end

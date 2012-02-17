@@ -5,6 +5,7 @@ class StudentsController < ApplicationController
   end
   
   def index
+    @batch = Batch.find(params[:batch_id])
     @students = Student.where('batch_id = ?', params[:batch_id])
 
     respond_to do |format|

@@ -1,4 +1,4 @@
-= form_for @batch do |f|
+= form_for @batch, :html => {:class=>"form-stacked"} do |f|
   -if @batch.errors.any?
     #error_explanation
       %h2= "#{pluralize(@batch.errors.count, "error")} prohibited this batch from being saved:"

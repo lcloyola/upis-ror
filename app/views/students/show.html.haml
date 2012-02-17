@@ -1,3 +1,6 @@
+= link_to 'Edit', edit_student_path(@student)
+\|
+= link_to 'Back', batch_students_path(@student.batch)
 %h1= "#{@student.last}, #{@student.given} #{@student.middle}."
 %h3= "Batch #{@student.batch.year}"
 %p#notice= notice
@@ -86,7 +89,3 @@
 %p
   %b Gcontact:
   = @student.gcontact
-
-= link_to 'Edit', edit_student_path(@student)
-\|
-= link_to 'Back', students_path

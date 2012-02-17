@@ -5,6 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+/*
 body {
   background: url('../images/wood.jpg');
   margin: auto 0px;
@@ -89,3 +90,4 @@ th.header {
 td {
   padding: 1px;
 }
+*/

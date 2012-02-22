@@ -89,7 +89,13 @@ class StudentsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+  def transcript
+    @student = Student.find(params[:student_id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
 private
   def assign_student_no
     @batchmate = Student.where('batch_id = ?', @batch.id).order('student_no ASC')

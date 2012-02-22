@@ -1,0 +1,18 @@
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Subject
+      %th Faculty
+      %th Sem
+      %th Schoolyear
+      %th Sem A
+      %th Sem B
+  %tbody
+    - @student.enrollees.each do |enrollment|
+      %tr
+        %td= enrollment.course.subject.name
+        %td= enrollment.course.faculty.fullname
+        %td= enrollment.course.semname
+        %td= enrollment.course.schoolyear.name
+        %td= enrollment.quartera
+        %td= enrollment.quarterb

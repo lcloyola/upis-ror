@@ -18,8 +18,9 @@ Upis::Application.routes.draw do
     put 'update_grades', :on => :member
   end
 
-  match 'sections/year/:schoolyear_id' => 'sections#year'  
+  match 'sections/year/:schoolyear_id' => 'sections#year'
   match 'courses/new/:schoolyear_id/' => 'courses#new'
+  match 'students/transcript/:student_id' => 'students#transcript'
   
   resources :subjects
 

@@ -4,7 +4,7 @@
 %p
   %b Current:
   = @schoolyear.current
-
+%td= link_to 'New Class', "/courses/new/#{@schoolyear.id}"
 %p= @schoolyear.remarks
 %table
   %thead

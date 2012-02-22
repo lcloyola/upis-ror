@@ -10,6 +10,8 @@
   %thead
     %tr
       %th Start
+      %th Classes
+      %th Sections
       %th Remarks
       %th{:colspan => 5} Action
   %tbody
@@ -20,6 +22,8 @@
             %b= schoolyear.name
           - else
             = schoolyear.name
+        %td= schoolyear.courses.count
+        %td= schoolyear.sections.count
         %td= schoolyear.remarks
         %td= link_to 'New Class', "courses/new/#{schoolyear.id}"
         %td= link_to 'Sections', "sections/year/#{schoolyear.id}"

@@ -90,6 +90,15 @@ class SectionsController < ApplicationController
     end
   end
   
+  def year
+    @schoolyear = Schoolyear.find(params[:schoolyear_id])
+    @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
+
+    respond_to do |format|
+      format.html
+    end
+  end
+  
   def enroll_to_section
     respond_to do |format|
       format.html { redirect_to sections_url }

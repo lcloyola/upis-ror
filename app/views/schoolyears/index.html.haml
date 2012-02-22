@@ -1,29 +1,29 @@
 %h1 Listing schoolyears
-%br
-%h3
-  Current Schoolyear
-  = link_to Schoolyear.current_schoolyear.first.name, schoolyear_path(Schoolyear.current_schoolyear.first)
-%br
-%table
-  %tr
-    %th Start
-    %th Remarks
-    %th{:colspan => 4} Action
-
-  - @schoolyears.each do |schoolyear|
-    %tr
-      %td
-        -if schoolyear.current
-          %strong= schoolyear.name
-        -else
-          = schoolyear.name
-      %td= schoolyear.remarks
-      %td= link_to 'New Class', "courses/new/#{schoolyear.id}"
-      %td= link_to 'Show', schoolyear_path(schoolyear)
-      %td= link_to 'Set Current', make_current_schoolyear_url(schoolyear)
-      %td= link_to 'Edit', edit_schoolyear_path(schoolyear)
-      %td= # link_to 'Destroy', schoolyear, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
 = link_to 'New Schoolyear', new_schoolyear_path
+%br
+%h3= Schoolyear.current_schoolyear.first.name
+= link_to "Classes", schoolyear_path(Schoolyear.current_schoolyear.first)
+|
+= link_to "Sections", "sections/year/#{Schoolyear.current_schoolyear.first.id}"
+%br
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Start
+      %th Remarks
+      %th{:colspan => 5} Action
+  %tbody
+    - @schoolyears.each do |schoolyear|
+      %tr
+        %td
+          - if schoolyear.current
+            %b= schoolyear.name
+          - else
+            = schoolyear.name
+        %td= schoolyear.remarks
+        %td= link_to 'New Class', "courses/new/#{schoolyear.id}"
+        %td= link_to 'Sections', "sections/year/#{schoolyear.id}"
+        %td= link_to 'Classes', schoolyear_path(schoolyear)
+        %td= link_to 'Set Current', make_current_schoolyear_url(schoolyear)
+        %td= link_to 'Edit', edit_schoolyear_path(schoolyear)
+        %td= # link_to 'Destroy', schoolyear, :confirm => 'Are you sure?', :method => :delete

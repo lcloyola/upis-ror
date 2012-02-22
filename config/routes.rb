@@ -5,7 +5,6 @@ Upis::Application.routes.draw do
       put 'enroll_to_section'
     end
   end
-
   resources :faculties
 
   resources :schoolyears do
@@ -18,7 +17,8 @@ Upis::Application.routes.draw do
     get 'grading_sheet', :on => :member
     put 'update_grades', :on => :member
   end
-  
+
+  match 'sections/year/:schoolyear_id' => 'sections#year'  
   match 'courses/new/:schoolyear_id/' => 'courses#new'
   
   resources :subjects

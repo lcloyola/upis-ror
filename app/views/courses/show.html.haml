@@ -23,8 +23,9 @@
         %td= e.student.student_no
         %td= e.student.fullname
         %td= e.quartera
-        %td= e.quarterb        
-        %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{e.student_id}"
+        %td= e.quarterb
+        - unless !e.quartera.nil? || !e.quarterb.nil?
+          %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{e.student_id}"
 
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|

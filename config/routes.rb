@@ -1,8 +1,8 @@
 Upis::Application.routes.draw do
   resources :sections do
     member do
-      get 'add_students'
       put 'enroll_to_section'
+      get 'unenroll/:student_id' =>  'sections#unenroll_student'
     end
   end
   resources :faculties

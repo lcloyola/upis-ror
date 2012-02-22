@@ -9,10 +9,20 @@ class Student < ActiveRecord::Base
     "#{last} #{given} #{middle}"
   end
   
+  def sn_fullname
+    "#{student_no} - #{last} #{given} #{middle}"
+  end
+  
   def enrolled?(course_id = nil)
     unless Enrollee.where("course_id = ? AND student_id = ?", course_id, self.id).empty?
       return true
     end
     return false
+  end
+  def member?(section_id = nil)
+    if Member.where("section_id = ? AND student_id = ?", section_id, self.id).empty?
+      return false
+    end
+    return true
   end
 end

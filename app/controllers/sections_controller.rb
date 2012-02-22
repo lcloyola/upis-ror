@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
   # GET /sections/1.json
   def show
     @section = Section.find(params[:id])
-
+    @students = Student.where('batch_id = ?', @section[:batch_id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }
@@ -81,15 +81,6 @@ class SectionsController < ApplicationController
     end
   end
   
-  def add_students
-    @section = Section.find(params[:id])
-    @students = Student.where('batch_id = ?', @section[:batch_id])    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @section }
-    end
-  end
-  
   def year
     @schoolyear = Schoolyear.find(params[:schoolyear_id])
     @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
@@ -100,9 +91,36 @@ class SectionsController < ApplicationController
   end
   
   def enroll_to_section
+    @section = Section.find(params[:id])
+    params[:students].each do |student_id|
+       @student = Student.find(student_id)
+       #TODO: validate existence
+       enroll_individual_student()
+    end
     respond_to do |format|
-      format.html { redirect_to sections_url }
-      format.json { head :ok }
+      format.html {redirect_to Section.find(@section.id) }
+    end
+  end
+  
+  def unenroll_student
+    @section = Section.find(params[:id])
+    @student = Student.find(params[:student_id])
+    #TODO: validate course, student existence?
+    if @student.member?(@section.id)
+      @member = Member.where('section_id = ? and student_id = ?', @section.id, @student.id).first
+      unless @member.nil?
+        @member.destroy
+      end
+    end
+    respond_to do |format|
+      format.html {redirect_to @section}
+    end
+  end
+private
+  def enroll_individual_student
+    unless @student.member?(@section.id)
+      @membership = Member.new("section_id" => @section.id, "student_id" => @student.id)
+      @membership.save
     end
   end
 end

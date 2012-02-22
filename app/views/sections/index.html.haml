@@ -9,21 +9,22 @@
         %th Year
         %th Name
         %th Batch
+        %th Section
         %th Faculty
+        %th{:colspan => 2} Actions
     %tbody
       - @sections.each do |section|
         %tr
           %td= section.schoolyear.name
           %td= section.year
           %td= section.name
-          %td= section.batch.year        
+          %td= section.batch.year
+          %td= section.students.count
           %td
             = section.faculty.last
             = section.faculty.given
           %td= link_to 'Show', section
-          %td= link_to 'Add Students', add_students_section_url(section)
           %td= link_to 'Edit', edit_section_path(section)
-          %td= link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
 
 -else
   Please create faculties, schoolyear and batch first.

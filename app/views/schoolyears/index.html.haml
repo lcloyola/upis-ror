@@ -1,5 +1,9 @@
 %h1 Listing schoolyears
-
+%br
+%h3
+  Current Schoolyear
+  = link_to Schoolyear.current_schoolyear.first.name, schoolyear_path(Schoolyear.current_schoolyear.first)
+%br
 %table
   %tr
     %th Start

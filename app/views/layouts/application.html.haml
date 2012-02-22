@@ -36,6 +36,7 @@
                 %li= link_to 'Subjects', subjects_path
                 %li= link_to 'Departments', departments_path
                 %li= link_to 'School Year', schoolyears_path
+                %li= link_to 'Classes', schoolyear_path(Schoolyear.current_schoolyear.first)
                 %li= link_to current_user.email, edit_user_registration_path
                 %li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else

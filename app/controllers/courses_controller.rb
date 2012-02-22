@@ -104,7 +104,9 @@ class CoursesController < ApplicationController
     if @student.enrolled?(params[:course_id])
       @enrollee = Enrollee.where('course_id = ? and student_id = ?', params[:course_id], @student.id).first
       unless @enrollee.nil?
-        @enrollee.destroy
+        if @enrollee.quartera.nil? || @enrollee.quarterb.nil?
+          @enrollee.destroy
+        end
       end
     end
     respond_to do |format|
@@ -144,12 +146,6 @@ private
     unless @student.enrolled?(@course.id)
       @enrollment = Enrollee.new("course_id" => @course.id, "student_id" => @student.id)
       @enrollment.save
-    end
-  end
-  def enroll_students
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @course }
     end
   end
 end

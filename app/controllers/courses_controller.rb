@@ -50,6 +50,7 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       if @course.save
+        enroll_section()
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render json: @course, status: :created, location: @course }
       else
@@ -137,9 +138,12 @@ class CoursesController < ApplicationController
 private
   def enroll_section
     #TODO: validation--no students yet
-    @students = Student.where('section_id = ?', @course.section_id)
-    @students.each do |student|
-      enroll_individual_student()
+    @students = Member.where('section_id = ?', @course.section_id)
+    unless @students.nil?
+      @students.each do |member|
+        @student = member.student
+        enroll_individual_student()
+      end
     end
   end
   def enroll_individual_student

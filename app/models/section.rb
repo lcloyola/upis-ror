@@ -8,4 +8,7 @@ class Section < ActiveRecord::Base
   belongs_to :faculty
   belongs_to :batch
   has_many :courses
+  has_many :members, :foreign_key => :section_id, :dependent => :destroy
+  has_many :students, :through => :members, :source => :student, :dependent => :destroy
+  
 end

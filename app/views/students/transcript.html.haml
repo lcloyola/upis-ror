@@ -5,11 +5,11 @@
   %thead
     %tr
       %th Subject
-      %th Faculty
+      %th Units
       %th Sem
       %th Schoolyear
-      %th Sem A
-      %th Sem B
+      %th Qtr A
+      %th Qtr B
       %th Average
   %tbody
     - @student.enrollees.each do |enrollment|
@@ -20,7 +20,7 @@
           %td{:style => "color: orange"}= enrollment.course.subject.name
         -else
           %td= enrollment.course.subject.name
-        %td= enrollment.course.faculty.fullname
+        %td= enrollment.course.subject.units
         %td= enrollment.course.semname
         %td= enrollment.course.schoolyear.name
         %td= enrollment.quartera

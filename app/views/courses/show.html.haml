@@ -16,16 +16,27 @@
         %th Student
         %th 1st Q
         %th 2nd Q
+        %th Average
         %th Action
     %tbody
     - @course.enrollees.each do |e|
       %tr
-        %td= e.student.student_no
+        -if e.quartera.nil? || e.quarterb.nil?
+          %td{:style => "color: red"}= e.student.student_no
+        -elsif e.quartera < 50 || e.quarterb < 50
+          %td{:style => "color: orange"}= e.student.student_no
+        -else
+          %td= e.student.student_no
         %td= e.student.fullname
         %td= e.quartera
         %td= e.quarterb
-        - unless !e.quartera.nil? || !e.quarterb.nil?
-          %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{e.student_id}"
+        %td
+          - unless !e.quartera.nil? || !e.quarterb.nil?
+            = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{e.student_id}"
+        -if e.quartera.nil? || e.quarterb.nil?
+          %td n/a
+        - else
+          %td= (e.quartera + e.quarterb) / 2
 
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|

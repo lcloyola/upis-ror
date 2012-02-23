@@ -10,6 +10,7 @@
       %th Schoolyear
       %th Sem A
       %th Sem B
+      %th Average
   %tbody
     - @student.enrollees.each do |enrollment|
       %tr
@@ -24,3 +25,7 @@
         %td= enrollment.course.schoolyear.name
         %td= enrollment.quartera
         %td= enrollment.quarterb
+        -if enrollment.quartera.nil? || enrollment.quarterb.nil?
+          %td n/a
+        - else
+          %td= (enrollment.quartera + enrollment.quarterb) / 2

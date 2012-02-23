@@ -1,3 +1,6 @@
+%h1= @student.fullname
+%h2= @student.student_no
+
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
     %tr
@@ -10,7 +13,12 @@
   %tbody
     - @student.enrollees.each do |enrollment|
       %tr
-        %td= enrollment.course.subject.name
+        -if enrollment.quartera.nil? || enrollment.quarterb.nil?
+          %td{:style => "color: red"}= enrollment.course.subject.name
+        -elsif enrollment.quartera < 50 || enrollment.quarterb < 50
+          %td{:style => "color: orange"}= enrollment.course.subject.name
+        -else
+          %td= enrollment.course.subject.name
         %td= enrollment.course.faculty.fullname
         %td= enrollment.course.semname
         %td= enrollment.course.schoolyear.name

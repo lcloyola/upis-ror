@@ -1,0 +1,46 @@
+%h1 Deficiencies
+-unless @schoolyear.nil?
+  - @schoolyear.courses.each do |course|
+    %h3= "#{course.semname} #{course.schoolyear.name}"
+    %h2= "#{course.subject.name} -  #{course.section.name} (#{course.faculty.fullname})"
+    %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+      %thead
+        %tr
+          %th Student Number
+          %th Name
+          %th QuarterA
+          %th QuarterB
+      %tbody
+      - course.enrollees.each do |enrollee|
+        %tr
+        - if @quarter == "0" && ( enrollee.quartera.nil? or enrollee.quarterb.nil? )
+          %td= enrollee.student.student_no
+          %td= enrollee.student.fullname
+          %td= enrollee.quartera
+          %td= enrollee.quarterb
+        - if @quarter == "1" && enrollee.quartera.nil?
+          %td= enrollee.student.student_no
+          %td= enrollee.student.fullname
+          %td= enrollee.quartera
+          %td= enrollee.quarterb
+        - if @quarter == "2" && enrollee.quarterb.nil?
+          %td= enrollee.student.student_no
+          %td= enrollee.student.fullname
+          %td= enrollee.quartera
+          %td= enrollee.quarterb
+- else
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Schoolyear
+        %th Classes
+        %th{:colspan => 3} Action
+    %tbody
+    - @schoolyears.each do |s|
+      %tr
+        %td= s.name
+        %td= s.courses.count
+        %td= link_to 'All', "/grades/deficiency/#{s.id}/0"
+        %td= link_to 'Quarter A', "/grades/deficiency/#{s.id}/1"
+        %td= link_to 'Quarter B', "/grades/deficiency/#{s.id}/2"
+

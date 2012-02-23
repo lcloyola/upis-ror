@@ -33,11 +33,11 @@
               - if user_signed_in?
                 = #TODO: tabularize?
                 %li= link_to 'Students', batches_path
+                %li= link_to 'Classes', schoolyear_path(Schoolyear.current_schoolyear.first)
+                %li= link_to 'Sections', "/sections/year/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'Subjects', subjects_path
                 %li= link_to 'Departments', departments_path
                 %li= link_to 'School Year', schoolyears_path
-                %li= link_to 'Classes', schoolyear_path(Schoolyear.current_schoolyear.first)
-                %li= link_to 'Sections', "/sections/year/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to current_user.email, edit_user_registration_path
                 %li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else
@@ -50,9 +50,17 @@
           .well.sidebar-nav
             %ul.nav.nav-list
               %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to 'Transcript', "/grades/transcript"
+              %li
+                = link_to 'Classlist', "/grades/classlist"
+                %ul
+                  %li= link_to 'Current Year', "/grades/classlist/#{Schoolyear.current_schoolyear.first.id}"
+              %li
+                = link_to 'Deficiencies', "/grades/deficiency"
+                %ul
+                  %li= link_to 'Current Year All', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/0"
+                  %li= link_to 'Current Year Quarter A', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/1"
+                  %li= link_to 'Current Year Quarter B', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/2"                  
         .span9
           = yield
     

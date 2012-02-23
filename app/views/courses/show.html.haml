@@ -6,7 +6,7 @@
 %h2= @course.faculty.fullname
 %h3= @course.section.name
 = link_to 'Edit', edit_course_path(@course)
-= link_to 'Back', courses_path
+= link_to 'Back', schoolyear_path(@course.schoolyear.id)
 = link_to 'Update Grades', grading_sheet_course_path(@course)
 -unless(@course.students.empty?)
   %table

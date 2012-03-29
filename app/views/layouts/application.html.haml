@@ -52,9 +52,9 @@
               %li.nav-header Sidebar
               %li= link_to 'Transcript', "/grades/transcript"
               %li
-                = link_to 'Classlist', "/grades/classlist"
+                = link_to 'Classlist', "/grades/schoolyear"
                 %ul
-                  %li= link_to 'Current Year', "/grades/classlist/#{Schoolyear.current_schoolyear.first.id}"
+                  %li= link_to 'Current Year', "/grades/schoolyear/#{Schoolyear.current_schoolyear.first.id}"
               %li
                 = link_to 'Deficiencies', "/grades/deficiency"
                 %ul

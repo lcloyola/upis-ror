@@ -25,4 +25,7 @@ class Student < ActiveRecord::Base
     end
     return true
   end
+  def enrollment(course_id = nil)
+    return Enrollee.where("course_id = ? AND student_id = ?", course_id, self.id).first
+  end
 end

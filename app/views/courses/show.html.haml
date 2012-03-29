@@ -1,13 +1,23 @@
 %p#notice= notice
-%p
+%h3
+  = link_to 'Update Grades', grading_sheet_course_path(@course)
+  - unless @course.partner_sem.nil?
+    |
+    - if @course.sem == 1
+      = link_to 'View 2nd sem', course_path(@course.partner_sem)
+      |
+      = link_to '>> Whole Year', "/grades/classlist/#{@course.id}"
+    - else
+      = link_to 'View 1st sem', course_path(@course.partner_sem)
+      |
+      = link_to '>> Whole Year', "/grades/classlist/#{@course.partner_sem.id}"
+%br
+%h4
   = @course.semname
   = @course.schoolyear.name
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
-= link_to 'Edit', edit_course_path(@course)
-= link_to 'Back', schoolyear_path(@course.schoolyear.id)
-= link_to 'Update Grades', grading_sheet_course_path(@course)
 -unless(@course.students.empty?)
   %table
     %thead

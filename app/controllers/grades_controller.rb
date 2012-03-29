@@ -13,18 +13,24 @@ class GradesController < ApplicationController
     end
   end
 
-  def classlist
+  def schoolyear
     if !params['schoolyear_id'].nil?
       @schoolyear = Schoolyear.find(params['schoolyear_id'])
     else
       @schoolyears = Schoolyear.all
     end
   end
+  
   def transcript
     if !params['batch_id'].nil?
       @batch = Batch.find(params['batch_id'])
     else
       @batches = Batch.all
     end
+  end
+  
+  def classlist
+    @course = Course.find(params['course_id'])
+    @students = @course.yearmode_students
   end
 end

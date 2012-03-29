@@ -1,32 +1,60 @@
-%h1 Classlists
--unless @schoolyear.nil?
-  %h2= @schoolyear.name
-  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+%p#notice= notice
+%h4
+  = @course.semname
+  = @course.schoolyear.name
+%h1
+  = @course.subject.details
+  = @course.section.name
+%h2= @course.faculty.fullname
+%h4
+  Edit 1st Sem:
+  = link_to 'Grades', grading_sheet_course_path(@course)
+  |
+  = link_to 'Enrollment', course_path(@course)
+%h4
+  - unless @course.partner_sem.nil?
+    Edit 2nd Sem:
+    = link_to 'Grades', grading_sheet_course_path(@course)
+    |
+    = link_to 'Enrollment', course_path(@course)
+%br 
+ 
+-unless(@students.empty?)
+  %table
     %thead
       %tr
-        %th Subject
-        %th Factulty
-        %th Batch
-        %th Section
-        %th Action
+        %th Student No
+        %th Student
+        %th 1st Q
+        %th 2nd Q
+        - unless @course.partner_sem.nil?
+          %th 3rd Q
+          %th 4th Q
+        %th Average
     %tbody
-    - @schoolyear.courses.each do |course|
+    - @students.each do |e|
       %tr
-        %td= course.subject.name
-        %td= course.faculty.fullname
-        %td= course.section.batch.year
-        %td= course.section.name
-        %td= link_to 'Show Grades', course_path(course.id)
-- else
-  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
-    %thead
-      %tr
-        %th Schoolyear
-        %th Classes
-        %th Action
-    %tbody
-    - @schoolyears.each do |s|
-      %tr
-        %td= s.name
-        %td= s.courses.count
-        %td= link_to 'Show Classes', schoolyear_url(s.id)
+        %td= e.student.student_no
+        %td= e.student.fullname
+        - @first = e.student.enrollment(@course.id)
+        - @second = nil
+        - if !@first.nil?
+          %td= @first.quartera
+          %td= @first.quarterb          
+        - else
+          %td.center.gray{:colspan => 2} not enrolled
+        - if !@course.partner_sem.nil?
+          - @second = e.student.enrollment(@course.partner_sem.id)
+          - if !@second.nil?
+            %td= @second.quartera
+            %td= @second.quarterb
+          - else
+            %td.center.gray{:colspan => 2} not enrolled
+        -if !@first.nil? && !@second.nil? && !@first.blank? && !@second.blank?
+          %td= (@first.quartera + @first.quarterb + @second.quartera + @second.quarterb) / 4.00
+        - elsif !@first.nil? && !@first.blank?
+          %td= (@first.quartera + @first.quarterb) / 2.00
+        - elsif !@second.nil? && !@second.blank?
+          %td= (@second.quartera + @second.quarterb) / 2.00
+        - else
+          %td.gray n/a

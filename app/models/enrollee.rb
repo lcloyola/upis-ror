@@ -5,4 +5,13 @@ class Enrollee < ActiveRecord::Base
   attr_accessible :course_id, :student_id, :quartera, :quarterb, :id
   belongs_to :course
   belongs_to :student
+  
+  def blank?
+    return false unless self.quartera.nil? || self.quarterb.nil?
+    return true
+  end
+  def both_blank?
+    return false unless self.quartera.nil? && self.quarterb.nil?
+    return true
+  end
 end

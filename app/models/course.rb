@@ -11,10 +11,31 @@ class Course < ActiveRecord::Base
   has_many :enrollees, :foreign_key => :course_id, :dependent => :destroy
   has_many :students, :through => :enrollees, :source => :student, :dependent => :destroy
   
+  scope :first_sem, :conditions => ['sem = ?', 1]
+
   def semname
     if self.sem == 1
       return "1st sem"
     end
     return "2nd sem"
+  end
+  
+  def partner_sem
+    if self.sem == 1; p = 2
+    else; p = 1; end
+    
+    return Course.where('subject_id = ? AND schoolyear_id = ? AND section_id = ? AND sem = ?', self.subject_id, self.schoolyear_id, self.section_id, p).first
+  end
+  
+  def yearmode_students
+    if !self.partner_sem.nil?
+      return Enrollee.where('course_id = ? OR course_id = ?', self.id, self.partner_sem.id).group("student_id")
+    else
+      return self.enrollees
+    end
+  end
+
+  def find_sem2_enrollee(student_id = nil)
+    return Enrollee.where('student_id = ? AND course_id = ?', student_id, self.id).first
   end
 end

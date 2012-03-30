@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
   has_many :enrollees, :foreign_key => :student_id, :dependent => :destroy
   has_many :courses, :through => :enrollees, :source => :course, :dependent => :destroy
   has_many :members, :foreign_key => :student_id, :dependent => :destroy
-  has_many :sections, :through => :members, :source => :course, :dependent => :destroy
+  has_many :sections, :through => :members, :source => :section, :dependent => :destroy
   
   def fullname
     "#{last} #{given} #{middle}"

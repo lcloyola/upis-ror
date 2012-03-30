@@ -24,8 +24,13 @@
       %tr
         %th Student No
         %th Student
-        %th 1st Q
-        %th 2nd Q
+        - if @course.sem == 1
+          %th 1st Q
+          %th 2nd Q
+        - else
+          %th 3rd Q
+          %th 4th Q
+          
         %th Average
         %th Action
     %tbody

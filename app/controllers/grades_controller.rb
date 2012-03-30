@@ -109,9 +109,4 @@ class GradesController < ApplicationController
       @batches = Batch.all
     end
   end
-  
-  def classlist
-    @course = Course.find(params['course_id'])
-    @students = @course.yearmode_students
-  end
 end

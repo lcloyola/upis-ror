@@ -1,20 +1,33 @@
-%h1= @course.subject.name
-%h2= @course.section.name
+%h4
+  = @course.semname
+  = @course.schoolyear.name
+%h1= @course.subject.details
+%h2= @course.faculty.fullname
+%h3= @course.section.name
 %table
   %thead
     %th Student Number
     %th Student Name
-    %th Qtr A
-    %th Qtr B
+    - if @course.yearlong == true
+      %th 1st Q
+      %th 2nd Q
+      %th 3rd Q
+      %th 4th Q
+    - elsif @course.sem == 1
+      %th 1st Q
+      %th 2nd Q
+    - else
+      %th 3rd Q
+      %th 4th Q
   %tbody
-    = form_for(@course.enrollees, :url => "update_grades") do |f|
+    = form_for(@course, :url => "update_grades") do |f|
       = #TODO: fix validations
-      - @course.enrollees.each do |enrollee|
+      - @course.my_students.each do |s|
         %tr
-          %td= f.label enrollee.student.student_no
-          %td= f.label enrollee.student.fullname
-          = f.fields_for enrollee, :index => enrollee.id do |enrollee_f|
-            %td= enrollee_f.text_field :quartera, :class => "gradesheetinput"
-            %td= enrollee_f.text_field :quarterb, :class => "gradesheetinput"
+          %td= s.student.student_no
+          %td= s.student.fullname
+          - s.student.course_grades(@course.id).each do |grade|
+            = f.fields_for grade, :index => grade.id do |grade_f|
+              %td= grade_f.text_field :value, :class => "gradesheetinput"
       .actions
         = f.submit 'Save'

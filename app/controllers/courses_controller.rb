@@ -134,9 +134,9 @@ class CoursesController < ApplicationController
   
   def update_grades
     @course = Course.find(params[:id])
-    params[:enrollee][:enrollee].each do |e|
-      @enrollee = Enrollee.find(e[0])
-      @enrollee.update_attributes(e[1])
+    params[:course][:grade].each do |e|
+      @grade = Grade.find(e[0])
+      @grade.update_attributes(e[1])
     end
     respond_to do |format|
       format.html {redirect_to @course }

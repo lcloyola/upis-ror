@@ -27,7 +27,6 @@ Upis::Application.routes.draw do
   match 'grades/deficiency' => 'grades#deficiency'
   match 'grades/schoolyear' => 'grades#schoolyear'
   match 'grades/schoolyear/:schoolyear_id' => 'grades#schoolyear'
-  match 'grades/classlist/:course_id' => 'grades#classlist'
   match 'grades/transcript' => 'grades#transcript'
   match 'grades/transcript/:batch_id' => 'grades#transcript'
 

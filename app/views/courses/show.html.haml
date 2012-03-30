@@ -1,16 +1,6 @@
 %p#notice= notice
 %h3
   = link_to 'Update Grades', grading_sheet_course_path(@course)
-  - unless @course.partner_sem.nil?
-    |
-    - if @course.sem == 1
-      = link_to 'View 2nd sem', course_path(@course.partner_sem)
-      |
-      = link_to '>> Whole Year', "/grades/classlist/#{@course.id}"
-    - else
-      = link_to 'View 1st sem', course_path(@course.partner_sem)
-      |
-      = link_to '>> Whole Year', "/grades/classlist/#{@course.partner_sem.id}"
 %br
 %h4
   = @course.semname
@@ -47,6 +37,7 @@
         %td= @course.student_average(s.student.id)
         - if !s.student.course_has_grade(@course.id)
           %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
+
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|
   -if @course.errors.any?

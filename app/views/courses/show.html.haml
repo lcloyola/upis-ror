@@ -24,35 +24,29 @@
       %tr
         %th Student No
         %th Student
-        - if @course.sem == 1
+        - if @course.yearlong == true
+          %th 1st Q
+          %th 2nd Q
+          %th 3rd Q
+          %th 4th Q
+        - elsif @course.sem == 1
           %th 1st Q
           %th 2nd Q
         - else
           %th 3rd Q
           %th 4th Q
-          
         %th Average
         %th Action
     %tbody
-    - @course.enrollees.each do |e|
+    - @course.my_students.each do |s|
       %tr
-        -if e.quartera.nil? || e.quarterb.nil?
-          %td{:style => "color: red"}= e.student.student_no
-        -elsif e.quartera < 50 || e.quarterb < 50
-          %td{:style => "color: orange"}= e.student.student_no
-        -else
-          %td= e.student.student_no
-        %td= e.student.fullname
-        %td= e.quartera
-        %td= e.quarterb
-        %td
-          - unless !e.quartera.nil? || !e.quarterb.nil?
-            = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{e.student_id}"
-        -if e.quartera.nil? || e.quarterb.nil?
-          %td n/a
-        - else
-          %td= (e.quartera + e.quarterb) / 2
-
+        %td= s.student.student_no
+        %td= s.student.fullname
+        - s.student.course_grades(@course.id).each do |g|
+          %td= g.value
+        %td= @course.student_average(s.student.id)
+        - if !s.student.course_has_grade(@course.id)
+          %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|
   -if @course.errors.any?

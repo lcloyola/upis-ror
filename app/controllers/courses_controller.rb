@@ -56,6 +56,9 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       if @course.save
+        if @course.yearlong == true
+          @course.update_attributes(:sem => 1)
+        end
         enroll_section()
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render json: @course, status: :created, location: @course }
@@ -109,8 +112,8 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:course_id])
     @student = Student.find(params[:student_id])
     #TODO: validate course, student existence?
-    if @student.enrolled?(@course.id) && @student.has_grade(@course.id)
-      @grades = @student.my_grades(@course.id)
+    if @student.enrolled?(@course.id) && !@student.course_has_grade(@course.id)
+      @grades = @student.course_grades(@course.id)
       @grades.each do |g|
         g.destroy
       end

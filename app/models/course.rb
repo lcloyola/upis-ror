@@ -8,34 +8,28 @@ class Course < ActiveRecord::Base
   belongs_to :faculty
   belongs_to :schoolyear
   belongs_to :section
-  has_many :enrollees, :foreign_key => :course_id, :dependent => :destroy
-  has_many :students, :through => :enrollees, :source => :student, :dependent => :destroy
+  has_many :grades, :foreign_key => :course_id, :dependent => :destroy
+  has_many :students, :through => :grades, :source => :student, :dependent => :destroy
   
   scope :first_sem, :conditions => ['sem = ?', 1]
 
+  def my_students
+    return Grade.where('course_id = ?', self.id).group("student_id")
+  end
+  
+  def student_average(student_id)
+    @grades = Grade.where('student_id = ? AND course_id = ?', student_id, self.id).sum('value')
+    if self.yearlong
+      return @grades / 4.00
+    else
+      return @grades / 2.00    
+    end
+  end
+  
   def semname
     if self.sem == 1
       return "1st sem"
     end
     return "2nd sem"
-  end
-  
-  def partner_sem
-    if self.sem == 1; p = 2
-    else; p = 1; end
-    
-    return Course.where('subject_id = ? AND schoolyear_id = ? AND section_id = ? AND sem = ?', self.subject_id, self.schoolyear_id, self.section_id, p).first
-  end
-  
-  def yearmode_students
-    if !self.partner_sem.nil?
-      return Enrollee.where('course_id = ? OR course_id = ?', self.id, self.partner_sem.id).group("student_id")
-    else
-      return self.enrollees
-    end
-  end
-
-  def find_sem2_enrollee(student_id = nil)
-    return Enrollee.where('student_id = ? AND course_id = ?', student_id, self.id).first
   end
 end

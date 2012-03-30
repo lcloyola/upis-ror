@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   belongs_to :batch
-  has_many :enrollees, :foreign_key => :student_id, :dependent => :destroy
-  has_many :courses, :through => :enrollees, :source => :course, :dependent => :destroy
+  has_many :grades, :foreign_key => :student_id, :dependent => :destroy
+  has_many :courses, :through => :grades, :source => :course, :dependent => :destroy
   has_many :members, :foreign_key => :student_id, :dependent => :destroy
   has_many :sections, :through => :members, :source => :section, :dependent => :destroy
   
@@ -24,19 +24,15 @@ class Student < ActiveRecord::Base
       return false
     end
     return true
-  end
-  def enrollment(course_id = nil)
-    return Enrollee.where("course_id = ? AND student_id = ?", course_id, self.id).first
-  end
-  
-  def has_grade(course_id)
+  end  
+  def course_has_grade(course_id)
     @grades = Grade.where('course_id = ? and student_id = ?', course_id, self.id)
     @grades.each do |g|
-      if !g.value.nil?; return false ; end
+      if !g.value.nil?; return true ; end
     end
-    return true
+    return false
   end
-  def my_grades(course_id)
+  def course_grades(course_id)
     return Grade.where('course_id = ? and student_id = ?', course_id, self.id)
   end
 end

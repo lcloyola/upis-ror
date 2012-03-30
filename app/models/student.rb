@@ -14,7 +14,7 @@ class Student < ActiveRecord::Base
   end
   
   def enrolled?(course_id = nil)
-    unless Enrollee.where("course_id = ? AND student_id = ?", course_id, self.id).empty?
+    unless Grade.where("course_id = ? AND student_id = ?", course_id, self.id).empty?
       return true
     end
     return false

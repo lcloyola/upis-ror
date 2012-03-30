@@ -154,8 +154,20 @@ private
   end
   def enroll_individual_student
     unless @student.enrolled?(@course.id)
-      @enrollment = Enrollee.new("course_id" => @course.id, "student_id" => @student.id)
-      @enrollment.save
+      startq = 1
+      if @course.yearlong
+        endq = 4
+      elsif @course.sem == 1
+        endq = 2
+      else
+        startq = 3
+        endq = 4
+      end
+
+      for j in startq..endq
+        @enrollment = Grade.new("course_id" => @course.id, "student_id" => @student.id, "quarter" => j)
+        @enrollment.save
+      end
     end
   end
 end

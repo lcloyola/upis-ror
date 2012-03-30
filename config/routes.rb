@@ -1,4 +1,6 @@
 Upis::Application.routes.draw do
+  resources :grades
+
   resources :sections do
     member do
       put 'enroll_to_section'

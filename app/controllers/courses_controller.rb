@@ -106,14 +106,13 @@ class CoursesController < ApplicationController
     end
   end
   def unenroll_student
+    @course = Course.find(params[:course_id])
     @student = Student.find(params[:student_id])
     #TODO: validate course, student existence?
-    if @student.enrolled?(params[:course_id])
-      @enrollee = Enrollee.where('course_id = ? and student_id = ?', params[:course_id], @student.id).first
-      unless @enrollee.nil?
-        if @enrollee.quartera.nil? || @enrollee.quarterb.nil?
-          @enrollee.destroy
-        end
+    if @student.enrolled?(@course.id) && @student.has_grade(@course.id)
+      @grades = @student.my_grades(@course.id)
+      @grades.each do |g|
+        g.destroy
       end
     end
     respond_to do |format|

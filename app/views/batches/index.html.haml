@@ -1,4 +1,13 @@
-%h1 Current Batches
+%p#notice= notice
+%h1= @schoolyear.name
+
+%ul.nav.nav-tabs
+  %li.active= link_to "Batches", batches_path
+  %li= link_to "Sections", sections_path
+  %li= link_to "Classes", schoolyear_path(@schoolyear.id)
+
+
+%h3 Current Batches
 = link_to 'New Batch', new_batch_path
 %table
   %thead
@@ -17,7 +26,7 @@
         %td= link_to 'Show', batch_students_path(batch)
         %td= link_to 'Edit', edit_batch_path(batch)
         
-%h1 All Batches
+%h3 All Batches
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
     %tr

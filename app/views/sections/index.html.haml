@@ -1,18 +1,26 @@
-%h1 Listing sections
+%p#notice= notice
+%h1= @schoolyear.name
+
+%ul.nav.nav-tabs
+  %li= link_to "Batches", batches_path
+  %li.active= link_to "Sections", sections_path
+  %li= link_to "Classes", schoolyear_path(@schoolyear.id)
+
+
 -if !Faculty.all.empty? && !Schoolyear.all.empty? && !Batch.all.empty?
   = link_to 'New Section', new_section_path
 
-  %table{:id => "sortable", :class => "tablesorter"}
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th A.Y.
         %th Year
-        %th Batch        
+        %th Batch
         %th Name
         %th Students
         %th Subjects
         %th Faculty
-        %th{:colspan => 2} Actions
+        %th{:colspan => 3} Actions
     %tbody
       - @sections.each do |section|
         %tr

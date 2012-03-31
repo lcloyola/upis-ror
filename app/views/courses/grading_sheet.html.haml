@@ -4,6 +4,10 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
+%ul.nav.nav-tabs
+  %li= link_to 'Classlist', @course
+  %li.active= link_to 'Update Grades', grading_sheet_course_path(@course)
+
 %table
   %thead
     %th Student Number

@@ -2,7 +2,8 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    @sections = Section.all
+    @schoolyear = Schoolyear.current_schoolyear.first
+    @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +45,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to "/sections/year/#{@section.schoolyear.id}", notice: 'Section was successfully created.' }
+        format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render json: @section, status: :created, location: @section }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.update_attributes(params[:section])
-        format.html { redirect_to "/sections/year/#{@section.schoolyear.id}", notice: 'Section was successfully updated.' }
+        format.html { redirect_to "/sections", notice: 'Section was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

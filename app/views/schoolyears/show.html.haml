@@ -1,9 +1,11 @@
 %p#notice= notice
-%h1
-  = @schoolyear.name
-%p
-  %b Current:
-  = @schoolyear.current
+%h1= @schoolyear.name
+  
+%ul.nav.nav-tabs
+  %li= link_to "Batches", batches_path
+  %li= link_to "Sections", sections_path
+  %li.active= link_to "Classes", schoolyear_path(@schoolyear.id)
+  
 %td= link_to 'New Class', "/courses/new/#{@schoolyear.id}"
 %p= @schoolyear.remarks
 
@@ -26,6 +28,3 @@
         %td= c.faculty.fullname
         %td= link_to 'Show', course_path(c)
         %td= link_to 'Edit', edit_course_path(c)
-= link_to 'Edit', edit_schoolyear_path(@schoolyear)
-\|
-= link_to 'Back', schoolyears_path

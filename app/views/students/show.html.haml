@@ -1,8 +1,13 @@
-= link_to 'Edit', edit_student_path(@student)
-\|
-= link_to 'Back to Batchmates', batch_students_path(@student.batch)
-|
-= link_to 'Transcript', "/students/transcript/#{@student.id}"
+%h1= @student.fullname
+%h2= @student.student_no
+
+%ul.nav.nav-tabs
+  %li= link_to "Transcript", "/students/transcript/#{@student.id}"
+  %li= link_to "Honor Roll", "#"
+  %li.active= link_to "Profile", @student
+  %li= link_to 'Edit', edit_student_path(@student)
+  %li= link_to 'Back to Batchmates', batch_students_path(@student.batch)
+
 %h1= "#{@student.last}, #{@student.given} #{@student.middle}."
 %h3= "Batch #{@student.batch.year}"
 %p#notice= notice

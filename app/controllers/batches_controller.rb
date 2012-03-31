@@ -8,6 +8,7 @@ class BatchesController < ApplicationController
   
   def index
     @batches = Batch.all
+    @schoolyear = Schoolyear.current_schoolyear.first
 
     respond_to do |format|
       format.html # index.html.erb

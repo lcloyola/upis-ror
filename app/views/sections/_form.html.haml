@@ -8,7 +8,7 @@
 
   .field
     = f.label :schoolyear
-    = collection_select :section, :schoolyear_id, Schoolyear.all, :id, :start
+    = collection_select :section, :schoolyear_id, Schoolyear.all, :id, :name
   .field
     = f.label :faculty
     = collection_select :section, :faculty_id, Faculty.all, :id, :fullname

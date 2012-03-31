@@ -28,7 +28,7 @@
     = f.text_area :address
   .field
     = f.label :birthday
-    = f.date_select :birthday, :start_year => Time.now.year - 25
+    = f.text_field :birthday, :id => "datepicker"
   .field
     = f.label :mobile
     = f.text_field :mobile

@@ -49,6 +49,7 @@
         .span3
           - if user_signed_in?  
             .well.sidebar-nav
+              %h3= "Academic Year #{Schoolyear.current_schoolyear.first.name}"
               %ul.nav.nav-list
 
                 %li.nav-header Students

@@ -17,10 +17,10 @@
     = f.text_field :middle
   .field
     = f.label :department
-    = select :faculty, :department_id, Department.all, :id, :name
+    = collection_select(:faculty, :department_id, Department.all, :id, :name, options ={:prompt => "--select one--"})
   .field
     = f.label :appointment
-    = f.date_select :appointment
+    = f.text_field :appointment, :id => "datepicker"
   .field
     = f.label :email
     = f.text_field :email

@@ -9,7 +9,7 @@
 %h2= @course.faculty.fullname
 %h3= @course.section.name
 -unless(@course.students.empty?)
-  %table
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th Student No
@@ -28,15 +28,18 @@
         %th Average
         %th Action
     %tbody
-    - @course.my_students.each do |s|
-      %tr
-        %td= s.student.student_no
-        %td= s.student.fullname
-        - s.student.course_grades(@course.id).each do |g|
-          %td= g.value
-        %td= @course.student_average(s.student.id)
-        - if !s.student.course_has_grade(@course.id)
-          %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
+      - @course.my_students.each do |s|
+        %tr
+          - if s.student.course_has_failing(@course.id)
+            %td.emphasize= s.student.student_no
+          - else
+            %td= s.student.student_no
+          %td= s.student.fullname
+          - s.student.course_grades(@course.id).each do |g|
+            %td= g.value
+          %td= @course.student_average(s.student.id)
+          - if !s.student.course_has_grade(@course.id)
+            %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
 
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|

@@ -22,5 +22,5 @@
         %td= student.middle
         %td= student.nick
         %td= link_to 'Transcript', "/students/transcript/#{student.id}"
-        %td= link_to 'Show', student
+        %td= link_to 'Profile', student
         %td= link_to 'Edit', edit_batch_student_url(student.batch, student)

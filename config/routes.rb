@@ -21,6 +21,7 @@ Upis::Application.routes.draw do
   end
 
   match 'sections/year/:schoolyear_id' => 'sections#year'
+  match 'sections/new/:schoolyear_id' => 'sections#new'
   match 'courses/new/:schoolyear_id/' => 'courses#new'
 
   match 'grades/deficiency/:schoolyear_id/:quarter/' => 'grades#deficiency'

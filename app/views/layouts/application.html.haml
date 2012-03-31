@@ -33,7 +33,7 @@
               - if user_signed_in?
                 = #TODO: tabularize?
                 %li= link_to 'Students', batches_path
-                %li= link_to 'Classes', schoolyear_path(Schoolyear.current_schoolyear.first)
+                %li= link_to 'Classes', schoolyears_path
                 %li= link_to 'Sections', "/sections/year/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'Subjects', subjects_path
                 %li= link_to 'Departments', departments_path
@@ -47,20 +47,28 @@
 
       .row-fluid
         .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to 'Transcript', "/grades/transcript"
-              %li
-                = link_to 'Classlist', "/grades/schoolyear"
-                %ul
-                  %li= link_to 'Current Year', "/grades/schoolyear/#{Schoolyear.current_schoolyear.first.id}"
-              %li
-                = link_to 'Deficiencies', "/grades/deficiency"
-                %ul
-                  %li= link_to 'Current Year All', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/0"
-                  %li= link_to 'Current Year Quarter A', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/1"
-                  %li= link_to 'Current Year Quarter B', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/2"                  
+          - if user_signed_in?  
+            .well.sidebar-nav
+              %ul.nav.nav-list
+
+                %li.nav-header Students
+                %li= link_to 'View All', batches_path
+                %li= link_to 'New Section', "/sections/new/#{Schoolyear.current_schoolyear.first.id}"
+                              
+                %li.nav-header Class Management
+                %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
+                %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)
+                %li deficiency
+
+
+                %li.nav-header Sidebar
+                %li= link_to 'Transcript', "/grades/transcript"
+                %li
+                  = link_to 'Deficiencies', "/grades/deficiency"
+                  %ul
+                    %li= link_to 'Current Year All', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/0"
+                    %li= link_to 'Current Year Quarter A', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/1"
+                    %li= link_to 'Current Year Quarter B', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/2"                  
         .span9
           = yield
     

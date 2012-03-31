@@ -8,6 +8,6 @@ class Subject < ActiveRecord::Base
   has_many :courses
   
   def details
-    "#{name} ( #{units} )"
+    "#{name} ( #{units} units )"
   end
 end

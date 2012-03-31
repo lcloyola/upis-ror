@@ -2,7 +2,7 @@
 -if !Faculty.all.empty? && !Schoolyear.all.empty? && !Batch.all.empty?
   = link_to 'New Section', new_section_path
 
-  %table{:id => "sortable", :class => "tablesorter"}
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th A.Y.
@@ -11,7 +11,7 @@
         %th Batch
         %th Students
         %th Faculty
-        %th{:colspan => 2} Actions
+        %th{:colspan => 3} Actions
     %tbody
       - @sections.each do |section|
         %tr

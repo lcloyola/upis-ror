@@ -32,6 +32,12 @@ class Student < ActiveRecord::Base
     end
     return false
   end
+  def course_has_failing(course_id)
+    self.course_grades(course_id).each do |g|
+      if !g.value.nil? && g.value < 50; return true ; end
+    end
+    return false
+  end
   def course_grades(course_id)
     return Grade.where('course_id = ? and student_id = ?', course_id, self.id)
   end

@@ -52,9 +52,10 @@
               %ul.nav.nav-list
 
                 %li.nav-header Students
-                %li= link_to 'View All', batches_path
+                %li= link_to 'View Batch', batches_path
+                %li= link_to 'View Sections', "/sections/year/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'New Section', "/sections/new/#{Schoolyear.current_schoolyear.first.id}"
-                              
+
                 %li.nav-header Class Management
                 %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)

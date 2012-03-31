@@ -116,6 +116,12 @@ class SectionsController < ApplicationController
       format.html {redirect_to @section}
     end
   end
+  def for_sectionid
+    @sections = Section.find( :all, :conditions => [" schoolyear_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }    
+    respond_to do |format|
+      format.json  { render :json => @sections }
+    end
+  end
 private
   def enroll_individual_student
     unless @student.member?(@section.id)

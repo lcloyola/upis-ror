@@ -1,35 +1,28 @@
 %p#notice= notice
 
-%h1= @section.name
-%h2
-  A.Y.
-  = @section.schoolyear.name
-%h3= @section.faculty.fullname
-%h3
-  Batch:  
-  = @section.batch.year
-%h3
-  Grade Level:
-  = @section.year
+.span4
+  %h1= @section.name
+  %h2
+    A.Y.
+    = @section.schoolyear.name
+  %h3= @section.faculty.fullname
+  %h4
+    Batch:  
+    = @section.batch.year
+  %h4
+    Grade Level:
+    = @section.year
 
-= link_to 'Edit', edit_section_path(@section)
-\|
-= link_to 'Back', sections_path
-%br
+  = link_to 'Edit', edit_section_path(@section)
+  \|
+  = link_to 'Back', sections_path
 
-= form_for(@section, :url => enroll_to_section_section_path) do |f|
-  -if @section.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@section.errors.count, "error")} prohibited this section from being saved:"
-      %ul
-        - @section.errors.full_messages.each do |msg|
-          %li= msg
+.span4
+  %h3 Subjects
+  %ul
+  - @section.courses.each do |c|
+    %li= link_to "#{c.subject.name} - #{c.faculty.last}", c
 
-  .field
-    = select_tag "students[]", options_from_collection_for_select(@students, "id","sn_fullname"), :multiple => true, :class =>"multiselect" 
-  .actions
-    = f.submit 'Save'
-    
 -unless(@section.students.empty?)
   %table
     %thead
@@ -43,3 +36,17 @@
         %td= m.student.student_no
         %td= m.student.fullname
         %td= link_to "unenroll" , "/sections/#{@section.id}/unenroll/#{m.student_id}"
+        
+        
+= form_for(@section, :url => enroll_to_section_section_path) do |f|
+  -if @section.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@section.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @section.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = select_tag "students[]", options_from_collection_for_select(@students, "id","sn_fullname"), :multiple => true, :class =>"multiselect" 
+  .actions
+    = f.submit 'Save'

@@ -7,7 +7,7 @@
           %li= msg
   .field
     = f.label :schoolyear
-    = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :start
+    = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :name
   .field
     = f.label :subject
     = collection_select :course, :subject_id, Subject.all, :id, :details
@@ -22,6 +22,6 @@
     = f.select :sem, [['1st',1],['2nd',2]]
   .field
     = f.label :section
-    = collection_select :course, :section_id, @sections, :id, :name
+    = collection_select(:course, :section_id, Section.find_all_by_schoolyear_id(@course.schoolyear_id), :id, :name, options ={:prompt => "--select one--"})
   .actions
     = f.submit 'Save'

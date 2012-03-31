@@ -24,7 +24,7 @@ class SectionsController < ApplicationController
   # GET /sections/new
   # GET /sections/new.json
   def new
-    @section = Section.new(:schoolyear_id => params[:schoolyear_id])
+    @section = Section.new(:schoolyear_id => Schoolyear.current_schoolyear.first.id)
 
     respond_to do |format|
       format.html # new.html.erb

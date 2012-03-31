@@ -1,91 +1,99 @@
 = link_to 'Edit', edit_student_path(@student)
 \|
-= link_to 'Back', batch_students_path(@student.batch)
+= link_to 'Back to Batchmates', batch_students_path(@student.batch)
+|
+= link_to 'Transcript', "/students/transcript/#{@student.id}"
 %h1= "#{@student.last}, #{@student.given} #{@student.middle}."
 %h3= "Batch #{@student.batch.year}"
 %p#notice= notice
-
-%p
-  %b Student no:
-  = @student.student_no
-%p
-  %b Batch:
-  = @student.batch.year
-%p
-  %b Last:
-  = @student.last
-%p
-  %b Given:
-  = @student.given
-%p
-  %b Middle:
-  = @student.middle
-%p
-  %b Nick:
-  = @student.nick
-%p
-  %b Address:
-  = @student.address
-%p
-  %b Birthday:
-  = @student.birthday
-%p
-  %b Mobile:
-  = @student.mobile
-%p
-  %b Landline:
-  = @student.landline
-%p
-  %b Email:
-  = @student.email
-%p
-  %b Religion:
-  = @student.religion
-%p
-  %b Entry:
-  = @student.entry
-%p
-  %b Graduate:
-  = @student.graduate
-%p
-  %b Upcat:
-  = @student.upcat
-%p
-  %b Disciplinary:
-  = @student.disciplinary
-%p
-  %b Father:
-  = @student.father
-%p
-  %b Foccupation:
-  = @student.foccupation
-%p
-  %b Foffice:
-  = @student.foffice
-%p
-  %b Fcontact:
-  = @student.fcontact
-%p
-  %b Mother:
-  = @student.mother
-%p
-  %b Moccupation:
-  = @student.moccupation
-%p
-  %b Moffice:
-  = @student.moffice
-%p
-  %b Mcontact:
-  = @student.mcontact
-%p
-  %b Guardian:
-  = @student.guardian
-%p
-  %b Relationship:
-  = @student.relationship
-%p
-  %b Gaddress:
-  = @student.gaddress
-%p
-  %b Gcontact:
-  = @student.gcontact
+.row_fluid
+  .span4
+    %p
+      %b Student no:
+      = @student.student_no
+    %p
+      %b Batch:
+      = @student.batch.year
+    %p
+      %b Last:
+      = @student.last
+    %p
+      %b Given:
+      = @student.given
+    %p
+      %b Middle:
+      = @student.middle
+    %p
+      %b Nick:
+      = @student.nick
+    %p
+      %b Address:
+      = @student.address
+    %p
+      %b Birthday:
+      = @student.birthday
+    %p
+      %b Mobile:
+      = @student.mobile
+    %p
+      %b Landline:
+      = @student.landline
+    %p
+      %b Email:
+      = @student.email
+    %p
+      %b Religion:
+      = @student.religion
+    %p
+      %b Entry:
+      = @student.entry
+    %p
+      %b Graduate:
+      = @student.graduate
+    %p
+      %b Upcat:
+      = @student.upcat
+    %p
+      %b Disciplinary:
+      = @student.disciplinary
+    %p
+      %b Father:
+      = @student.father
+    %p
+      %b Foccupation:
+      = @student.foccupation
+    %p
+      %b Foffice:
+      = @student.foffice
+    %p
+      %b Fcontact:
+      = @student.fcontact
+    %p
+      %b Mother:
+      = @student.mother
+    %p
+      %b Moccupation:
+      = @student.moccupation
+    %p
+      %b Moffice:
+      = @student.moffice
+    %p
+      %b Mcontact:
+      = @student.mcontact
+    %p
+      %b Guardian:
+      = @student.guardian
+    %p
+      %b Relationship:
+      = @student.relationship
+    %p
+      %b Gaddress:
+      = @student.gaddress
+    %p
+      %b Gcontact:
+      = @student.gcontact
+      
+  .span4
+    %ul
+      - @student.sections.each do |s|
+        %li= link_to "#{s.name} - #{s.faculty.fullname}", s

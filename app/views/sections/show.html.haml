@@ -34,7 +34,7 @@
       - @section.members.each do |m|
         %tr
           %td= m.student.student_no
-          %td= m.student.fullname
+          %td= link_to m.student.fullname, m.student
           %td= link_to "unenroll" , "/sections/#{@section.id}/unenroll/#{m.student_id}"
         
         

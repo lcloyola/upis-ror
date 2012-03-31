@@ -10,6 +10,7 @@
         %th Batch        
         %th Name
         %th Students
+        %th Subjects
         %th Faculty
         %th{:colspan => 2} Actions
     %tbody
@@ -20,6 +21,7 @@
           %td= section.batch.year
           %td= section.name
           %td= section.students.count
+          %td= section.courses.count
           %td= section.faculty.fullname
           %td= link_to 'Show', section
           %td= link_to 'Edit', edit_section_path(section)

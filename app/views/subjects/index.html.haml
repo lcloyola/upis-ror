@@ -19,6 +19,7 @@
           %td= subject.year
           %td= link_to 'Show', subject
           %td= link_to 'Edit', edit_subject_path(subject)
-          %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
+          - unless !subject.courses.empty?
+            %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
 -else
   = link_to 'Please create departments first', new_department_path

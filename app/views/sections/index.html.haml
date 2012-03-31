@@ -7,9 +7,9 @@
       %tr
         %th A.Y.
         %th Year
+        %th Batch        
         %th Name
-        %th Batch
-        %th Section
+        %th Students
         %th Faculty
         %th{:colspan => 2} Actions
     %tbody
@@ -17,12 +17,10 @@
         %tr
           %td= section.schoolyear.name
           %td= section.year
-          %td= section.name
           %td= section.batch.year
+          %td= section.name
           %td= section.students.count
-          %td
-            = section.faculty.last
-            = section.faculty.given
+          %td= section.faculty.fullname
           %td= link_to 'Show', section
           %td= link_to 'Edit', edit_section_path(section)
 

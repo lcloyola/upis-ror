@@ -60,16 +60,8 @@
                 %li.nav-header Class Management
                 %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)
-                %li deficiency
-
-
-                %li.nav-header Sidebar
-                %li
-                  = link_to 'Deficiencies', "/grades/deficiency"
-                  %ul
-                    %li= link_to 'Current Year All', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/0"
-                    %li= link_to 'Current Year Quarter A', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/1"
-                    %li= link_to 'Current Year Quarter B', "/grades/deficiency/#{Schoolyear.current_schoolyear.first.id}/2"                  
+                %li= link_to 'Deficiencies', "/grades/deficiency/1"
+            
         .span9
           = yield
     

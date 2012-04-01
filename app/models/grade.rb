@@ -5,4 +5,8 @@ class Grade < ActiveRecord::Base
   attr_accessible :course_id, :student_id, :value, :id, :quarter
   belongs_to :course
   belongs_to :student
+  def blank
+    return true unless !self.value.nil?
+    return false
+  end
 end

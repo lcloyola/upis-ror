@@ -1,0 +1,20 @@
+%ul.nav.nav-tabs
+  -#refactor!
+
+  - if @quarter == "1"
+    %li.active= link_to "1st Q", "/grades/deficiency/1"
+  - else
+    %li= link_to "1st Q", "/grades/deficiency/1"
+  - if @quarter == "2"
+    %li.active= link_to "2nd Q", "/grades/deficiency/2"
+  - else
+    %li= link_to "2nd Q", "/grades/deficiency/2"
+  - if @quarter == "3"
+    %li.active= link_to "3rd Q", "/grades/deficiency/3"
+  - else
+    %li= link_to "3rd Q", "/grades/deficiency/3"
+  - if @quarter == "4"
+    %li.active= link_to "4th Q", "/grades/deficiency/4"
+  - else
+    %li= link_to "4th Q", "/grades/deficiency/4"
+

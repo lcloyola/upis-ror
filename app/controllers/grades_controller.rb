@@ -81,17 +81,8 @@ class GradesController < ApplicationController
     end
   end
   def deficiency
-    if !params['schoolyear_id'].nil?
-      @schoolyear = Schoolyear.find(params['schoolyear_id'])
-      @quarter = params['quarter']
-      @type = params['type']
-      @id = params['id']
-    else
-      @schoolyears = Schoolyear.all
-    end      
-    respond_to do |format|
-      format.html
-    end
+    @courses = Schoolyear.current_schoolyear.first.courses
+    @quarter = params['quarter']
   end
 
   def schoolyear

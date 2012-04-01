@@ -25,14 +25,10 @@ Upis::Application.routes.draw do
   match 'sections/for_sectionid/:id' => 'sections#for_sectionid'
   match 'courses/new/:schoolyear_id/' => 'courses#new'
 
-  match 'grades/deficiency/:schoolyear_id/:quarter/' => 'grades#deficiency'
-  match 'grades/deficiency' => 'grades#deficiency'
-  match 'grades/schoolyear' => 'grades#schoolyear'
-  match 'grades/schoolyear/:schoolyear_id' => 'grades#schoolyear'
-  match 'grades/transcript' => 'grades#transcript'
-  match 'grades/transcript/:batch_id' => 'grades#transcript'
-
+  match 'grades/deficiency/:quarter/' => 'grades#deficiency'
+  
   match 'students/transcript/:student_id' => 'students#transcript'
+  match 'students/honorroll/:student_id' => 'students#honorroll'
   
   resources :subjects
 

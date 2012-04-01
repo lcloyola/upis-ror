@@ -1,0 +1,45 @@
+%h1= @student.fullname
+%h2= @student.student_no
+
+%ul.nav.nav-tabs
+  %li= link_to "Transcript", "/students/transcript/#{@student.id}"
+  %li.active= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
+  %li= link_to "Profile", @student
+%br
+-#TODO: refactor!!!
+- @student.schoolyears.group('schoolyear_id').each do |sy|
+  %h4= "AY #{sy.name}"
+  %p
+    %span= link_to @student.section(sy.id).name, @student.section(sy.id)
+    = "- #{@student.section(sy.id).faculty.fullname}"
+  %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable"}
+    %thead
+      %tr
+        %th Subject
+        %th Q1
+        %th Q2
+        %th Q3
+        %th Q4
+        %th Units
+        %th Average
+    %tbody
+      - @student.courses_year(sy.id).each do |c|
+        %tr
+          %td= link_to c.subject.name, c
+          - if !c.yearlong && c.sem == 2
+            %td -
+            %td -
+          - @student.course_grades(c.id).each do |g|
+            - if !g.value.nil? && g.value < 50
+              %td.emphasize= g.value
+            - else
+              %td= g.value
+          - if !c.yearlong && c.sem == 1
+            %td -
+            %td -
+
+          %td= c.subject.units            
+          - if @student.course_has_blank(c.id)
+            %td n/a
+          - else
+            %td= c.student_average(@student.id)          

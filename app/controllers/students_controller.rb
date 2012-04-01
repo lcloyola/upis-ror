@@ -96,6 +96,9 @@ class StudentsController < ApplicationController
       format.html
     end
   end
+  def honorroll
+    @student = Student.find(params[:student_id])
+  end
 private
   def assign_student_no
     @batchmate = Student.where('batch_id = ?', @batch.id).order('student_no ASC')

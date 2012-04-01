@@ -2,29 +2,29 @@
 %h2= @student.student_no
 
 %ul.nav.nav-tabs
-  %li.active= link_to "Transcript", "#"
-  %li= link_to "Honor Roll", "#"
+  %li.active= link_to "Transcript", "/students/transcript/#{@student.id}"
+  %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li= link_to "Profile", @student
-
 %br
 -#TODO: refactor!!!
-- for i in 1..4
-  %h4= "Year #{i}"
-  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+- @student.schoolyears.group('schoolyear_id').each do |sy|
+  %h4= sy.name
+  %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable"}
     %thead
       %tr
-        %th Schoolyear
         %th Subject
-        %th Grade
+        %th Average
         %th Units
     %tbody
-      - @student.my_courses.each do |c|
-        - if c.course.subject.year == i
-          %tr
-            %td= c.course.schoolyear.name
-            %td= link_to c.course.subject.name, c.course
-            - if @student.course_has_blank(c.course.id)
-              %td n/a
+      - @student.courses_year(sy.id).each do |c|
+        %tr
+          %td= link_to c.subject.name, c
+          - if @student.course_has_blank(c.id)
+            %td n/a
+          - else
+            - @ave = c.student_average(@student.id)
+            - if @ave < 50
+              %td.emphasize= @ave
             - else
-              %td= c.course.student_average(@student.id)          
-            %td= c.course.subject.units
+              %td= @ave
+          %td= c.subject.units            

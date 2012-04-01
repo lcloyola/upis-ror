@@ -5,7 +5,7 @@ class Student < ActiveRecord::Base
   has_many :members, :foreign_key => :student_id, :dependent => :destroy
   has_many :sections, :through => :members, :source => :section, :dependent => :destroy
   has_many :subjects, :through => :courses, :source => :subject
-  
+  has_many :schoolyears, :through => :courses, :source => :schoolyear
   def fullname
     "#{last} #{given} #{middle}"
   end
@@ -48,13 +48,10 @@ class Student < ActiveRecord::Base
   def course_grades(course_id)
     return Grade.where('course_id = ? and student_id = ?', course_id, self.id)
   end
-  def course_by_subject(subject_id)
-    return Course.where('subject_id = ? and student_id = ?', subject_id, self.id)
+  def courses_year(sy)
+    return self.courses.where('schoolyear_id = ?', sy).group("subject_id")
   end
-  def my_courses
-    return Grade.where('student_id = ?', self.id).group("course_id")
-  end
-  def my_subjects(year)
-    return self.subjects.where('year = ?', year).group("subject_id")
+  def section(schoolyear_id)
+    return self.sections.where('schoolyear_id =?', schoolyear_id).first
   end
 end

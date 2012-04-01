@@ -32,4 +32,7 @@ class Course < ActiveRecord::Base
     end
     return "2nd sem"
   end
+  def dq_students(quarter)
+    return self.grades.find(:all, :conditions => ["value IS NULL AND quarter = ?", quarter])
+  end
 end

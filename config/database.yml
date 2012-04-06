@@ -6,6 +6,8 @@
 development:
   adapter: sqlite3
   database: db/development.sqlite3
+  #adapter: postgresql
+  #database: rails_development
   pool: 5
   timeout: 5000
 

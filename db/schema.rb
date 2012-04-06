@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330145142) do
+ActiveRecord::Schema.define(:version => 20120406131235) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
-    t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "remarks"
   end
 
   create_table "courses", :force => true do |t|
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20120330145142) do
     t.string   "mobile"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "birthday"
+    t.string   "landline"
   end
 
   add_index "faculties", ["department_id"], :name => "index_faculties_on_department_id"
@@ -151,10 +153,10 @@ ActiveRecord::Schema.define(:version => 20120330145142) do
   create_table "subjects", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
-    t.decimal  "units"
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "units"
   end
 
   add_index "subjects", ["department_id"], :name => "index_subjects_on_department_id"

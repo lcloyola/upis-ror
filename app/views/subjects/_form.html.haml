@@ -14,7 +14,7 @@
     = collection_select :subject, :department_id, Department.all, :id, :name
   .field
     = f.label :units
-    = f.number_field :units, :precision => 2
+    = f.text_field :units, :precision => 2
   .field
     = f.label :year
     = f.number_field :year

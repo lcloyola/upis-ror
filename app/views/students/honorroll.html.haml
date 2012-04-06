@@ -24,6 +24,7 @@
           %th Q4
           %th Units
           %th Average
+          %th Final
       %tbody
         - @student.courses_year(sy.id).each do |c|
           %tr
@@ -43,5 +44,7 @@
             %td= c.subject.units            
             - if @student.course_has_blank(c.id)
               %td n/a
+              %td n/a
             - else
               %td= c.student_average(@student.id)
+              %td= elevenpt(c.student_average(@student.id))

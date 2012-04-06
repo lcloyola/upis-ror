@@ -14,6 +14,7 @@
       %tr
         %th Subject
         %th Average
+        %th Final
         %th Units
     %tbody
       - @student.courses_year(sy.id).each do |c|
@@ -21,10 +22,12 @@
           %td= link_to c.subject.name, c
           - if @student.course_has_blank(c.id)
             %td n/a
+            %td n/a
           - else
             - @ave = c.student_average(@student.id)
             - if @ave < 50
               %td.emphasize= @ave
             - else
               %td= @ave
+            %td= elevenpt(@ave)
           %td= c.subject.units            

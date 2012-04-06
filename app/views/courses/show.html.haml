@@ -27,6 +27,7 @@
           %th 3rd Q
           %th 4th Q
         %th Average
+        %th Final
         %th Action
     %tbody
       - @course.my_students.each do |s|
@@ -41,7 +42,9 @@
               %td.emphasize= g.value
             - else
               %td= g.value
-          %td= @course.student_average(s.student.id)
+          - ave = @course.student_average(s.student.id)
+          %td= ave
+          %td= elevenpt(ave)
           - if !s.student.course_has_grade(@course.id)
             %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
 

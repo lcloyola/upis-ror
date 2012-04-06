@@ -4,10 +4,16 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  #adapter: sqlite3
+  #database: db/development.sqlite3
   #adapter: postgresql
   #database: rails_development
+  username: root
+  password:
+  socket: /opt/lampp/var/mysql/mysql.sock
+  adapter: mysql2
+  encoding: utf8
+  database: upis
   pool: 5
   timeout: 5000
 

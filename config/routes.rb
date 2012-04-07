@@ -23,8 +23,10 @@ Upis::Application.routes.draw do
   match 'sections/year/:schoolyear_id' => 'sections#year'
   match 'sections/new/:schoolyear_id' => 'sections#new'
   match 'sections/for_sectionid/:id' => 'sections#for_sectionid'
-  match 'courses/new/:schoolyear_id/' => 'courses#new'
 
+  match 'courses/new/:schoolyear_id/' => 'courses#new'
+  match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
+  
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
   
   match 'students/transcript/:student_id' => 'students#transcript'

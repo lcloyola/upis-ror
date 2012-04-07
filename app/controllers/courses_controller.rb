@@ -143,6 +143,28 @@ class CoursesController < ApplicationController
     end
     
   end
+  
+  def removal
+    @course = Course.find(params[:course_id])
+    @student = Student.find(params[:student_id])
+    @removal = Removal.where('student_id = ? AND course_id = ?', @student.id, @course.id).first
+    if !@removal.nil?
+      if params[:verdict] == "pass"
+        @removal.update_attributes({:pass => true})
+      else
+        @removal.update_attributes({:pass => false})
+      end
+    else
+      if params[:verdict] == "pass"
+        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => true)
+      else
+        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => false)
+      end
+      @newremove.save
+    end
+    redirect_to @course
+  end
+  
 private
   def enroll_section
     #TODO: validation--no students yet

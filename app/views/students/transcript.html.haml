@@ -29,5 +29,13 @@
               %td.emphasize= @ave
             - else
               %td= @ave
-            %td= elevenpt(@ave)
-          %td= c.subject.units            
+            %td
+              - @final = elevenpt(@ave)
+              = @final
+              - if @final == 4.0
+                - @removal = @student.course_removed(c)
+                - if @removal.present? && @removal.pass
+                  (3.0)
+                - elsif @removal.present? && !@removal.pass
+                  (5.0)
+          %td= c.subject.units

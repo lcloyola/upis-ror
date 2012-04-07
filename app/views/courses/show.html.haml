@@ -8,6 +8,7 @@
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
+
 %br
 -unless(@course.students.empty?)
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
@@ -44,9 +45,21 @@
               %td= g.value
           - ave = @course.student_average(s.student.id)
           %td= ave
-          %td= elevenpt(ave)
-          - if !s.student.course_has_grade(@course.id)
-            %td= link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
+          %td
+            = elevenpt(ave)
+            - if elevenpt(ave) == 4.0
+              - @removal = s.student.course_removed(@course)
+              - if @removal.present? && @removal.pass
+                (3.0)
+              - elsif @removal.present? && !@removal.pass
+                (5.0)
+          %td
+            - if !s.student.course_has_grade(@course.id)
+              = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
+            - elsif elevenpt(ave) == 4.0
+              = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.student_id}/pass"
+              |
+              = link_to 'Fail', "/courses/removal/#{@course.id}/#{s.student_id}/fail"
 
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|

@@ -47,4 +47,12 @@
               %td n/a
             - else
               %td= c.student_average(@student.id)
-              %td= elevenpt(c.student_average(@student.id))
+              %td
+                - @final = elevenpt(c.student_average(@student.id))
+                = @final
+                - if @final == 4.0
+                  - @removal = @student.course_removed(c)
+                  - if @removal.present? && @removal.pass
+                    (3.0)
+                  - elsif @removal.present? && !@removal.pass
+                    (5.0)

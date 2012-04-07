@@ -51,6 +51,9 @@ class Student < ActiveRecord::Base
   def courses_year(sy)
     return self.courses.where('schoolyear_id = ?', sy).group("subject_id")
   end
+  def course_removed(course)
+    return Removal.where('student_id = ? and course_id = ?', self.id, course.id).first
+  end
   def section(schoolyear_id)
     return self.sections.where('schoolyear_id =?', schoolyear_id).first
   end

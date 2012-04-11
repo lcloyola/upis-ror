@@ -17,10 +17,10 @@
       %tr
         %td= student.student_no
         %td= student.batch.year
-        %td= student.last
-        %td= student.given
-        %td= student.middle
-        %td= student.nick
+        %td.capslock= student.last
+        %td.capslock= student.given
+        %td.capslock= student.middle
+        %td.capslock= student.nick
         %td= link_to 'Transcript', "/students/transcript/#{student.id}"
         %td= link_to 'Profile', student
         %td= link_to 'Edit', edit_batch_student_url(student.batch, student)

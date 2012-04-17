@@ -1,7 +1,8 @@
 module GradesHelper
 
   def elevenpt(average)
-    final = case average
+    grade = average.ceil
+    final = case grade
       when 96..100 then 1.0
       when 91..95.99 then 1.25
       when 86..90.99 then 1.50
@@ -16,5 +17,6 @@ module GradesHelper
     end
     return final
   end
-  
+
 end
+

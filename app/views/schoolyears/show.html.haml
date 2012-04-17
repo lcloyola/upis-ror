@@ -21,7 +21,8 @@
   %tbody
     - @schoolyear.courses.each do |c|
       %tr
-        %td= c.section.name
+        - unless c.section.nil?
+          %td= c.section.name
         %td= c.subject.details
         %td= c.subject.department.name
         %td= c.semname

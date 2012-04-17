@@ -7,7 +7,7 @@
       = @section.schoolyear.name
     %h3= @section.faculty.fullname
     %h4
-      Batch:  
+      Batch:
       = @section.batch.year
     %h4
       Grade Level:
@@ -24,20 +24,20 @@
       %li= link_to "#{c.subject.name} - #{c.faculty.last}", c
 
   -unless(@section.students.empty?)
-    %table
+    %table{:id => "sortable", :class => "zebra-striped tablesorter"}
       %thead
         %tr
           %th Student No
           %th Student
           %th Action
       %tbody
-      - @section.members.each do |m|
-        %tr
-          %td= m.student.student_no
-          %td= link_to m.student.fullname, m.student
-          %td= link_to "unenroll" , "/sections/#{@section.id}/unenroll/#{m.student_id}"
-        
-        
+        - @section.members.each do |m|
+          %tr
+            %td= m.student.student_no
+            %td.capslock= link_to m.student.fullname, m.student
+            %td= link_to "unenroll" , "/sections/#{@section.id}/unenroll/#{m.student_id}"
+
+
 = form_for(@section, :url => enroll_to_section_section_path) do |f|
   -if @section.errors.any?
     #error_explanation
@@ -47,6 +47,7 @@
           %li= msg
 
   .field
-    = select_tag "students[]", options_from_collection_for_select(@students, "id","sn_fullname"), :multiple => true, :class =>"multiselect" 
+    = select_tag "students[]", options_from_collection_for_select(@students, "id","sn_fullname"), :multiple => true, :class =>"multiselect"
   .actions
     = f.submit 'Save'
+

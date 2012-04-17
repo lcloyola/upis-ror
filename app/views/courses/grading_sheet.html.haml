@@ -4,6 +4,7 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
+%h3= "#{@course.students.count} students"
 %ul.nav.nav-tabs
   %li= link_to 'Classlist', @course
   %li.active= link_to 'Update Grades', grading_sheet_course_path(@course)
@@ -26,7 +27,7 @@
   %tbody
     = form_for(@course, :url => "update_grades") do |f|
       = #TODO: fix validations
-      - @course.my_students.each do |s|
+      - @course.my_students.sort!{ |a,b| a.student.fullname <=> b.student.fullname }.each do |s|
         %tr
           %td= s.student.student_no
           %td= s.student.fullname
@@ -35,3 +36,4 @@
               %td= grade_f.text_field :value, :class => "gradesheetinput"
       .actions
         = f.submit 'Save'
+

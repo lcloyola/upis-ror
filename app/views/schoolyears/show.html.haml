@@ -1,11 +1,11 @@
 %p#notice= notice
 %h1= @schoolyear.name
-  
+
 %ul.nav.nav-tabs
   %li= link_to "Batches", batches_path
   %li= link_to "Sections", sections_path
   %li.active= link_to "Classes", schoolyear_path(@schoolyear.id)
-  
+
 %td= link_to 'New Class', "/courses/new/#{@schoolyear.id}"
 %p= @schoolyear.remarks
 
@@ -21,11 +21,13 @@
   %tbody
     - @schoolyear.courses.each do |c|
       %tr
-        - unless c.section.nil?
-          %td= c.section.name
+        %td
+          = c.section.name unless c.section.nil?
+
         %td= c.subject.details
         %td= c.subject.department.name
         %td= c.semname
         %td= c.faculty.fullname
         %td= link_to 'Show', course_path(c)
         %td= link_to 'Edit', edit_course_path(c)
+

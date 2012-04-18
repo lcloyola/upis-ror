@@ -27,7 +27,7 @@ class CoursesController < ApplicationController
     @schoolyear = Schoolyear.find(params[:schoolyear_id])
     @course = Course.new("schoolyear_id" => @schoolyear.id);
     @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @course }
@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
   end
 
   # GET /courses/1/edit
-  
+
   def edit
     @course = Course.find(params[:id])
     if !@course.enrollees.nil?
@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
     params[:course].delete :id
     @course = @schoolyear.courses.new(params[:course])
     @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
-    
+
     respond_to do |format|
       if @course.save
         if @course.yearlong == true
@@ -96,7 +96,7 @@ class CoursesController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def enroll_students
     @course = Course.find(params[:id])
     params[:students].each do |student_id|
@@ -122,16 +122,20 @@ class CoursesController < ApplicationController
       format.html {redirect_to Course.find(params[:course_id]) }
     end
   end
-  
+  def unenroll_students
+    @course = Course.find(params[:course_id])
+    @course.unenroll_students
+    redirect_to @course
+  end
   def grading_sheet
     @course = Course.find(params[:id])
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @course }
     end
   end
-  
+
   def update_grades
     @course = Course.find(params[:id])
     params[:course][:grade].each do |e|
@@ -141,9 +145,9 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html {redirect_to @course }
     end
-    
+
   end
-  
+
   def removal
     @course = Course.find(params[:course_id])
     @student = Student.find(params[:student_id])
@@ -164,7 +168,7 @@ class CoursesController < ApplicationController
     end
     redirect_to @course
   end
-  
+
 private
   def enroll_section
     #TODO: validation--no students yet
@@ -195,3 +199,4 @@ private
     end
   end
 end
+

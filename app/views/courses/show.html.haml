@@ -9,7 +9,9 @@
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
-
+  - if !@course.has_grade?
+    %li= link_to 'Destroy Class', @course, :confirm => 'Are you sure?', :method => :delete
+    %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'
 %br
 -unless(@course.students.empty?)
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}

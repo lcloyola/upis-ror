@@ -12,12 +12,13 @@ Upis::Application.routes.draw do
   resources :schoolyears do
       get 'make_current', :on => :member
   end
-  
+
   resources :courses do
     put 'enroll_students', :on => :member
     get 'unenroll/:student_id' =>  'courses#unenroll_student'
     get 'grading_sheet', :on => :member
     put 'update_grades', :on => :member
+    get 'unenroll_students' => 'courses#unenroll_students'
   end
 
   match 'sections/year/:schoolyear_id' => 'sections#year'
@@ -26,12 +27,12 @@ Upis::Application.routes.draw do
 
   match 'courses/new/:schoolyear_id/' => 'courses#new'
   match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
-  
+
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
-  
+
   match 'students/transcript/:student_id' => 'students#transcript'
   match 'students/honorroll/:student_id' => 'students#honorroll'
-  
+
   resources :subjects
 
   resources :departments
@@ -103,3 +104,4 @@ Upis::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

@@ -6,6 +6,7 @@
       A.Y.
       = @section.schoolyear.name
     %h3= @section.faculty.fullname
+    %h4= "#{ @section.students.count } students"
     %h4
       Batch:
       = @section.batch.year
@@ -21,7 +22,7 @@
     %h3 Subjects
     %ul
     - @section.courses.each do |c|
-      %li= link_to "#{c.subject.name} - #{c.faculty.last}", c
+      %li= link_to "#{c.subject.name} - #{c.faculty.fullname}", c
 
   -unless(@section.students.empty?)
     %table{:id => "sortable", :class => "zebra-striped tablesorter"}

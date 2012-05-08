@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
   belongs_to :section
   has_many :grades, :foreign_key => :course_id, :dependent => :destroy
   has_many :students, :through => :grades, :source => :student, :dependent => :destroy
-
+  
   scope :first_sem, :conditions => ['sem = ?', 1]
 
   def my_students
@@ -20,9 +20,9 @@ class Course < ActiveRecord::Base
   def student_average(student_id)
     @grades = Grade.where('student_id = ? AND course_id = ?', student_id, self.id).sum('value')
     if self.yearlong
-      return @grades / 4.00
+      return (@grades / 4.00).round
     else
-      return @grades / 2.00
+      return (@grades / 2.00).round
     end
   end
 

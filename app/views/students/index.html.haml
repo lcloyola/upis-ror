@@ -22,5 +22,6 @@
         %td.capslock= student.middle
         %td.capslock= student.nick
         %td= link_to 'Transcript', "/students/transcript/#{student.id}"
+        %td= link_to 'Honorroll', "/students/honorroll/#{student.id}"
         %td= link_to 'Profile', student
         %td= link_to 'Edit', edit_batch_student_url(student.batch, student)

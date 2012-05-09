@@ -43,8 +43,8 @@
 
             %td= c.subject.units            
             - if @student.course_has_blank(c.id)
-              %td n/a
-              %td n/a
+              %td
+              %td
             - else
               %td= c.student_average(@student.id)
               %td

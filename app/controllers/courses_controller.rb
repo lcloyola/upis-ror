@@ -38,11 +38,6 @@ class CoursesController < ApplicationController
 
   def edit
     @course = Course.find(params[:id])
-    if !@course.enrollees.nil?
-      respond_to do |format|
-        format.html{ redirect_to @course, notice: 'Can\'t edit course with enrollees.'}
-      end
-    end
     @sections = Section.where('schoolyear_id = ?', @course.schoolyear_id)
   end
 

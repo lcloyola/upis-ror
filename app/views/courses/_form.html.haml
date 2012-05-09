@@ -5,9 +5,10 @@
       %ul
         - @course.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :schoolyear
-    = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :name
+  - if @course.new_record?
+    .field
+      = f.label :schoolyear
+      = collection_select :course, :schoolyear_id, Schoolyear.all, :id, :name
   .field
     = f.label :subject
     = collection_select :course, :subject_id, Subject.all, :id, :details
@@ -15,13 +16,14 @@
     = f.label :faculty
     = collection_select :course, :faculty_id, Faculty.all, :id, :fullname
   .field
-    = f.check_box :yearlong?
-    = f.label :yearlong, :value => true
-  .field
-    = f.label :sem
-    = f.select :sem, [['1st',1],['2nd',2]]
-  .field
     = f.label :section
     = collection_select(:course, :section_id, Section.find_all_by_schoolyear_id(@course.schoolyear_id), :id, :name, options ={:prompt => "--select one--"})
+  - if @course.new_record?
+    .field
+      = f.check_box :yearlong?
+      = f.label :yearlong, :value => true
+    .field
+      = f.label :sem
+      = f.select :sem, [['1st',1],['2nd',2]]
   .actions
     = f.submit 'Save'

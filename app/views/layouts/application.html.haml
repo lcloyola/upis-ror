@@ -33,9 +33,9 @@
               - if user_signed_in?
                 = #TODO: tabularize?
                 %li= link_to 'Students', batches_path
-                %li= link_to 'Classes', schoolyears_path
                 %li= link_to 'Sections', sections_path
                 %li= link_to 'Subjects', subjects_path
+                %li= link_to 'Classes', schoolyears_path
                 %li= link_to 'Departments', departments_path
                 %li= link_to 'School Year', schoolyears_path
                 %li= link_to current_user.email, edit_user_registration_path

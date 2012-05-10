@@ -17,6 +17,18 @@ module GradesHelper
     end
     return final
   end
-
+  def PE(average)
+    grade = average
+    final = case grade
+      when 0 then 'F'
+      when 1 then 'P'
+      when 2 then 'S'
+      when 3 then 'G'
+      when 4 then 'VG'
+      when 5 then 'E'
+      else ' '
+    end
+    return final
+  end
 end
 

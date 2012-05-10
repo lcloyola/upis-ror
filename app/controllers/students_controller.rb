@@ -98,7 +98,7 @@ class StudentsController < ApplicationController
   end
   def honorroll
     @student = Student.find(params[:student_id])
-    @schoolyear = @student.schoolyears.group('schoolyear_id')
+    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
   end
 private
   def assign_student_no

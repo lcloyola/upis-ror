@@ -34,7 +34,14 @@
         %th Final
         %th Action
     %tbody
+      - #REFACTOR_ME!
       - @course.my_students.each do |s|
+        - if @course.subject.is_pe?
+          - ave = final = ''
+        - else
+          - ave = @course.student_average(s.student.id)
+          - final = elevenpt(ave)
+
         %tr
           - if s.student.course_has_failing(@course.id)
             %td.emphasize= s.student.student_no
@@ -42,15 +49,20 @@
             %td= s.student.student_no
           %td= link_to s.student.fullname, s.student
           - s.student.course_grades(@course.id).each do |g|
-            - if !g.value.nil? && g.value < 50
-              %td.emphasize= g.value
+            - if @course.subject.is_pe?
+              - if PE(g.value) == 'F'
+                %td.emphasize= PE(g.value)
+              - else
+                %td= PE(g.value)
             - else
-              %td= g.value
-          - ave = @course.student_average(s.student.id)
+              - if !g.value.nil? && g.value < 50
+                %td.emphasize= g.value
+              - else
+                %td= g.value
           %td= ave
           %td
-            = elevenpt(ave)
-            - if elevenpt(ave) == 4.0
+            = final
+            - if final == 4.0
               - @removal = s.student.course_removed(@course)
               - if @removal.present? && @removal.pass
                 (3.0)

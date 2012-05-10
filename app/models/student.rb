@@ -9,11 +9,11 @@ class Student < ActiveRecord::Base
   def fullname
     "#{last} #{given} #{middle}"
   end
-  
+
   def sn_fullname
     "#{student_no} - #{last} #{given} #{middle}"
   end
-  
+
   def enrolled?(course_id = nil)
     unless Grade.where("course_id = ? AND student_id = ?", course_id, self.id).empty?
       return true
@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
       return false
     end
     return true
-  end  
+  end
   def course_has_grade(course_id)
     @grades = Grade.where('course_id = ? and student_id = ?', course_id, self.id)
     @grades.each do |g|
@@ -40,11 +40,17 @@ class Student < ActiveRecord::Base
     return false
   end
   def course_has_failing(course_id)
+    course = Course.find(course_id)
     self.course_grades(course_id).each do |g|
-      if !g.value.nil? && g.value < 50; return true ; end
+      if !course.subject.is_pe? && !g.value.nil? && g.value < 50
+        return true
+      elsif course.subject.is_pe? && g.value == 0
+        return true
+      end
     end
     return false
   end
+
   def course_grades(course_id)
     return Grade.where('course_id = ? and student_id = ?', course_id, self.id)
   end
@@ -58,3 +64,4 @@ class Student < ActiveRecord::Base
     return self.sections.where('schoolyear_id =?', schoolyear_id).first
   end
 end
+

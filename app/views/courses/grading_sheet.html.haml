@@ -27,13 +27,16 @@
   %tbody
     = form_for(@course, :url => "update_grades") do |f|
       = #TODO: fix validations
-      - @course.my_students.sort!{ |a,b| a.student.fullname <=> b.student.fullname }.each do |s|
+      - @course.my_students.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |s|
         %tr
           %td= s.student.student_no
-          %td= s.student.fullname
+          %td.capslock= s.student.fullname
           - s.student.course_grades(@course.id).each do |grade|
             = f.fields_for grade, :index => grade.id do |grade_f|
-              %td= grade_f.text_field :value, :class => "gradesheetinput"
+              - if @course.subject.is_pe?
+                %td= grade_f.select :value, [[' ',nil],['F',0],['S',1],['P',2],['G',3],['VG',4],['E',5]]
+              - else
+                %td= grade_f.text_field :value, :class => "gradesheetinput"
       .actions
         = f.submit 'Save'
 

@@ -2,8 +2,9 @@
 = render "defnav"
 %ul
   - @courses.each do |c|
-    %li= link_to c.subject.name, c
+    %li= link_to "#{c.subject.name} #{c.section.name}", c
     %ul
       - c.dq_students(@quarter).each do |g|
         %li
           = g.student.fullname
+

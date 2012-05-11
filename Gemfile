@@ -16,6 +16,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
+gem 'wicked_pdf'
 gem "less", "~> 2.0.9"
 gem 'twitter-bootstrap-rails'
 gem 'formtastic-bootstrap'
@@ -42,3 +43,4 @@ group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
 end
+

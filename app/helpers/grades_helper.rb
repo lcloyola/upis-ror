@@ -21,8 +21,8 @@ module GradesHelper
     grade = average
     final = case grade
       when 0 then 'F'
-      when 1 then 'P'
-      when 2 then 'S'
+      when 1 then 'S'
+      when 2 then 'P'
       when 3 then 'G'
       when 4 then 'VG'
       when 5 then 'E'

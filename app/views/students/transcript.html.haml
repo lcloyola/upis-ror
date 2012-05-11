@@ -24,8 +24,7 @@
           - else
             - @ave = c.student_average(@student.id)
             %td
-              - @final = elevenpt(@ave)
-              = @final
+              = @final = c.student_final(@student.id)
               - if @final == 4.0
                 - @removal = @student.course_removed(c)
                 - if @removal.present? && @removal.pass
@@ -33,3 +32,4 @@
                 - elsif @removal.present? && !@removal.pass
                   (5.0)
           %td= c.subject.units
+

@@ -33,7 +33,12 @@
               %td -
               %td -
             - @student.course_grades(c.id).each do |g|
-              - if !g.value.nil? && g.value < 50
+              - if c.subject.is_pe?
+                - if pe(g.value) == 'F'
+                  %td.emphasize= pe(g.value)
+                - else
+                  %td= pe(g.value)
+              - elsif !g.value.nil? && g.value < 50
                 %td.emphasize= g.value
               - else
                 %td= g.value
@@ -41,18 +46,18 @@
               %td -
               %td -
 
-            %td= c.subject.units            
+            %td= c.subject.units
             - if @student.course_has_blank(c.id)
               %td
               %td
             - else
               %td= c.student_average(@student.id)
               %td
-                - @final = elevenpt(c.student_average(@student.id))
-                = @final
+                = @final = c.student_final(@student.id)
                 - if @final == 4.0
                   - @removal = @student.course_removed(c)
                   - if @removal.present? && @removal.pass
                     (3.0)
                   - elsif @removal.present? && !@removal.pass
                     (5.0)
+

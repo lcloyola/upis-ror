@@ -17,7 +17,7 @@ module GradesHelper
     end
     return final
   end
-  def PE(average)
+  def pe(average)
     grade = average
     final = case grade
       when 0 then 'F'

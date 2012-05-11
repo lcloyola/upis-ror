@@ -12,6 +12,7 @@
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
     %tr
+      %th Year
       %th Section
       %th Subject
       %th Department
@@ -21,9 +22,8 @@
   %tbody
     - @schoolyear.courses.each do |c|
       %tr
-        %td
-          = c.section.name unless c.section.nil?
-
+        %td= c.subject.year
+        %td= c.section.name unless c.section.nil?
         %td= c.subject.details
         %td= c.subject.department.name
         %td= c.semname

@@ -14,6 +14,9 @@ class Course < ActiveRecord::Base
   has_many :students, :through => :grades, :source => :student, :dependent => :destroy
 
   scope :first_sem, :conditions => ['sem = ?', 1]
+  scope :with_deficiency, lambda { |quarter|
+    includes(:grades).where('grades.quarter = ? and grades.value IS NULL', quarter)
+  }
 
   def my_students
     return Grade.where('course_id = ?', self.id).group("student_id")

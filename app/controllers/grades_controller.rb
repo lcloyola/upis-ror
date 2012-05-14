@@ -81,8 +81,8 @@ class GradesController < ApplicationController
     end
   end
   def deficiency
-    @courses = Schoolyear.current_schoolyear.first.courses
     @quarter = params['quarter']
+    @courses = Schoolyear.current_schoolyear.first.courses.with_deficiency(@quarter)
   end
 
   def schoolyear
@@ -92,7 +92,7 @@ class GradesController < ApplicationController
       @schoolyears = Schoolyear.all
     end
   end
-  
+
   def transcript
     if !params['batch_id'].nil?
       @batch = Batch.find(params['batch_id'])
@@ -101,3 +101,4 @@ class GradesController < ApplicationController
     end
   end
 end
+

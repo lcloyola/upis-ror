@@ -1,10 +1,19 @@
 %h1 Deficiencies
 = render "defnav"
-%ul
-  - @courses.each do |c|
-    %li= link_to "#{c.subject.name} #{c.section.name}", c
-    %ul
-      - c.dq_students(@quarter).each do |g|
-        %li
-          = g.student.fullname
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Course
+      %th Section
+      %th Students
+
+  %tbody
+    - @courses.each do |c|
+      %tr
+        %td=  c.section.name unless c.section.nil?
+        %td= link_to c.subject.name, c
+        %td
+          - c.dq_students(@quarter).each do |g|
+            %li
+              = g.student.fullname
 

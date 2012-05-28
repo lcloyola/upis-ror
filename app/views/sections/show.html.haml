@@ -18,6 +18,8 @@
     \|
     = link_to 'Back', sections_path
 
+    %h4= link_to 'pdf form', section_path(@section, :format => :pdf)
+
   .span4
     %h3 Subjects
     %ul
@@ -32,7 +34,7 @@
           %th Student
           %th Action
       %tbody
-        - @section.members.each do |m|
+        - @section.members.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |m|
           %tr
             %td= m.student.student_no
             %td.capslock= link_to m.student.fullname, m.student

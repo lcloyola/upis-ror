@@ -7,8 +7,10 @@
   %li= link_to "Profile", @student
 %br
 -#TODO: refactor!!!
-- @student.schoolyears.group('schoolyear_id').each do |sy|
+- @schoolyear.each do |sy|
   %h4= sy.name
+  Weighted Average:
+  = @student.gwa_final_schoolyear(sy)
   %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable"}
     %thead
       %tr

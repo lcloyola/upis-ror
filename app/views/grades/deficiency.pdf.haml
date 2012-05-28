@@ -1,7 +1,5 @@
 %h1 Deficiencies
-= render "defnav"
-%h4= link_to 'pdf form', "/grades/deficiency/#{@quarter}.pdf"
-
+%h3= "Quarter #{@quarter}"
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
     %tr
@@ -12,7 +10,7 @@
   %tbody
     - @courses.each do |c|
       %tr
-        %td= link_to c.subject.name, c
+        %td= c.subject.name
         %td=  c.section.name unless c.section.nil?
         %td
           - c.dq_students(@quarter).each do |g|

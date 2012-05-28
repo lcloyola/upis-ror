@@ -1,0 +1,64 @@
+%h4
+  = @course.semname
+  = @course.schoolyear.name
+%h2= @course.subject.details
+%h3= @course.faculty.fullname
+%h3= @course.section.name
+%h5= "#{@course.my_students.count.keys.count} students"
+%br
+-unless(@course.students.empty?)
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Student No
+        %th Student
+        - if @course.yearlong == true
+          %th 1st Q
+          %th 2nd Q
+          %th 3rd Q
+          %th 4th Q
+        - elsif @course.sem == 1
+          %th 1st Q
+          %th 2nd Q
+        - else
+          %th 3rd Q
+          %th 4th Q
+        %th Average
+        %th Final
+        %th Remarks
+    %tbody
+      - #REFACTOR_ME!
+      - @course.my_students.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |s|
+        %tr
+          - if s.student.course_has_failing(@course.id)
+            %td.emphasize= s.student.student_no
+          - else
+            %td= s.student.student_no
+          %td.capslock= s.student.fullname
+          - s.student.course_grades(@course.id).each do |g|
+            - if @course.subject.is_pe?
+              - if pe(g.value) == 'F'
+                %td.emphasize= pe(g.value)
+              - else
+                %td= pe(g.value)
+            - else
+              - if !g.value.nil? && g.value < 50
+                %td.emphasize= g.value
+              - else
+                %td= g.value
+          - if !s.student.course_has_blank(@course.id)
+            %td= ave = @course.student_average(s.student_id)
+            %td
+              = final = @course.student_final(s.student_id)
+              - if final == 4.0
+                - @removal = s.student.course_removed(@course)
+                - if @removal.present? && @removal.pass
+                  (3.0)
+                - elsif @removal.present? && !@removal.pass
+                  (5.0)
+            %td
+          -else
+            %td
+            %td
+            %td
+

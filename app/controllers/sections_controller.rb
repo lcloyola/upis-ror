@@ -19,6 +19,9 @@ class SectionsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }
+      format.pdf do
+        render :pdf => "show.pdf", :layout => "pdf.html"
+      end
     end
   end
 
@@ -81,7 +84,7 @@ class SectionsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def year
     @schoolyear = Schoolyear.find(params[:schoolyear_id])
     @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
@@ -90,7 +93,7 @@ class SectionsController < ApplicationController
       format.html
     end
   end
-  
+
   def enroll_to_section
     @section = Section.find(params[:id])
     params[:students].each do |student_id|
@@ -102,7 +105,7 @@ class SectionsController < ApplicationController
       format.html {redirect_to Section.find(@section.id) }
     end
   end
-  
+
   def unenroll_student
     @section = Section.find(params[:id])
     @student = Student.find(params[:student_id])
@@ -118,7 +121,7 @@ class SectionsController < ApplicationController
     end
   end
   def for_sectionid
-    @sections = Section.find( :all, :conditions => [" schoolyear_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }    
+    @sections = Section.find( :all, :conditions => [" schoolyear_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }
     respond_to do |format|
       format.json  { render :json => @sections }
     end
@@ -131,3 +134,4 @@ private
     end
   end
 end
+

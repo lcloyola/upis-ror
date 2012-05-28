@@ -83,6 +83,13 @@ class GradesController < ApplicationController
   def deficiency
     @quarter = params['quarter']
     @courses = Schoolyear.current_schoolyear.first.courses.with_deficiency(@quarter)
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @section }
+      format.pdf do
+        render :pdf => "deficiency.pdf", :layout => "pdf.html"
+      end
+    end
   end
 
   def schoolyear

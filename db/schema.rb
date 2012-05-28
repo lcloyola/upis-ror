@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20120407095114) do
   create_table "subjects", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
-    t.decimal  "units",         :precision => 10, :scale => 0
+    t.decimal  "units",         :precision => 10, :scale => 2
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"

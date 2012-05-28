@@ -1,7 +1,6 @@
 %p#notice= notice
 %h4
-  = @course.semname
-  = @course.schoolyear.name
+  = "A.Y. #{@course.schoolyear.name}"
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
@@ -9,6 +8,7 @@
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
+  %li= link_to 'pdf form', course_path(@course, :format => :pdf)
   - if !@course.has_grade?
     %li= link_to 'Destroy Class', @course, :confirm => 'Are you sure?', :method => :delete
     %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'

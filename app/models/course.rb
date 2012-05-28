@@ -24,7 +24,7 @@ class Course < ActiveRecord::Base
 
   def student_average(student_id)
     @grades = Grade.where('student_id = ? AND course_id = ?', student_id, self.id).sum('value')
-    return '' if self.subject.is_pe?
+    return 0 if self.subject.is_pe?
     if self.yearlong
       return (@grades / 4.00).round
     else
@@ -32,7 +32,7 @@ class Course < ActiveRecord::Base
     end
   end
   def student_final(student_id)
-    return pe(self.student_average(student_id)) if self.subject.is_pe?
+    return 0 if self.subject.is_pe?
     return elevenpt(self.student_average(student_id))
   end
   def semname

@@ -63,5 +63,21 @@ class Student < ActiveRecord::Base
   def section(schoolyear_id)
     return self.sections.where('schoolyear_id =?', schoolyear_id).first
   end
+  def gwa_raw_schoolyear(sy)
+    total = units = 0
+    self.courses_year(sy.id).each do |c|
+      total = (c.student_average(self.id) * c.subject.units) + total
+      units = c.subject.units + units
+    end
+    return total/units
+  end
+  def gwa_final_schoolyear(sy)
+    total = units = 0
+    self.courses_year(sy.id).each do |c|
+      total = (c.student_final(self.id) * c.subject.units) + total
+      units = c.subject.units + units
+    end
+    return total/units
+  end
 end
 

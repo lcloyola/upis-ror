@@ -6,22 +6,27 @@
   %thead
     %tr
       %th Student no
-      %th Batch
       %th Last
       %th Given
       %th Middle
-      %th Nick
+      %th raw GWA for the year
+      %th elvenpt GWA for the year
       %th{:colspan => 3 } Action
   %tbody
     - @students.each do |student|
       %tr
         %td= student.student_no
-        %td= student.batch.year
         %td.capslock= student.last
         %td.capslock= student.given
         %td.capslock= student.middle
-        %td.capslock= student.nick
+        - if student.courses_year(Schoolyear.current_schoolyear.first).present?
+          %td= student.gwa_raw_schoolyear(Schoolyear.current_schoolyear.first)
+          %td= student.gwa_final_schoolyear(Schoolyear.current_schoolyear.first)
+        - else
+          %td
+          %td
         %td= link_to 'Transcript', "/students/transcript/#{student.id}"
         %td= link_to 'Honorroll', "/students/honorroll/#{student.id}"
         %td= link_to 'Profile', student
         %td= link_to 'Edit', edit_batch_student_url(student.batch, student)
+

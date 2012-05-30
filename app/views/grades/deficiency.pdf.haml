@@ -1,4 +1,4 @@
-%h1 Deficiencies
+%h3 Deficiencies
 %h3= "Quarter #{@quarter}"
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
@@ -11,7 +11,7 @@
     - @courses.each do |c|
       %tr
         %td= c.subject.name
-        %td=  c.section.name unless c.section.nil?
+        %td= "#{c.section.year} #{c.section.name}" unless c.section.nil?
         %td
           - c.dq_students(@quarter).each do |g|
             %li

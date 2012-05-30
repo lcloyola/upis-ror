@@ -13,7 +13,7 @@
     - @courses.each do |c|
       %tr
         %td= link_to c.subject.name, c
-        %td=  c.section.name unless c.section.nil?
+        %td= "#{c.section.year} #{c.section.name}" unless c.section.nil?
         %td
           - c.dq_students(@quarter).each do |g|
             %li

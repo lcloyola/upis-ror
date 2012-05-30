@@ -20,7 +20,7 @@ class SectionsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @section }
       format.pdf do
-        render :pdf => "show.pdf", :layout => "pdf.html"
+        render :pdf => "show.pdf", :layout => "pdf.html", :margin => {:top => 7, :bottom => 3}
       end
     end
   end

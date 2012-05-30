@@ -1,23 +1,20 @@
-%p#notice= notice
-.row-fluid
-  %h1
-    = "#{@section.year} #{@section.name}"
-    .span{:style => "float: right"}= "Batch #{@section.batch.year}"
-  %h2
-    A.Y.
-    = @section.schoolyear.name
-    .span{:style => "float: right"}= @section.faculty.fullname
-  %h3= "#{ @section.students.count } students"
+%h5
+  = "#{@section.year} #{@section.name}"
+  .span{:style => "float: right"}= "Batch #{@section.batch.year}"
+%h5
+  A.Y.
+  = @section.schoolyear.name
+  .span{:style => "float: right"}= @section.faculty.fullname
+%p.span{:style => "margin: 1px"}= "#{ @section.students.count } students"
 
-  -unless(@section.students.empty?)
-    %table{:id => "sortable", :class => "zebra-striped tablesorter"}
-      %thead
+-unless(@section.students.empty?)
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Student No
+        %th Student
+    %tbody
+      - @section.members.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |m|
         %tr
-          %th Student No
-          %th Student
-      %tbody
-        - @section.members.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |m|
-          %tr
-            %td= m.student.student_no
-            %td.capslock= m.student.fullname
-
+          %td= m.student.student_no
+          %td.capslock= m.student.fullname

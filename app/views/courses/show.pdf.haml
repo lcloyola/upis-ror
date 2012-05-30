@@ -1,11 +1,13 @@
 %h4
-  = @course.semname
-  = @course.schoolyear.name
-%h2= @course.subject.details
-%h3= @course.faculty.fullname
-%h3= @course.section.name
-%h5= "#{@course.my_students.count.keys.count} students"
-%br
+  = @course.section.name
+  .span{:style => "float: right"} 
+    = @course.semname
+    = @course.schoolyear.name
+%h4
+  = @course.subject.details
+  .span{:style => "float: right"}= "#{@course.my_students.count.keys.count} students"
+%h4
+  = @course.faculty.fullname
 -unless(@course.students.empty?)
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead

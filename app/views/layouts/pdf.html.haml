@@ -23,14 +23,10 @@
   %body
     .container-fluid
       .row-fluid
-        %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 80px; padding: 0 5px; float: left;"
+        %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; float: left;"
         %h2{:style => "float: left; clear: right;"} University of the Philippines Integrated School
         %p{:style => "padding: 15px;"}
         %h6 Katipunan Road, UP Diliman, Quezon City, Philippines
       .row-fluid
         .span16
           = yield
-
-      %footer
-        %p University of the Philippines Integrated School
-

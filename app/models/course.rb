@@ -21,6 +21,19 @@ class Course < ActiveRecord::Base
   def my_students
     return Grade.where('course_id = ?', self.id).group_by(&:student)
   end
+  def student_average(student_id)
+    @grades = Grade.where('student_id = ? AND course_id = ?', student_id, self.id).sum('value')
+    return 0 if self.subject.is_pe?
+    if self.yearlong
+      return (@grades / 4.00).round
+    else
+      return (@grades / 2.00).round
+    end
+  end
+  def student_final(student_id)
+    return 0 if self.subject.is_pe?
+    return elevenpt(self.student_average(student_id))
+  end
   def semname
     if self.sem == 1
       return "1st sem"

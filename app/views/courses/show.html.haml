@@ -4,7 +4,7 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
-%h3= "#{@course.my_students.count.keys.count} students"
+%h3="#{@course.my_students.length} students"
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
@@ -14,7 +14,7 @@
     %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'
 %br
 -unless(@course.students.empty?)
-  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %table{:id => "byname", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th Student No
@@ -34,15 +34,14 @@
         %th Final
         %th Action
     %tbody
-      - #REFACTOR_ME!
-      - @course.my_students.each do |s|
+      - @course.my_students.each do |s, grades|
         %tr
-          - if s.student.course_has_failing(@course.id)
-            %td.emphasize= s.student.student_no
+          - if grades.any? {|grade| !grade.value.nil? && grade.value < 50} && !@course.subject.is_pe?
+            %td.emphasize= s.student_no
           - else
-            %td= s.student.student_no
-          %td.capslock= link_to s.student.fullname, s.student
-          - s.student.course_grades(@course.id).each do |g|
+            %td= s.student_no
+          %td.capslock= link_to s.fullname, s
+          - grades.each do |g|
             - if @course.subject.is_pe?
               - if pe(g.value) == 'F'
                 %td.emphasize= pe(g.value)
@@ -53,23 +52,27 @@
                 %td.emphasize= g.value
               - else
                 %td= g.value
-          %td= ave = @course.student_average(s.student_id)
+          - if !@course.subject.is_pe? && !grades.any? {|grade| grade.value.nil?}
+            %td
+              = ave = (grades.map(&:value).sum.to_f/grades.length).round
+            %td
+              = final = elevenpt(ave)
+              - if final == 4.0
+                - @removal = s.course_removed(@course)
+                - if @removal.present? && @removal.pass
+                  (3.0)
+                - elsif @removal.present? && !@removal.pass
+                  (5.0)
+          - else
+            %td
+            %td
           %td
-            = final = @course.student_final(s.student_id)
-            - if final == 4.0
-              - @removal = s.student.course_removed(@course)
-              - if @removal.present? && @removal.pass
-                (3.0)
-              - elsif @removal.present? && !@removal.pass
-                (5.0)
-          %td
-            - if !s.student.course_has_grade(@course.id)
-              = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.student_id}"
-            - elsif final == 4.0
-              = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.student_id}/pass"
+            - if !s.course_has_grade(@course.id)
+              = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.id}"
+            - elsif final.present? && final == 4.0
+              = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.id}/pass"
               |
-              = link_to 'Fail', "/courses/removal/#{@course.id}/#{s.student_id}/fail"
-
+              = link_to 'Fail', "/courses/removal/#{@course.id}/#{s.id}/fail"
 %h3 Enroll Students
 = form_for(@course, :url => enroll_students_course_path) do |f|
   -if @course.errors.any?

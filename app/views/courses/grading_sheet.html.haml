@@ -4,7 +4,7 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
-%h3= "#{@course.my_students.count.keys.count} students"
+%h3= "#{@course.my_students.length} students"
 %ul.nav.nav-tabs
   %li= link_to 'Classlist', @course
   %li.active= link_to 'Update Grades', grading_sheet_course_path(@course)
@@ -27,11 +27,13 @@
   %tbody
     = form_for(@course, :url => "update_grades") do |f|
       = #TODO: fix validations
-      - @course.my_students.sort!{ |a,b| a.student.fullname.downcase <=> b.student.fullname.downcase }.each do |s|
+      - @my_students = @course.my_students
+      - @my_students.keys.sort!{ |a,b| a.fullname.downcase <=> b.fullname.downcase }.each do |s|
+        - grades = @my_students[s]
         %tr
-          %td= s.student.student_no
-          %td.capslock= s.student.fullname
-          - s.student.course_grades(@course.id).each do |grade|
+          %td= s.student_no
+          %td.capslock= s.fullname
+          - grades.each do |grade|
             = f.fields_for grade, :index => grade.id do |grade_f|
               - if @course.subject.is_pe?
                 %td= grade_f.select :value, [[' ',nil],['F',0],['S',1],['P',2],['G',3],['VG',4],['E',5]]

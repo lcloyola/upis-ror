@@ -50,7 +50,9 @@
           %li= msg
 
   .field
-    = select_tag "students[]", options_from_collection_for_select(@students, "id","sn_fullname"), :multiple => true, :class =>"multiselect"
+    = f.label :batch
+    = collection_select :batch, :batch_id, Batch.all, :id, :year
+  .students-list= render "students/students_list"
   .actions
     = f.submit 'Save'
 

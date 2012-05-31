@@ -15,7 +15,7 @@ class SectionsController < ApplicationController
   # GET /sections/1.json
   def show
     @section = Section.find(params[:id])
-    @students = Student.where('batch_id = ?', @section[:batch_id])
+    @students = Batch.find(@section.batch.id).students
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }

@@ -21,6 +21,7 @@ Upis::Application.routes.draw do
     get 'unenroll_students' => 'courses#unenroll_students'
   end
 
+  match 'students/get_students_list/:id' =>'students#get_students_list'
   match 'sections/year/:schoolyear_id' => 'sections#year'
   match 'sections/new/:schoolyear_id' => 'sections#new'
   match 'sections/for_sectionid/:id' => 'sections#for_sectionid'

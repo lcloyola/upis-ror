@@ -1,0 +1,3 @@
+.field
+  = select_tag "students[]", options_from_collection_for_select(@students, "id", "fullname"), :multiple => true, :class =>"multiselect"
+

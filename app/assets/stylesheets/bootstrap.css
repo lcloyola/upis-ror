@@ -632,7 +632,8 @@ select {
   background-color: #ffffff;
 }
 select[multiple], select[size] {
-  height: auto;
+  height: 150px;
+  width: 600px;
 }
 input[type="image"] {
   -webkit-box-shadow: none;
@@ -3494,3 +3495,4 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
+

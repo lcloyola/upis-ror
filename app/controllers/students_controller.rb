@@ -3,7 +3,10 @@ class StudentsController < ApplicationController
   before_filter do
     redirect_to new_user_session_path unless current_user && current_user.admin?
   end
-
+  def get_students_list
+    @students = Batch.find(params[:id]).students unless params[:id].blank?
+    render :partial => "students_list", :locals => { :students => @students }
+  end
   def index
     @batch = Batch.find(params[:batch_id])
     @students = Student.where('batch_id = ?', params[:batch_id])

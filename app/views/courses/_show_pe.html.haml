@@ -1,0 +1,15 @@
+- @course.my_students.each do |s, grades|
+  %tr
+    %td= s.student_no
+    %td.capslock= link_to s.fullname, s
+    - grades.each do |g|
+      - if pe(g.value) == 'F'
+        %td.emphasize= pe(g.value)
+      - else
+        %td= pe(g.value)
+    %td
+    %td
+    %td
+      - if !s.course_has_grade(@course.id)
+        = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.id}"
+

@@ -1,0 +1,30 @@
+- @course.my_students.each do |s, grades|
+  %tr
+    - if grades.any? {|grade| !grade.value.nil? && grade.value < 50}
+      %td.emphasize= s.student_no
+    - else
+      %td= s.student_no
+    %td.capslock= link_to s.fullname, s
+    - grades.each do |g|
+      - if !g.value.nil? && g.value < 50
+        %td.emphasize= g.value
+      - else
+        %td= g.value
+    - if !grades.any? {|grade| grade.value.nil?}
+      %td= ave = (grades.map(&:value).sum.to_f/grades.length).round
+      %td
+        = final = elevenpt(ave)
+        - if final == 4.0
+          - @removal = s.course_removed(@course)
+          = @removal.value if @removal.present?
+    - else
+      %td
+      %td
+    %td
+      - if !s.course_has_grade(@course.id)
+        = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.id}"
+      - elsif final.present? && final == 4.0
+        = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.id}/pass"
+        |
+        = link_to 'Fail', "/courses/removal/#{@course.id}/#{s.id}/fail"
+

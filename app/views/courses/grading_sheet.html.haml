@@ -1,0 +1,44 @@
+%h4
+  = @course.semname
+  = @course.schoolyear.name
+%h1= @course.subject.details
+%h2= @course.faculty.fullname
+%h3= @course.section.name
+%h3= "#{@course.my_students.length} students"
+%ul.nav.nav-tabs
+  %li= link_to 'Classlist', @course
+  %li.active= link_to 'Update Grades', grading_sheet_course_path(@course)
+
+%table
+  %thead
+    %th Student Number
+    %th Student Name
+    - if @course.yearlong == true
+      %th 1st Q
+      %th 2nd Q
+      %th 3rd Q
+      %th 4th Q
+    - elsif @course.sem == 1
+      %th 1st Q
+      %th 2nd Q
+    - else
+      %th 3rd Q
+      %th 4th Q
+  %tbody
+    = form_for(@course, :url => "update_grades") do |f|
+      = #TODO: fix validations
+      - @my_students = @course.my_students
+      - @my_students.keys.sort!{ |a,b| a.fullname.downcase <=> b.fullname.downcase }.each do |s|
+        - grades = @my_students[s]
+        %tr
+          %td= s.student_no
+          %td.capslock= s.fullname
+          - grades.each do |grade|
+            = f.fields_for grade, :index => grade.id do |grade_f|
+              - if @course.subject.is_pe?
+                %td= grade_f.select :value, [[' ',nil],['F',0],['S',1],['P',2],['G',3],['VG',4],['E',5]]
+              - else
+                %td= grade_f.text_field :value, :class => "gradesheetinput"
+      .actions
+        = f.submit 'Save'
+

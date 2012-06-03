@@ -1,4 +1,4 @@
-= form_for @faculty do |f|
+= form_for @faculty,:html => {:class=>"form-stacked"} do |f|
   -if @faculty.errors.any?
     #error_explanation
       %h2= "#{pluralize(@faculty.errors.count, "error")} prohibited this faculty from being saved:"
@@ -17,13 +17,19 @@
     = f.text_field :middle
   .field
     = f.label :department
-    = collection_select :faculty, :department_id, Department.all, :id, :name
+    = collection_select(:faculty, :department_id, Department.all, :id, :name, options ={:prompt => "--select one--"})
   .field
     = f.label :appointment
-    = f.date_select :appointment
+    = f.date_select :appointment, :start_year => Time.now.year - 25
+  .field
+    = f.label :birthday
+    = f.date_select :birthday, :start_year => Time.now.year - 60
   .field
     = f.label :email
     = f.text_field :email
+  .field
+    = f.label :landline
+    = f.text_field :landline
   .field
     = f.label :mobile
     = f.text_field :mobile

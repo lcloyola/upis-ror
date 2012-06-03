@@ -3,8 +3,12 @@ class StudentsController < ApplicationController
   before_filter do
     redirect_to new_user_session_path unless current_user && current_user.admin?
   end
-  
+  def get_students_list
+    @students = Batch.find(params[:id]).students unless params[:id].blank?
+    render :partial => "students_list", :locals => { :students => @students }
+  end
   def index
+    @batch = Batch.find(params[:batch_id])
     @students = Student.where('batch_id = ?', params[:batch_id])
 
     respond_to do |format|
@@ -29,7 +33,7 @@ class StudentsController < ApplicationController
   def new
     @batch = Batch.find(params[:batch_id])
     @student = Student.new()
-    
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,7 +53,7 @@ class StudentsController < ApplicationController
     @batch = Batch.find(params[:batch_id])
     @student = @batch.students.new(params[:student])
     assign_student_no()
-    
+
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
@@ -88,14 +92,31 @@ class StudentsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+  def transcript
+    @student = Student.find(params[:student_id])
+    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
+    respond_to do |format|
+      format.html
+    end
+  end
+  def honorroll
+    @student = Student.find(params[:student_id])
+    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "honorroll.pdf", :layout => "pdf.html"
+      end
+    end
+  end
 private
   def assign_student_no
     @batchmate = Student.where('batch_id = ?', @batch.id).order('student_no ASC')
     if @batchmate.empty?
       @student.student_no = @batch.year * 100000 + 1
-    else 
+    else
       @student.student_no = @batchmate.last.student_no + 1
     end
   end
 end
+

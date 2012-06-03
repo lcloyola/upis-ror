@@ -1,21 +1,38 @@
 Upis::Application.routes.draw do
-  #resources :courses
+  resources :grades
 
   resources :sections do
     member do
-      get 'add_students'
       put 'enroll_to_section'
+      get 'unenroll/:student_id' =>  'sections#unenroll_student'
     end
   end
-
   resources :faculties
 
   resources :schoolyears do
-    member do
-      resources :courses
-      get 'make_current'
-    end
+      get 'make_current', :on => :member
   end
+
+  resources :courses do
+    put 'enroll_students', :on => :member
+    get 'unenroll/:student_id' =>  'courses#unenroll_student'
+    get 'grading_sheet', :on => :member
+    put 'update_grades', :on => :member
+    get 'unenroll_students' => 'courses#unenroll_students'
+  end
+
+  match 'students/get_students_list/:id' =>'students#get_students_list'
+  match 'sections/year/:schoolyear_id' => 'sections#year'
+  match 'sections/new/:schoolyear_id' => 'sections#new'
+  match 'sections/for_sectionid/:id' => 'sections#for_sectionid'
+
+  match 'courses/new/:schoolyear_id/' => 'courses#new'
+  match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
+
+  match 'grades/deficiency/:quarter/' => 'grades#deficiency'
+
+  match 'students/transcript/:student_id' => 'students#transcript'
+  match 'students/honorroll/:student_id' => 'students#honorroll'
 
   resources :subjects
 
@@ -88,3 +105,4 @@ Upis::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

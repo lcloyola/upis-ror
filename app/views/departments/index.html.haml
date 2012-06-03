@@ -1,19 +1,15 @@
 %h1 Listing departments
-
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-
-  - @departments.each do |department|
-    %tr
-      %td= department.name
-      %td= link_to 'Show', department
-      %td= link_to 'Edit', edit_department_path(department)
-      %td= link_to 'Destroy', department, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
 = link_to 'New Department', new_department_path
+
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Name
+      %th Faculty Memebers
+  %tbody
+    - @departments.each do |department|
+      %tr
+        %td= department.name
+        %td= department.faculties.count
+        %td= link_to 'Show', department
+        %td= link_to 'Edit', edit_department_path(department)

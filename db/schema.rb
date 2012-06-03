@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120210094449) do
+ActiveRecord::Schema.define(:version => 20120407095114) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
+    t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remarks"
   end
 
   create_table "courses", :force => true do |t|
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20120210094449) do
     t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "yearlong",      :default => true
   end
 
   add_index "courses", ["faculty_id"], :name => "index_courses_on_faculty_id"
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20120210094449) do
     t.datetime "updated_at"
   end
 
+  add_index "enrollees", ["course_id", "student_id"], :name => "index_enrollees_on_course_id_and_student_id", :unique => true
   add_index "enrollees", ["course_id"], :name => "index_enrollees_on_course_id"
   add_index "enrollees", ["student_id"], :name => "index_enrollees_on_student_id"
 
@@ -63,9 +65,44 @@ ActiveRecord::Schema.define(:version => 20120210094449) do
     t.string   "mobile"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "birthday"
+    t.string   "landline"
   end
 
   add_index "faculties", ["department_id"], :name => "index_faculties_on_department_id"
+
+  create_table "grades", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "student_id"
+    t.integer  "quarter"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "grades", ["course_id"], :name => "index_grades_on_course_id"
+  add_index "grades", ["student_id"], :name => "index_grades_on_student_id"
+
+  create_table "members", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "members", ["section_id"], :name => "index_members_on_section_id"
+  add_index "members", ["student_id"], :name => "index_members_on_student_id"
+
+  create_table "removals", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "student_id"
+    t.boolean  "pass"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "removals", ["course_id"], :name => "index_removals_on_course_id"
+  add_index "removals", ["student_id"], :name => "index_removals_on_student_id"
 
   create_table "schoolyears", :force => true do |t|
     t.integer  "start"
@@ -127,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20120210094449) do
   create_table "subjects", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
-    t.decimal  "units"
+    t.decimal  "units",         :precision => 10, :scale => 2
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"

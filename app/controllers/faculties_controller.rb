@@ -25,7 +25,6 @@ class FacultiesController < ApplicationController
   # GET /faculties/new.json
   def new
     @faculty = Faculty.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @faculty }

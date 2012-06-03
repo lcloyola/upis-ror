@@ -1,22 +1,55 @@
 %p#notice= notice
+%h4
+  = "A.Y. #{@course.schoolyear.name}"
+%h1= @course.subject.details
+%h2= @course.faculty.fullname
+%h3= @course.section.name
+%h3="#{@course.my_students.length} students"
+%ul.nav.nav-tabs
+  %li.active= link_to 'Classlist', @course
+  %li= link_to 'Update Grades', grading_sheet_course_path(@course)
+  %li= link_to 'pdf form', course_path(@course, :format => :pdf)
+  - if !@course.has_grade?
+    %li= link_to 'Destroy Class', @course, :confirm => 'Are you sure?', :method => :delete
+    %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'
+%br
+-unless(@course.students.empty?)
+  %table{:id => "byname", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Student No
+        %th Student
+        - if @course.yearlong == true
+          %th 1st Q
+          %th 2nd Q
+          %th 3rd Q
+          %th 4th Q
+        - elsif @course.sem == 1
+          %th 1st Q
+          %th 2nd Q
+        - else
+          %th 3rd Q
+          %th 4th Q
+        %th Average
+        %th Final
+        %th Action
+    %tbody
+      - if @course.subject.is_pe?
+        = render 'show_pe'
+      - else
+        = render 'show_normal'
+%h3 Enroll Students
+= form_for(@course, :url => enroll_students_course_path) do |f|
+  -if @course.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :batch
+    = collection_select :batch, :batch_id, Batch.all, :id, :year
+  .students-list= render "students/students_list"
+  .actions
+    = f.submit 'Enroll'
 
-%p
-  %b Subject:
-  = @course.subject.name
-  = "#{@course.subject.units} )"
-%p
-  %b Faculty:
-  = @course.faculty.fullname
-%p
-  %b Schoolyear:
-  = @course.schoolyear
-%p
-  %b Sem:
-  = @course.sem
-%p
-  %b Section:
-  = @course.section
-
-= link_to 'Edit', edit_course_path(@course)
-\|
-= link_to 'Back', courses_path

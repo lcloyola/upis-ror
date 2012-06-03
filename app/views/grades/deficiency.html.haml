@@ -1,0 +1,21 @@
+%h1 Deficiencies
+= render "defnav"
+%h4= link_to 'pdf form', "/grades/deficiency/#{@quarter}.pdf"
+
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Course
+      %th Section
+      %th Students
+
+  %tbody
+    - @courses.each do |c|
+      %tr
+        %td= link_to c.subject.name, c
+        %td= "#{c.section.year} #{c.section.name}" unless c.section.nil?
+        %td
+          - c.dq_students(@quarter).each do |g|
+            %li
+              = g.student.fullname
+

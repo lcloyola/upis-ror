@@ -1,0 +1,40 @@
+@import 'bootstrap';
+.content {
+  padding-top: 50px;
+}
+.navbar-inner{
+  height: 40px;
+}
+input,
+input[type="password"],
+input[type="text"] {
+  height: 20px;
+}
+.ui-widget-header{
+  margin-top: 0;
+  padding: 0px;
+}
+
+.center {
+  text-align: center;
+}
+.redtext{
+  color: red;
+}
+
+.orangetext{
+  color: orange;
+}
+.gray{
+  color: #888;
+}
+input.gradesheetinput {
+  width: 50px;
+}
+.emphasize {
+  font-weight: bold;
+  color: red;
+}
+.capslock {
+  text-transform: uppercase;
+}

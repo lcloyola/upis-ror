@@ -1,0 +1,19 @@
+%h3 Deficiencies
+%h3= "Quarter #{@quarter}"
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Course
+      %th Section
+      %th Students
+
+  %tbody
+    - @courses.each do |c|
+      %tr
+        %td= c.subject.name
+        %td= "#{c.section.year} #{c.section.name}" unless c.section.nil?
+        %td
+          - c.dq_students(@quarter).each do |g|
+            %li
+              = g.student.fullname
+

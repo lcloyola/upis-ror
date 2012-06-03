@@ -1,4 +1,4 @@
-= form_for @schoolyear do |f|
+= form_for @schoolyear,:html => {:class=>"form-stacked"} do |f|
   -if @schoolyear.errors.any?
     #error_explanation
       %h2= "#{pluralize(@schoolyear.errors.count, "error")} prohibited this schoolyear from being saved:"

@@ -1,9 +1,23 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @department.name
-
 = link_to 'Edit', edit_department_path(@department)
-\|
+|
 = link_to 'Back', departments_path
+|
+= link_to 'New Faculty', new_faculty_path()
+%p#notice= notice
+%h1= @department.name
+
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %th Name
+    %th Email
+    %th Contact
+    %th Appointment
+  %tbody
+    - @department.faculties.each do |f|
+      %tr
+        %td= f.fullname
+        %td= f.email
+        %td= f.mobile
+        %td= f.appointment
+        %td= link_to "Show", faculty_path(f)
+        %td= link_to "Edit", edit_faculty_path(f)

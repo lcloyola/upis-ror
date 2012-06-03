@@ -1,8 +1,5 @@
-= debug @batch
-%h= @batch
-
 %h3= "Batch #{@batch.year}"
-= form_for([@batch, @batch.students.build]) do |f|
+= form_for [@batch, @batch.students.build], :html => {:class=>"form-stacked"} do |f|
   -if @batch.errors.any?
     #error_explanation
       %h2= "#{pluralize(@batch.errors.count, "error")} prohibited this student from being saved:"
@@ -23,7 +20,7 @@
     = f.text_field :nick
   .field
     = f.label :address
-    = f.text_area :address
+    = f.text_area :address, :rows => 10
   .field
     = f.label :birthday
     = f.date_select :birthday, :start_year => Time.now.year - 25

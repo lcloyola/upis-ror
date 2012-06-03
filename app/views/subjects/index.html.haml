@@ -1,6 +1,8 @@
 %h1 Listing subjects
 -if !Department.all.empty?
-  %table{:id => "sortable", :class => "tablesorter"}
+  = link_to 'New Subject', new_subject_path
+
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th Name
@@ -17,10 +19,7 @@
           %td= subject.year
           %td= link_to 'Show', subject
           %td= link_to 'Edit', edit_subject_path(subject)
-          %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
-
-  %br
-
-  = link_to 'New Subject', new_subject_path
+          - unless !subject.courses.empty?
+            %td= link_to 'Destroy', subject, :confirm => 'Are you sure?', :method => :delete
 -else
   = link_to 'Please create departments first', new_department_path

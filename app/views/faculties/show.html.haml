@@ -1,14 +1,6 @@
 %p#notice= notice
 
-%p
-  %b Last:
-  = @faculty.last
-%p
-  %b Given:
-  = @faculty.given
-%p
-  %b Middle:
-  = @faculty.middle
+%h1= @faculty.fullname
 %p
   %b Department:
   = @faculty.department.name
@@ -16,8 +8,14 @@
   %b Appointment:
   = @faculty.appointment
 %p
+  %b Birthday:
+  = @faculty.birthday
+%p
   %b Email:
   = @faculty.email
+%p
+  %b Landline:
+  = @faculty.landline
 %p
   %b Mobile:
   = @faculty.mobile
@@ -25,3 +23,5 @@
 = link_to 'Edit', edit_faculty_path(@faculty)
 \|
 = link_to 'Back', faculties_path
+|
+= link_to 'New Faculty', new_faculty_path

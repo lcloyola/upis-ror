@@ -1,0 +1,67 @@
+%h4
+  = @course.section.name
+  .span{:style => "float: right"}
+    = @course.semname
+    = @course.schoolyear.name
+%h4
+  = @course.subject.details
+  .span{:style => "float: right"}= "#{@course.my_students.length} students"
+%h4
+  = @course.faculty.fullname
+-unless(@course.students.empty?)
+  %table{:id => "byname", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Student No
+        %th Student
+        - if @course.yearlong == true
+          %th 1st Q
+          %th 2nd Q
+          %th 3rd Q
+          %th 4th Q
+        - elsif @course.sem == 1
+          %th 1st Q
+          %th 2nd Q
+        - else
+          %th 3rd Q
+          %th 4th Q
+        %th Average
+        %th Final
+        %th Remarks
+    %tbody
+      - @my_students = @course.my_students
+      - @my_students.keys.sort!{ |a,b| a.fullname.downcase <=> b.fullname.downcase }.each do |s|
+        - grades = @my_students[s]
+        %tr
+          - if grades.any? {|grade| !grade.value.nil? && grade.value < 50} && !@course.subject.is_pe?
+            %td.emphasize= s.student_no
+          - else
+            %td= s.student_no
+          %td.capslock= s.fullname
+          - grades.each do |g|
+            - if @course.subject.is_pe?
+              - if pe(g.value) == 'F'
+                %td.emphasize= pe(g.value)
+              - else
+                %td= pe(g.value)
+            - else
+              - if !g.value.nil? && g.value < 50
+                %td.emphasize= g.value
+              - else
+                %td= g.value
+          - if !@course.subject.is_pe? && !grades.any? {|grade| grade.value.nil?}
+            %td
+              = ave = (grades.map(&:value).sum.to_f/grades.length).round
+            %td
+              = final = elevenpt(ave)
+              - if final == 4.0
+                - @removal = s.course_removed(@course)
+                - if @removal.present? && @removal.pass
+                  (3.0)
+                - elsif @removal.present? && !@removal.pass
+                  (5.0)
+          -else
+            %td
+            %td
+          %td
+

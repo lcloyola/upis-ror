@@ -1,6 +1,8 @@
 %h1 Editing course
-
-= render 'form'
+-if Schoolyear.all.empty? || Subject.all.empty? || Faculty.all.empty? || @sections.empty?
+  Please create Schoolyears, subjects, sections and faculties first.<br>
+-else
+  = render 'form'
 
 = link_to 'Show', @course
 \|

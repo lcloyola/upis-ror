@@ -1,33 +1,27 @@
 %h1 Listing faculties
+= link_to 'New Faculty', new_faculty_path
 -if !Department.all.empty?
-  %table
-    %tr
-      %th Last
-      %th Given
-      %th Middle
-      %th Department
-      %th Appointment
-      %th Email
-      %th Mobile
-      %th
-      %th
-      %th
-
-    - @faculties.each do |faculty|
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+    %thead
       %tr
-        %td= faculty.last
-        %td= faculty.given
-        %td= faculty.middle
-        %td= faculty.department.name
-        %td= faculty.appointment
-        %td= faculty.email
-        %td= faculty.mobile
-        %td= link_to 'Show', faculty
-        %td= link_to 'Edit', edit_faculty_path(faculty)
-        %td= link_to 'Destroy', faculty, :confirm => 'Are you sure?', :method => :delete
+        %th Department
+        %th Last
+        %th Given
+        %th Middle
+        %th Email
+        %th{:colspan => 2} Action
+    %tbody
+      - @faculties.each do |faculty|
+        %tr
+          %td= faculty.department.name
+          %td= faculty.last
+          %td= faculty.given
+          %td= faculty.middle
+          %td= faculty.email
+          %td= link_to 'Show', faculty
+          %td= link_to 'Edit', edit_faculty_path(faculty)
 
   %br
 
-  = link_to 'New Faculty', new_faculty_path
 -else
   = link_to 'Please create departments first', new_department_path

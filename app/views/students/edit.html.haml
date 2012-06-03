@@ -1,4 +1,4 @@
-%h1= "#{@student.last}, #{@student.given} #{@student.middle}."
+%h1.capslock= @student.fullname
 %h3= "Batch #{@batch.year}"
 = form_for @student do |f|
   -if @student.errors.any?

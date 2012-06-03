@@ -1,13 +1,14 @@
 class BatchesController < ApplicationController
   # GET /batches
   # GET /batches.json
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!
   before_filter do
     redirect_to new_user_session_path unless current_user && current_user.admin?
   end
   
   def index
     @batches = Batch.all
+    @schoolyear = Schoolyear.current_schoolyear.first
 
     respond_to do |format|
       format.html # index.html.erb

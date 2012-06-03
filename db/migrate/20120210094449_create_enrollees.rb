@@ -10,5 +10,6 @@ class CreateEnrollees < ActiveRecord::Migration
     end
     add_index :enrollees, :course_id
     add_index :enrollees, :student_id
+    add_index :enrollees, [ :course_id, :student_id], :unique =>true
   end
 end

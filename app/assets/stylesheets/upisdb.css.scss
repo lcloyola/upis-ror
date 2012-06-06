@@ -38,3 +38,16 @@ input.gradesheetinput {
 .capslock {
   text-transform: uppercase;
 }
+#quarter-stub {
+  border: 2px solid #000;
+  margin: 0;
+  padding: 7px;
+  width: 48%;
+  float: left;
+}
+.page {
+  display: inline-block;
+  clear: both;
+  page-break-after: auto;
+}
+

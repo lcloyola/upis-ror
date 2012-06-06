@@ -1,0 +1,47 @@
+%head
+  = wicked_pdf_stylesheet_link_tag "application"
+  :css
+    body {
+      padding-top: 0px; /* 60px to make the container go all the way to the bottom of the topbar */
+      margin-top: 0px;
+      background: #FFF;
+    }
+- @students.each_slice(6) do |slice|
+  .page
+    - slice.each do |student|
+      #quarter-stub
+        .background{:style => "z-index: 3; opacity: .12; position:absolute;"}= pdf_image_tag '/images/logo.png', :style => "margin: 50px 85px;"
+        %h5= student.fullname
+        %h5= student.section(@sy.id).fullname if student.section(@sy.id).present?
+        %table{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable", :style => "background: pdf_image_tag '/images/upislogo.JPG'"}
+          %thead
+            %tr
+              %th Subject
+              %th Q1
+              %th Q2
+              %th Q3
+              %th Q4
+          %tbody
+            - student.courses_year(@sy.id).each do |c|
+              %tr
+                %td= link_to c.subject.name, c
+                - if !c.yearlong && c.sem == 2
+                  %td -
+                  %td -
+                - student.course_grades(c.id).each do |g|
+                  - if c.subject.is_pe?
+                    - if pe(g.value) == 'F'
+                      %td.emphasize= pe(g.value)
+                    - else
+                      %td= pe(g.value)
+                  - elsif !g.value.nil? && g.value < 50
+                    %td.emphasize= g.value
+                  - else
+                    %td= g.value
+                - if !c.yearlong && c.sem == 1
+                  %td -
+                  %td -
+        %p= student.section(@sy.id).faculty.fullname
+        %p Records Officer:
+        %h6 This stub represents the report card on the specified quarter(s) only. A final report card will be given on the last quarter. Please keep this for future reference.
+

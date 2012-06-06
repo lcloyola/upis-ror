@@ -91,20 +91,13 @@ class GradesController < ApplicationController
       end
     end
   end
-
-  def schoolyear
-    if !params['schoolyear_id'].nil?
-      @schoolyear = Schoolyear.find(params['schoolyear_id'])
-    else
-      @schoolyears = Schoolyear.all
-    end
-  end
-
-  def transcript
-    if !params['batch_id'].nil?
-      @batch = Batch.find(params['batch_id'])
-    else
-      @batches = Batch.all
+  def quarterreport
+    @students = Batch.find(1).students.limit(2)
+    @sy = Schoolyear.find(1)
+    respond_to do |format|
+      format.pdf do
+        render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10
+      end
     end
   end
 end

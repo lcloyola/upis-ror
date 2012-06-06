@@ -1,6 +1,4 @@
 Upis::Application.routes.draw do
-  resources :grades
-
   resources :sections do
     member do
       put 'enroll_to_section'
@@ -21,7 +19,6 @@ Upis::Application.routes.draw do
     get 'unenroll_students' => 'courses#unenroll_students'
   end
 
-  match 'students/get_students_list/:id' =>'students#get_students_list'
   match 'sections/year/:schoolyear_id' => 'sections#year'
   match 'sections/new/:schoolyear_id' => 'sections#new'
   match 'sections/for_sectionid/:id' => 'sections#for_sectionid'
@@ -30,9 +27,12 @@ Upis::Application.routes.draw do
   match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
 
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
+  match 'grades/quarter-report' => 'grades#quarterreport'
 
   match 'students/transcript/:student_id' => 'students#transcript'
   match 'students/honorroll/:student_id' => 'students#honorroll'
+  match 'students/classcard/:student_id' => 'students#classcard'
+  match 'students/get_students_list/:id' =>'students#get_students_list'
 
   resources :subjects
 

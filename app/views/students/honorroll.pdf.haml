@@ -14,6 +14,10 @@
       %p
         %span= link_to @student.section(sy.id).name, @student.section(sy.id)
         = "- #{@student.section(sy.id).faculty.fullname}"
+    Weighted Average:
+    = @student.gwa_raw_schoolyear(sy)
+    = @student.gwa_final_schoolyear(sy)
+
     %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable"}
       %thead
         %tr

@@ -1,0 +1,91 @@
+- sy = Schoolyear.current_schoolyear.first
+#left{:style => "width:49%; float: left"}
+  #header.center{:style => "width: 40%; margin: 0 auto 30px;"}
+    %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 85px; float: right;"
+    University of the Philippines
+    %br
+    College of Education
+    %br
+    %span.capslock U.P. Integrated School
+    %br
+    Diliman, Quezon City
+
+  .center.capslock
+    %h4 Report Card
+    %h4= "A.Y. #{sy.name}"
+
+  #student_details.capslock
+    %h3= @student.fullname
+    %h3= @student.section(sy.id).fullname
+
+  %h3.capslock.center Academic Performance
+  %table.center{:id => "year-#{sy.id}", :style=>"margin: 30px 20px;"}
+    %thead
+      %tr
+        %th Subject
+        %th Q1
+        %th Q2
+        %th Q3
+        %th Q4
+        %th Average
+        %th Final
+        %th
+          Completion
+          %br
+          Grade
+        %th
+          Credits
+          %br
+          Earned
+    %tbody
+      - @student.courses_year(sy.id).each do |c|
+        %tr
+          %td= c.subject.name
+          - if !c.yearlong && c.sem == 2
+            %td -
+            %td -
+          - @student.course_grades(c.id).each do |g|
+            - if c.subject.is_pe?
+              - if pe(g.value) == 'F'
+                %td.emphasize= pe(g.value)
+              - else
+                %td= pe(g.value)
+            - elsif !g.value.nil? && g.value < 50
+              %td.emphasize= g.value
+            - else
+              %td= g.value
+          - if !c.yearlong && c.sem == 1
+            %td -
+            %td -
+          - if @student.course_has_blank(c.id)
+            %td
+            %td
+          - else
+            %td= c.student_average(@student.id)
+            %td
+              = @final = c.student_final(@student.id)
+            %td
+              - if @final == 4.0
+                - @removal = @student.course_removed(c)
+                = @removal.value
+            %td= c.subject.units
+      %tr
+        %td{:colspan => 9}
+          General Weighted Average:
+          = @student.gwa_final_schoolyear(sy)
+
+  %h3.capslock Transmutation Table
+  #transmutation_table{ :style=>"width:50%; float:left;"}
+    = render 'transmutation_table'
+  %p{:style=>"float:right; width: 40%"}
+    The final grade for any yearly subject is the transmuted grade to the 11-point system of the average of the points (in %)
+    for the four grading periods. The final grade for any semestral subject is the transmuted grade to the 11-point system
+    of the average of the points (in %) for two grading periods.
+#right{:style => "width:48%; float: right"}
+  %h3.capslock acts and behavior that show values
+  %break
+  %h3.capslock.center To parents or guardians
+  %p.center
+    This report card is issued periodically to apprise you of your child's academic performance, regularity in attendance and conduct.
+    You may wish to discuss your child's progress' with his teachers and/or the guidance counselors durint their consultation hours.
+

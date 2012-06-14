@@ -109,6 +109,14 @@ class StudentsController < ApplicationController
       end
     end
   end
+  def classcard
+    @student = Student.find(params[:student_id])
+    respond_to do |format|
+      format.pdf do
+        render :pdf => "classcard.pdf",:orientation => 'landscape', :layout => "pdf_noheader.html", :margin => {:top => 7, :bottom => 3}, :font_size => 10,
+      end
+    end
+  end
 private
   def assign_student_no
     @batchmate = Student.where('batch_id = ?', @batch.id).order('student_no ASC')

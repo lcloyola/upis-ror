@@ -113,7 +113,9 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:student_id])
     respond_to do |format|
       format.pdf do
-        render :pdf => "classcard.pdf",:orientation => 'landscape', :layout => "pdf_noheader.html", :margin => {:top => 7, :bottom => 3}, :font_size => 10,
+        render :pdf => "classcard.pdf",:orientation => 'landscape', :layout => "pdf_noheader.html",
+        :margin => {:top => 4, :bottom => 3, :left => 3, :right => 3},
+        :font_size => 10, :page_height => '5.5in', :page_width => '8.5in'
       end
     end
   end

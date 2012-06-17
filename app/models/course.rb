@@ -34,6 +34,23 @@ class Course < ActiveRecord::Base
     return 0 if self.subject.is_pe?
     return elevenpt(self.student_average(student_id))
   end
+  def student_decision(student)
+    return "" if self.subject.is_pe?
+    final = self.student_final(student.id)
+    removal = Student.find(student.id).course_removed(self)
+    final = removal if removal.present?
+
+    grade = final
+    decision = case grade
+      when 1.0..3.0 then "Pasado"
+      when 4.0 then " "
+      when 0 then " "
+      when "(3.0)" then "Pasado"
+      when "(5.0)" then "Di Pasado"
+      else "Di Pasado"
+    end
+    return decision
+  end
   def semname
     if self.sem == 1
       return "1st sem"

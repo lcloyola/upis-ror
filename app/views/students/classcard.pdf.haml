@@ -1,18 +1,16 @@
 - sy = Schoolyear.current_schoolyear.first
 #left.page
   #header.center{:style => "width: 50%; margin: 0 auto 12px;"}
-    %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 82px; float: right;"
+    %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 100px; padding-top: 15px; float: right;"
     Unibersidad ng Pilipinas
     %br
     Kolehiyo ng Edukasyon
     %br
     %span.capslock U.P. Integrated School
-    %br
-    Diliman, Lungsod ng Quezon
-
-  .center.capslock
-    %h4 Report Kard
-    %h4= "A.Y. #{sy.name}"
+    %p Diliman, Lungsod ng Quezon
+    .center.capslock
+      %h4 Report Kard
+      %h4= "A.Y. #{sy.name}"
 
   #student_details.capslock
     %h4= @student.fullname
@@ -62,13 +60,14 @@
             %td
               - if @final == 4.0
                 - @removal = @student.course_removed(c)
-                = @removal.value
-            %td= #remarks
+                = @removal.value if @removal.present?
+            %td= c.student_decision(@student)
             %td= c.subject.units
       %tr
         %td{:colspan => 10, :style => "text-align: left;"}
           %b General Weighted Average:
           = @student.gwa_final_schoolyear(sy)
+
   %h4.capslock Transmutation Table
 
   #transmutation_table{ :style=>"width:58%; float:left; bottom: 0"}
@@ -82,9 +81,9 @@
     %br Maaari nang ilipan/tanggapin sa ___________
     %span{:style => "float:right; margin-right: 25px;"} Grado
     %br May pangunang kredit sa _________________
-    %span{:style => "float:right; margin-right: 30px;"} Assignatura
+    %span{:style => "float:right; margin-right: 30px;"} Asignatura
     %br Kulang na kredit sa _____________________
-    %span{:style => "float:right; margin-right: 45px;"} Assignatura
+    %span{:style => "float:right; margin-right: 45px;"} Asignatura
 
   #cardfooter{:style => "width: 100%"}
     #date{:style => "float:left; width: 49%;"}

@@ -50,7 +50,6 @@ input.gradesheetinput {
   clear: both;
   page-break-after: auto;
 }
-
 table.smaller th, table.smaller td {
   padding: 7px 8px;
   line-height: 13px;
@@ -61,8 +60,11 @@ table.smallest th, table.smallest td {
   line-height: 10.5px;
   text-align: center;
 }
-table.smaller th, table.smallest th {
+table.smaller th{
   font-size: 14px;
+}
+table.smallest th {
+  font-size: 13.5px;
 }
 .vertical-text{
   -webkit-transform:rotate(90deg);

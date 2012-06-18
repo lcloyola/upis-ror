@@ -50,6 +50,12 @@ input.gradesheetinput {
   clear: both;
   page-break-after: auto;
 }
+.halfpage {
+  display: inline-block;
+  clear: both;
+  page-break-after: auto;
+  height: 1090px;
+}
 table.smaller th, table.smaller td {
   padding: 7px 8px;
   line-height: 13px;

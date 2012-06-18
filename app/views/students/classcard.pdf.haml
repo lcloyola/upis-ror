@@ -1,4 +1,4 @@
-#left.page
+#left.halfpage
   #header.center{:style => "width: 50%; margin: 0 auto 12px;"}
     %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 100px; padding-top: 15px; float: right;"
     Unibersidad ng Pilipinas
@@ -92,14 +92,13 @@
       .capslock Ronaldo M. San Jose, Ph.D.
       Prinsipal
 
-
-#right.page
+#right.halfpage
   %h3.capslock.center mga kilos at gawi na nagpapakita ng pagpapahalaga
   %p.center (Sa tingin ng mga Guro at Kaklase)
   = render 'classcard/kilos_at_gawi'
   = render 'classcard/attendance'
 
-  #adviser.center{:style => "width: 50%; float: right;"}
+  #adviser.center{:style => "width: 50%; float: right; padding-top: 30px;"}
     %h4= @section.faculty.fullname if @section.present?
     %p Adviser
   #clear
@@ -109,4 +108,3 @@
     Ibinibigay ang kard na ito bawat markahan para maparating sa inyo ang pag-unlad ng inyong anak sa gawaing pang-akademiko,
     ang reguralidad ng kanyang pagpasok, at ang pagbuti niya bilang isag tao sa kilos at ugali. Kung nais ninyong makausap
     ang mga guro at guidance counselor tungkol sa inyong anak, mangyari po lamang puntahan sila sa UPIS sa oras ng konsultasyon.
-

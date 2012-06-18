@@ -1,4 +1,3 @@
-- sy = Schoolyear.current_schoolyear.first
 #left.page
   #header.center{:style => "width: 50%; margin: 0 auto 12px;"}
     %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 100px; padding-top: 15px; float: right;"
@@ -10,14 +9,14 @@
     %p Diliman, Lungsod ng Quezon
     .center.capslock
       %h4 Report Kard
-      %h4= "A.Y. #{sy.name}"
+      %h4= "A.Y. #{@sy.name}"
 
   #student_details.capslock
     %h4= @student.fullname
-    %h4= @student.section(sy.id).fullname
+    %h4= @section.fullname if @section.present?
 
   %h4.capslock.center gawaing pang-akademiko
-  %table.smaller.center{:id => "year-#{sy.id}", :style=>"margin: 5px 0 8px; padding: 5px"}
+  %table.smaller.center{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px"}
     %thead
       %tr
         %th{:style => "width:45%;"} Asignatura
@@ -31,7 +30,7 @@
         %th{:style => "font-size:12px; padding:7px 5px;"} Desisyon
         %th{:style => "font-size:12px; padding:7px 5px;"} Nakuhang Kredit
     %tbody
-      - @student.courses_year(sy.id).each do |c|
+      - @student.courses_year(@sy.id).each do |c|
         %tr
           %td{:style => "text-align: left;"}= c.subject.name
           - if !c.yearlong && c.sem == 2
@@ -66,7 +65,7 @@
       %tr
         %td{:colspan => 10, :style => "text-align: left;"}
           %b General Weighted Average:
-          = @student.gwa_final_schoolyear(sy)
+          = @student.gwa_final_schoolyear(@sy)
 
   %h4.capslock Transmutation Table
 
@@ -101,7 +100,7 @@
   = render 'classcard/attendance'
 
   #adviser.center{:style => "width: 50%; float: right;"}
-    %h4= @student.section(sy.id).faculty.fullname
+    %h4= @section.faculty.fullname if @section.present?
     %p Adviser
   #clear
 

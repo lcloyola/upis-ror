@@ -77,7 +77,8 @@ class Student < ActiveRecord::Base
       total = (c.student_final(self.id) * c.subject.units) + total
       units = c.subject.units + units
     end
-    return total/units
+    return total/units if units != 0
+    return ""
   end
 end
 

@@ -111,6 +111,8 @@ class StudentsController < ApplicationController
   end
   def classcard
     @student = Student.find(params[:student_id])
+    @sy = Schoolyear.current_schoolyear.first
+    @section = @student.section(@sy.id)
     respond_to do |format|
       format.pdf do
         render :pdf => "classcard.pdf",:orientation => 'landscape', :layout => "pdf_noheader.html",

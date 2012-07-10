@@ -27,7 +27,7 @@ Upis::Application.routes.draw do
   match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
 
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
-  match 'grades/quarter-report' => 'grades#quarterreport'
+  match 'grades/quarter-report/:batch_id' => 'grades#quarterreport'
 
   match 'students/transcript/:student_id' => 'students#transcript'
   match 'students/honorroll/:student_id' => 'students#honorroll'

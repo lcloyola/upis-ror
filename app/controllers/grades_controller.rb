@@ -92,7 +92,7 @@ class GradesController < ApplicationController
     end
   end
   def quarterreport
-    @students = Batch.find(1).students.limit(2)
+    @students = Batch.find(params[:batch_id]).students
     @sy = Schoolyear.find(1)
     respond_to do |format|
       format.pdf do

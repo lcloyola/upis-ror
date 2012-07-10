@@ -93,7 +93,7 @@ class GradesController < ApplicationController
   end
   def quarterreport
     @students = Batch.find(params[:batch_id]).students
-    @sy = Schoolyear.find(1)
+    @sy = Schoolyear.current_schoolyear.first
     respond_to do |format|
       format.pdf do
         render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10

@@ -80,5 +80,9 @@ class Student < ActiveRecord::Base
     return total/units if units != 0
     return ""
   end
+  def enrolled?
+    return true if self.sections.present? || self.grades.present?
+    return false
+  end
 end
 

@@ -85,10 +85,10 @@ class StudentsController < ApplicationController
   # DELETE /students/1.json
   def destroy
     @student = Student.find(params[:id])
-    @student.destroy
+    @student.destroy if !@student.enrolled?
 
     respond_to do |format|
-      format.html { redirect_to students_url }
+      format.html { redirect_to "/batches/#{@student.batch.id}/students" }
       format.json { head :ok }
     end
   end

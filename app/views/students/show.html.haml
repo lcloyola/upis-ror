@@ -10,6 +10,8 @@
   %li= link_to 'New Student', new_batch_student_url(@student.batch)
 %p#notice= notice
 .row_fluid
+  - if !@student.enrolled?
+    .btn.btn-danger= link_to 'Delete Student', @student, :confirm => 'Are you sure?', :method => :delete
   .span4
     %p
       %b Student no:
@@ -95,8 +97,9 @@
     %p
       %b Gcontact:
       = @student.gcontact
-      
+
   .span4
     %ul
       - @student.sections.each do |s|
         %li= link_to "#{s.name} - #{s.faculty.fullname}", s
+

@@ -44,10 +44,9 @@
                 %li= link_to "Sign up!", new_user_registration_path
                 %li= link_to "Log in!", new_user_session_path
     .container-fluid
-
       .row-fluid
         .span3
-          - if user_signed_in?  
+          - if user_signed_in?
             .well.sidebar-nav
               %h3= "Academic Year #{Schoolyear.current_schoolyear.first.name}"
               %ul.nav.nav-list
@@ -61,10 +60,10 @@
                 %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
                 %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)
                 %li= link_to 'Deficiencies', "/grades/deficiency/1"
-            
+
         .span9
           = yield
-    
+
       %footer
         %p &copy; Company 2012
     /
@@ -72,3 +71,4 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
+

@@ -10,7 +10,7 @@
   %li= link_to 'New Student', new_batch_student_url(@student.batch)
 %p#notice= notice
 .row_fluid
-  - if !@student.enrolled?
+  - if !@student.has_grades?
     .btn.btn-danger= link_to 'Delete Student', @student, :confirm => 'Are you sure?', :method => :delete
   .span4
     %p

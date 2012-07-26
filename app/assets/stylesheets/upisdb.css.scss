@@ -58,6 +58,10 @@ input.gradesheetinput {
   page-break-after: auto;
   height: 1090px;
 }
+table.medium th, table.medium td {
+  padding: 7px 8px;
+  line-height: 13px;
+}
 table.smaller th, table.smaller td {
   padding: 7px 8px;
   line-height: 13px;

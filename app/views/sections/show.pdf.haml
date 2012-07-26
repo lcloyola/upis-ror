@@ -8,7 +8,7 @@
 %p.span{:style => "margin: 1px"}= "#{ @section.students.count } students"
 
 -unless(@section.students.empty?)
-  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %table.medium{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
         %th Student No

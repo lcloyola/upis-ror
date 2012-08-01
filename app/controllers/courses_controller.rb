@@ -48,15 +48,20 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @schoolyear = Schoolyear.find(params[:course][:schoolyear_id])
+    if params[:yearsem] == "1"
+      params[:course][:yearlong] = false
+    elsif params[:yearsem] == "2"
+      params[:course][:sem] = 2
+      params[:course][:yearlong] = false
+    else
+      params[:course][:yearlong] = true
+    end
     params[:course].delete :id
     @course = @schoolyear.courses.new(params[:course])
     @sections = Section.where('schoolyear_id = ?', @schoolyear.id)
 
     respond_to do |format|
       if @course.save
-        if @course.yearlong == true
-          @course.update_attributes(:sem => 1)
-        end
         enroll_section()
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render json: @course, status: :created, location: @course }

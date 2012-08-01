@@ -20,11 +20,15 @@
     = collection_select(:course, :section_id, Section.find_all_by_schoolyear_id(@course.schoolyear_id), :id, :name, options ={:prompt => "--select one--"})
   - if @course.new_record?
     .field
-      = f.check_box :yearlong?
-      = f.label :yearlong, :value => true
+      =# f.check_box :yearlong?
+      =# f.label :yearlong, :value => true
+      = f.label :yearlong_or_sem?
+      = select_tag "yearsem", options_for_select([['Yearlong',0],['1st sem',1],['2nd sem',2]])
   .field
-    = f.label :sem
-    = f.select :sem, [['1st',1],['2nd',2]]
+    =# f.label :sem
+    =# f.hidden :sem, [['1st',1],['2nd',2]]
+    = f.hidden_field :sem, :value => 1
+
   .actions
     = f.submit 'Save'
 

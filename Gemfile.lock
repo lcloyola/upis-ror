@@ -166,6 +166,7 @@ DEPENDENCIES
   sass-rails (~> 3.1.5)
   sqlite3
   tabulous
+  therubyracer
   turn (= 0.8.2)
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)

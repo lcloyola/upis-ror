@@ -53,6 +53,9 @@ class StudentsController < ApplicationController
     @batch = Batch.find(params[:batch_id])
     @student = @batch.students.new(params[:student])
     assign_student_no()
+    if params[:student][:religion] == "Others"
+      params[:student][:religion] = params[:religion][:other]
+    end
 
     respond_to do |format|
       if @student.save
@@ -69,6 +72,9 @@ class StudentsController < ApplicationController
   # PUT /students/1.json
   def update
     @student = Student.find(params[:id])
+    if params[:student][:religion] == "Others"
+      params[:student][:religion] = params[:religion][:other]
+    end
 
     respond_to do |format|
       if @student.update_attributes(params[:student])

@@ -10,7 +10,7 @@
 
   .field
     = f.label :student_no
-    = f.text_field :student_no, :readonly => true 
+    = f.text_field :student_no, :readonly => true
   .field
     = f.label :Surname
     = f.text_field :last
@@ -40,7 +40,8 @@
     = f.text_field :email
   .field
     = f.label :religion
-    = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others']]
+    = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others', :id => "other", :selected => true]], :id => "religion"
+    = text_field :religion, :other, :value => @student.religion
   .field
     = f.label :entry_point
     = f.select :entry, [['Kindergarten','Kindergarten'],['Lateral Entry','Lateral Entry'],['Vaas Program','Vaas Program']]
@@ -87,7 +88,7 @@
     = f.label :address
     = f.text_field :gaddress
   .field
-    = f.label :contact_details 
+    = f.label :contact_details
     = f.text_field :gcontact
   .actions
     = f.submit 'Save'
@@ -96,3 +97,16 @@
 = link_to 'Show', @student
 \|
 = link_to 'Back', students_path
+= javascript_include_tag "application"
+:javascript
+  $('#religion_other').show();
+  $("select#student_religion").change(function(){
+    var id_value_string = $(this).val();
+    if (id_value_string == "Others") {
+      $('#religion_other').show("fast");
+    }
+    else {
+      $('#religion_other').hide("fast");
+    }
+  });
+

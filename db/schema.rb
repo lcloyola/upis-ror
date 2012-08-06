@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120801155146) do
+ActiveRecord::Schema.define(:version => 20120802060502) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(:version => 20120801155146) do
     t.datetime "updated_at"
     t.date     "birthday"
     t.string   "landline"
+    t.integer  "user_id"
   end
 
   add_index "faculties", ["department_id"], :name => "index_faculties_on_department_id"
+  add_index "faculties", ["user_id"], :name => "index_faculties_on_user_id"
 
   create_table "grades", :force => true do |t|
     t.integer  "course_id"
@@ -187,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20120801155146) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                                 :default => false
+    t.integer  "role",                                  :default => 3
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

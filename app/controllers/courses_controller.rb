@@ -1,6 +1,10 @@
 class CoursesController < ApplicationController
-  # GET /courses
-  # GET /courses.json
+  before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 } # everyone except faculty
+  before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
+  before_filter :only => [:enroll_students, :unenroll_students, :unenroll_student] { |c| c.allow_access! 14 } # everyone except faculty
+  before_filter :only => [:grading_sheet, :update_grades, :removal] { |c| c.allow_access! 9 } # admin and faculty
+  before_filter :only => [:my_classes] { |c| c.allow_access! 1 } # faculty
+
   def index
     @courses = Course.all
 

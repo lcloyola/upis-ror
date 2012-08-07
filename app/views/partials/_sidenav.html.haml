@@ -3,47 +3,47 @@
   %h3 Academic Year
   %h1= Schoolyear.current_schoolyear.first.name
   %ul.nav.nav-pills.nav-stacked{:style => "padding-top: 10px;"}
-    %li.divider
+    %li.divider-vertical &nbsp;
+    %li
+      %a{:href => root_url}
+        %i.icon-home
+        = 'Home'
+
     - if is_faculty?
-      %li
-        %a{:href => root_url}
-          %i.icon-home
-          = 'Home'
       %li
         %a{:href => "/my_classes"}
           %i.icon-pencil
           = 'My Classes'
-      %li
-        %a{:href => schoolyear_path(Schoolyear.current_schoolyear.first)}
-          %i.icon-book
-          = 'All Classes'
-      %li
-        %a{:href => sections_path}
-          %i.icon-th-list
-          = 'Sections'
-      %li
-        %a{:href => batches_path}
-          %i.icon-user
-          = 'Students Profile'
-      %li
-        %a{:href => departments_path}
-          %i.icon-list-alt
-          = 'Faculty Profiles'
-      %li
-        %a{:href => "/grades/deficiency/1"}
-          %i.icon-thumbs-down
-          = 'Deficiencies'
 
-    %li.nav-header Students
+    - else
+      %li
+        %a{:href => "/sections/new/#{Schoolyear.current_schoolyear.first.id}"}
+          %i.icon-star
+          = "New Section"
+      %li
+        %a{:href => "/courses/new/#{Schoolyear.current_schoolyear.first.id}"}
+          %i.icon-star-empty
+          = 'News Class'
+
+    %li
+      %a{:href => schoolyear_path(Schoolyear.current_schoolyear.first)}
+        %i.icon-book
+        = 'All Classes'
+    %li
+      %a{:href => sections_path}
+        %i.icon-th-list
+        = 'Sections'
+    %li.divider-vertical &nbsp;
     %li
       %a{:href => batches_path}
-        %i.icon-home
-        = 'View Batch'
-    %li= link_to 'View Sections', sections_path
-    %li= link_to 'New Section', "/sections/new/#{Schoolyear.current_schoolyear.first.id}"
-
-    %li.nav-header Class Management
-    %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
-    %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)
-    %li= link_to 'Deficiencies', "/grades/deficiency/1"
+        %i.icon-user
+        = 'Students Profiles'
+    %li
+      %a{:href => departments_path}
+        %i.icon-list-alt
+        = 'Faculty Profiles'
+    %li
+      %a{:href => "/grades/deficiency/1"}
+        %i.icon-check
+        = 'Deficiencies'
 

@@ -47,19 +47,7 @@
       .row-fluid
         .span3
           - if user_signed_in?
-            .well.sidebar-nav
-              %h3= "Academic Year #{Schoolyear.current_schoolyear.first.name}"
-              %ul.nav.nav-list
-
-                %li.nav-header Students
-                %li= link_to 'View Batch', batches_path
-                %li= link_to 'View Sections', sections_path
-                %li= link_to 'New Section', "/sections/new/#{Schoolyear.current_schoolyear.first.id}"
-
-                %li.nav-header Class Management
-                %li= link_to 'New Class', "/courses/new/#{Schoolyear.current_schoolyear.first.id}"
-                %li= link_to 'View All', schoolyear_path(Schoolyear.current_schoolyear.first)
-                %li= link_to 'Deficiencies', "/grades/deficiency/1"
+            = render 'partials/sidenav'
 
         .span9
           = yield

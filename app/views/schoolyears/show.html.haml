@@ -29,5 +29,5 @@
         %td= c.semname
         %td= c.faculty.fullname
         %td= link_to 'Show', course_path(c)
-        %td= link_to 'Edit', edit_course_path(c)
+        %td= link_to 'Edit', edit_course_path(c) if !is_faculty?
 

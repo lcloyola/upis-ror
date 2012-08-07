@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802060502) do
+ActiveRecord::Schema.define(:version => 20120807062442) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20120802060502) do
     t.string   "middle"
     t.integer  "department_id"
     t.date     "appointment"
-    t.string   "email"
     t.string   "mobile"
     t.datetime "created_at"
     t.datetime "updated_at"

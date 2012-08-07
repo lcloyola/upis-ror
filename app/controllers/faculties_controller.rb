@@ -43,7 +43,7 @@ class FacultiesController < ApplicationController
 
     respond_to do |format|
       if @faculty.save
-        pass = rand(999999)+100000
+        pass = Devise.friendly_token.first(6)
         details = {
           email: "#{@faculty.id}@temporay.com",
           password: pass
@@ -90,7 +90,7 @@ class FacultiesController < ApplicationController
   end
   def regenerate_password
     @faculty = Faculty.find(params[:id])
-    pass = rand(999999)+100000
+    pass = Devise.friendly_token.first(6)
     respond_to do |format|
       if @faculty.user.update_attributes(:password => pass)
         notice = "<div class='alert alert-success'>Faculty was successfully created. <br> email: #{@faculty.email}<br>temporary password: #{pass}</div>"

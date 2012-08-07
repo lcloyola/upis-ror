@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807062442) do
+ActiveRecord::Schema.define(:version => 20120807100555) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20120807062442) do
     t.datetime "updated_at"
     t.boolean  "admin",                                 :default => false
     t.integer  "role",                                  :default => 3
+    t.boolean  "is_active",                             :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

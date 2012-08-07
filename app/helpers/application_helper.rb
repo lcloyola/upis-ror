@@ -25,5 +25,14 @@ module ApplicationHelper
     return true if (current_user.role == 1) and ((4..7).include?(x) or (11..14).include?(x))
     return true if (current_user.role == 2) and ([2,3,6,7,10,11,13,14].include?(x))
   end
+  def topnav_color
+    if is_staff?
+      return "staff"
+    elsif is_faculty?
+      return "faculty"
+    else
+      return "moderator"
+    end
+  end
 end
 

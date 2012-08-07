@@ -6,5 +6,9 @@ class User < ActiveRecord::Base
   has_one :faculty
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role, :is_active
+
+  def my_classes
+    return self.faculty.courses.where('schoolyear_id = ?', Schoolyear.current_schoolyear.first.id)
+  end
 end
 

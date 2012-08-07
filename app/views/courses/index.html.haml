@@ -1,27 +1,33 @@
-%h1 Listing courses
+%p#notice= notice
+%h1= @schoolyear.name
 
-%table
-  %tr
-    %th Subject
-    %th Faculty
-    %th Schoolyear
-    %th Sem
-    %th Section
-    %th{:colspan => 3} Action
+%ul.nav.nav-tabs
+  %li= link_to "Batches", batches_path
+  %li= link_to "Sections", sections_path
+  %li.active= link_to "Classes", schoolyear_path(@schoolyear.id)
 
-  - @courses.each do |course|
+%td= link_to 'New Class', "/courses/new/#{@schoolyear.id}"
+%p= @schoolyear.remarks
+
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
     %tr
-      %td
-        = course.subject.name
-        = "(#{course.subject.units})"
-      %td= course.faculty.fullname
-      %td= course.schoolyear.start
-      %td= course.sem
-      %td= course.section.name
-      %td= link_to 'Show', course
-      %td= link_to 'Edit', edit_course_path(course)
-      %td= link_to 'Destroy', course, :confirm => 'Are you sure?', :method => :delete
+      %th Year
+      %th Section
+      %th Subject
+      %th Department
+      %th Semester
+      %th Faculty
+      %th{:colspan => 2} Action
+  %tbody
+    - @courses.each do |c|
+      %tr
+        %td= c.subject.year
+        %td= c.section.name unless c.section.nil?
+        %td= c.subject.details
+        %td= c.subject.department.name
+        %td= c.semname
+        %td= c.faculty.fullname
+        %td= link_to 'Show', course_path(c)
+        %td= link_to 'Edit', edit_course_path(c)
 
-%br
-
-= link_to 'New Course', new_course_path

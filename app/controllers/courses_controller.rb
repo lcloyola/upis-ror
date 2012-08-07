@@ -171,7 +171,14 @@ class CoursesController < ApplicationController
     end
     redirect_to @course
   end
+  def my_classes
+    @schoolyear = Schoolyear.current_schoolyear.first
+    @courses = current_user.my_classes
 
+    respond_to do |format|
+      format.html { render 'courses/index' }
+    end
+  end
 private
   def enroll_section
     #TODO: validation--no students yet

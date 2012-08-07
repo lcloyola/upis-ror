@@ -56,7 +56,7 @@ class FacultiesController < ApplicationController
   # PUT /faculties/1.json
   def update
     @faculty = Faculty.find(params[:id])
-    @faculty.user.update_attribute(:email, params[:others][:email])
+    @faculty.user.update_attribute(:email, params[:email][:user])
 
     respond_to do |format|
       if @faculty.update_attributes(params[:faculty])

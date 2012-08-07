@@ -1,11 +1,6 @@
 class BatchesController < ApplicationController
-  # GET /batches
-  # GET /batches.json
-  before_filter :authenticate_user!
-  before_filter do
-    redirect_to new_user_session_path unless current_user && current_user.admin?
-  end
-  
+  before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 }
+  before_filter :only => [:destroy] { |c| c.allow_access! 12 }
   def index
     @batches = Batch.all
     @schoolyear = Schoolyear.current_schoolyear.first
@@ -87,3 +82,4 @@ class BatchesController < ApplicationController
     end
   end
 end
+

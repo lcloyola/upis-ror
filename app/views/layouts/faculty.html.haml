@@ -27,7 +27,9 @@
             %span.i-bar
             %span.i-bar
             %span.i-bar
-          %a.brand{:href => root_path}UPIS Grade DB
+          %a.brand{:href => root_path}
+
+            UPIS Grade DB
           .container-fluid.nav-collapse
             %ul.nav
               - if user_signed_in?
@@ -41,9 +43,11 @@
         #menu-left.span3
           - if user_signed_in?
             .sidebar-nav.well
-              %h3= "Academic Year #{Schoolyear.current_schoolyear.first.name}"
-              %ul.nav.nav-pills.nav-stacked
+              %img{:src => "/images/thumblogo.png", :style => "width: 65px; float: left; padding: 0 15px;"}
+              %h3 Academic Year
+              %h2= Schoolyear.current_schoolyear.first.name
 
+              %ul.nav.nav-pills.nav-stacked{:style => "padding-top: 10px;"}
                 %li.nav-header Students
                 %li
                   %a{:href => batches_path}

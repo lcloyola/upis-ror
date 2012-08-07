@@ -88,5 +88,15 @@ class FacultiesController < ApplicationController
       format.json { head :ok }
     end
   end
+  def regenerate_password
+    @faculty = Faculty.find(params[:id])
+    pass = rand(999999)+100000
+    respond_to do |format|
+      if @faculty.user.update_attributes(:password => pass)
+        notice = "<div class='alert alert-success'>Faculty was successfully created. <br> email: #{@faculty.email}<br>temporary password: #{pass}</div>"
+        format.html { redirect_to @faculty, notice: notice }
+      end
+    end
+  end
 end
 

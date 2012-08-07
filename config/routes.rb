@@ -5,7 +5,10 @@ Upis::Application.routes.draw do
       get 'unenroll/:student_id' =>  'sections#unenroll_student'
     end
   end
-  resources :faculties
+  resources :faculties do
+    get 'regenerate_password', :on => :member
+    get 'toggle_activity', :on => :member
+  end
 
   resources :schoolyears do
       get 'make_current', :on => :member

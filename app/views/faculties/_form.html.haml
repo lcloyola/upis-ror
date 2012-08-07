@@ -28,6 +28,7 @@
     .field
       = f.label :email
       = text_field :email, :email, :value => @faculty.email
+      .btn.btn-warning= link_to 'Regenerate Password', "/faculties/#{@faculty.id}/regenerate_password"
   .field
     = f.label :landline
     = f.text_field :landline

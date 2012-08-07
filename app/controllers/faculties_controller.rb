@@ -80,3 +80,4 @@ class FacultiesController < ApplicationController
     end
   end
 end
+

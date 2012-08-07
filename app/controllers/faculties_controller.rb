@@ -43,7 +43,15 @@ class FacultiesController < ApplicationController
 
     respond_to do |format|
       if @faculty.save
-        format.html { redirect_to @faculty, notice: 'Faculty was successfully created.' }
+        pass = rand(999999)+100000
+        details = {
+          email: "#{@faculty.id}@temporay.com",
+          password: pass
+        }
+        user = User.create! details
+        @faculty.update_attributes(:user_id => user.id)
+        notice = "<div class='alert alert-success'>Faculty was successfully created. <br> email: #{@faculty.email}<br>temporary password: #{pass}</div>"
+        format.html { redirect_to @faculty, notice: notice }
         format.json { render json: @faculty, status: :created, location: @faculty }
       else
         format.html { render action: "new" }
@@ -56,7 +64,7 @@ class FacultiesController < ApplicationController
   # PUT /faculties/1.json
   def update
     @faculty = Faculty.find(params[:id])
-    @faculty.user.update_attribute(:email, params[:email][:user])
+    @faculty.user.update_attribute(:email, params[:email][:email]) if params[:email][:email] != ""
 
     respond_to do |format|
       if @faculty.update_attributes(params[:faculty])

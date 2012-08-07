@@ -24,9 +24,10 @@
   .field
     = f.label :birthday
     = f.date_select :birthday, :start_year => Time.now.year - 60
-  .field
-    = f.label :email
-    = text_field :email, :user, :value => @faculty.email
+  - if !@faculty.new_record?
+    .field
+      = f.label :email
+      = text_field :email, :email, :value => @faculty.email
   .field
     = f.label :landline
     = f.text_field :landline

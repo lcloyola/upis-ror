@@ -3,7 +3,7 @@ class Faculty < ActiveRecord::Base
   has_many :sections
   has_many :courses
   belongs_to :user
-  validates_presence_of :department_id, :last, :given, :email
+  validates_presence_of :department_id, :last, :given
 
   def fullname
     "#{last} #{given} #{middle}"

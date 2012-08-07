@@ -26,7 +26,7 @@
     = f.date_select :birthday, :start_year => Time.now.year - 60
   .field
     = f.label :email
-    = f.text_field :email
+    = text_field :others, :email, :value => @faculty.email
   .field
     = f.label :landline
     = f.text_field :landline
@@ -35,3 +35,4 @@
     = f.text_field :mobile
   .actions
     = f.submit 'Save'
+

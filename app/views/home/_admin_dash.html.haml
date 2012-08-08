@@ -1,0 +1,18 @@
+%h2 Change Grade Requests
+%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
+    %tr
+      %th Action
+      %th Faculty
+      %th Subject
+      %th Section
+  %tbody
+    - @requests.each do |s|
+      %tr
+        %td
+          .btn.btn-success= link_to "unlock", "/process_request/#{s.id}/approve"
+          .btn.btn-danger= link_to "dismiss", "/process_request/#{s.id}/deny"
+        %td= s.faculty.fullname
+        %td= s.subject.name
+        %td= s.section.name
+

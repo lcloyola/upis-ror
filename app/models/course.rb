@@ -18,6 +18,10 @@ class Course < ActiveRecord::Base
     includes(:grades).where('grades.quarter = ? and grades.value IS NULL', quarter)
   }
 
+  def self.pending_requests
+    return Course.where('schoolyear_id = ? AND is_locked = ?', Schoolyear.current_schoolyear.first.id, CourseStatus::Pending)
+  end
+
   def my_students
     return Grade.where('course_id = ?', self.id).group_by(&:student)
   end
@@ -74,5 +78,6 @@ class Course < ActiveRecord::Base
   def is_closed?
     return true if self.is_locked != CourseStatus::Open
   end
+
 end
 

@@ -24,6 +24,7 @@ Upis::Application.routes.draw do
 
   get 'my_classes' => 'courses#my_classes'
   get 'request_unlock/:id' => 'courses#request_unlock'
+  get 'process_request/:id/:decision' => 'courses#process_request'
 
   match 'sections/year/:schoolyear_id' => 'sections#year'
   match 'sections/new/:schoolyear_id' => 'sections#new'

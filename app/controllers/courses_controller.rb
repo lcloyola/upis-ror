@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   before_filter :only => [:enroll_students, :unenroll_students, :unenroll_student] { |c| c.allow_access! 14 } # everyone except faculty
   before_filter :only => [:grading_sheet, :update_grades, :removal] { |c| c.allow_access! 9 } # admin and faculty
   before_filter :only => [:grading_sheet, :update_grades,:request_unlock,:removal] { |c| c.allow_access! 1 and c.class_owned?} # faculty
+  before_filter :only => [:process_request] { |c| c.allow_access! 8 }
 
   def index
     @courses = Course.all
@@ -199,6 +200,15 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     return true if @course.faculty.id == current_user.id
     redirect_to @course, notice: RESTRICTED_NOTICE
+  end
+  def process_request
+    @course = Course.find(params[:id])
+    if params[:decision] == 'approve'
+      @course.update_attributes(:is_locked => CourseStatus::Open)
+    elsif params[:decision] == 'deny'
+      @course.update_attributes(:is_locked => CourseStatus::Close)
+    end
+    redirect_to root_url
   end
 private
   def enroll_section

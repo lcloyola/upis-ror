@@ -1,6 +1,8 @@
 class FacultiesController < ApplicationController
-  # GET /faculties
-  # GET /faculties.json
+  before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 } # everyone except faculty
+  before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
+  before_filter :only => [:regenerate_password] { |c| c.allow_access! 8 } # admin only
+
   def index
     @faculties = Faculty.all
 

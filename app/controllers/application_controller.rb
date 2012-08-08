@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+  def authenticate_admin!
+    return true if current_user.role == Role::Admin
+    redirect_to root_url, notice: RESTRICTED_NOTICE
+  end
+
   def allow_access!(x)
     return true if (current_user.role == Role::Admin) and x >= 8
     return true if (current_user.role == Role::Faculty) and x.odd?

@@ -1,6 +1,7 @@
 class SectionsController < ApplicationController
-  # GET /sections
-  # GET /sections.json
+  before_filter :only => [:new, :create, :edit, :update, :unenroll_student, :enroll_to_section] { |c| c.allow_access! 14 }
+  before_filter :only => [:destroy] { |c| c.allow_access! 12 }
+
   def index
     @schoolyear = Schoolyear.current_schoolyear.first
     @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
@@ -120,12 +121,15 @@ class SectionsController < ApplicationController
       format.html {redirect_to @section}
     end
   end
+
+  #fetch by ajax for enrollment functions
   def for_sectionid
     @sections = Section.find( :all, :conditions => [" schoolyear_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }
     respond_to do |format|
       format.json  { render :json => @sections }
     end
   end
+
 private
   def enroll_individual_student
     unless @student.member?(@section.id)

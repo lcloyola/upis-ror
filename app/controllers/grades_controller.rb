@@ -1,6 +1,6 @@
 class GradesController < ApplicationController
-  # GET /grades
-  # GET /grades.json
+  before_filter :only => [:index, :show, :new, :create, :edit, :update, :destroy] { |c| c.allow_access! 8 } # admin
+  before_filter :only => [:quarterreport] { |c| c.allow_access! 14 } # admin
   def index
     @grades = Grade.all
 

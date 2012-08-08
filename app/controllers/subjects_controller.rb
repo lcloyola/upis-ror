@@ -1,6 +1,6 @@
 class SubjectsController < ApplicationController
-  # GET /subjects
-  # GET /subjects.json
+  before_filter :authenticate_admin!
+
   def index
     @subjects = Subject.all
 
@@ -82,3 +82,4 @@ class SubjectsController < ApplicationController
     end
   end
 end
+

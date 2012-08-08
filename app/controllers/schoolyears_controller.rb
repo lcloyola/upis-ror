@@ -1,6 +1,6 @@
 class SchoolyearsController < ApplicationController
-  # GET /schoolyears
-  # GET /schoolyears.json
+  before_filter :authenticate_admin!
+
   def index
     @schoolyears = Schoolyear.order("start DESC")
 
@@ -27,7 +27,7 @@ class SchoolyearsController < ApplicationController
   def new
     @schoolyear = Schoolyear.new
     @departments = Department.all
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @schoolyear }
@@ -86,10 +86,10 @@ class SchoolyearsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def make_current
     @schoolyear = Schoolyear.find(params[:id])
-    
+
     unless(@schoolyear[:current])
       Schoolyear.update_all(:current => false)
       @schoolyear[:current] = true
@@ -101,3 +101,4 @@ class SchoolyearsController < ApplicationController
     end
   end
 end
+

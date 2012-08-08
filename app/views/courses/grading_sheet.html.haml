@@ -46,4 +46,9 @@
                   = grade_f.text_field :value, :class => "gradesheetinput", :disabled => !grade.writable?
       .actions
         = f.submit 'Save', :class => "btn-large btn-warning"
+        - if @course.is_closed?
+          - if @course.is_locked == CourseStatus::Pending
+            .btn-large.btn-info{:style => "float:right"}= link_to "Cancel unlock request", "/request_unlock/#{@course.id}"
+          - else
+            .btn-large.btn-danger{:style => "float:right"}= link_to "Request change grade", "/request_unlock/#{@course.id}"
 

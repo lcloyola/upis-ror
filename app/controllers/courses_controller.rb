@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
   before_filter :only => [:enroll_students, :unenroll_students, :unenroll_student] { |c| c.allow_access! 14 } # everyone except faculty
   before_filter :only => [:grading_sheet, :update_grades, :removal] { |c| c.allow_access! 9 } # admin and faculty
-  before_filter :only => [:my_classes] { |c| c.allow_access! 1 } # faculty
+  before_filter :only => [:my_classes, :request_unlock] { |c| c.allow_access! 1 } # faculty
 
   def index
     @courses = Course.all
@@ -184,6 +184,22 @@ class CoursesController < ApplicationController
       format.html { render 'courses/index' }
     end
   end
+  def request_unlock
+    @course = Course.find(params[:id])
+    if @course.faculty.id == current_user.id
+      if @course.is_locked == CourseStatus::Close
+        @course.update_attributes(:is_locked => CourseStatus::Pending)
+        notice = "<div class='alert alert-info'>Request sent.</div>"
+      elsif @course.is_locked == CourseStatus::Pending
+        @course.update_attributes(:is_locked => CourseStatus::Close)
+        notice = "<div class='alert alert-info'>Request cancelled.</div>"
+      end
+    else
+      notice = RESTRICTED_NOTICE
+    end
+    redirect_to @course, notice: notice
+  end
+
 private
   def enroll_section
     #TODO: validation--no students yet

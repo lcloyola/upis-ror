@@ -94,7 +94,11 @@ table.smallest th {
 .navbar-inner.faculty ul.nav li a:hover {
   color: #FFF;
 }
-
+.btn-danger a,
+.btn-info a,
+.btn-warning a {
+  color: #FFF;
+}
 /* must refactor later! */
 
 .navbar-inner.faculty,

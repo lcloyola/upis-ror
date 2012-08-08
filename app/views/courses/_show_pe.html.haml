@@ -2,7 +2,7 @@
   %tr
     %td= s.student_no
     %td.capslock= link_to s.fullname, s
-    - if is_faculty? and faculty_owned?
+    - unless (is_faculty? and !faculty_owned?)
       - grades.each do |g|
         - if pe(g.value) == 'F'
           %td.emphasize= pe(g.value)

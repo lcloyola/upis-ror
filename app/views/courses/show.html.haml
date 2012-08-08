@@ -19,7 +19,7 @@
       %tr
         %th Student No
         %th Student
-        - if is_faculty? and faculty_owned?
+        - unless (is_faculty? and !faculty_owned?)
           - if @course.yearlong == true
             %th 1st Q
             %th 2nd Q

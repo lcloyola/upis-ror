@@ -5,7 +5,7 @@
     - else
       %td= s.student_no
     %td.capslock= link_to s.fullname, s
-    - if is_faculty? and faculty_owned?
+    - unless (is_faculty? and !faculty_owned?)
       - grades.each do |g|
         - if !g.value.nil? && g.value < 50
           %td.emphasize= g.value

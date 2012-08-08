@@ -9,7 +9,7 @@
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
   %li= link_to 'pdf form', course_path(@course, :format => :pdf)
-  - if !@course.has_grade?
+  - if !@course.has_grade? && !is_faculty?
     %li= link_to 'Destroy Class', @course, :confirm => 'Are you sure?', :method => :delete
     %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'
 %br
@@ -38,18 +38,19 @@
         = render 'show_pe'
       - else
         = render 'show_normal'
-%h3 Enroll Students
-= form_for(@course, :url => enroll_students_course_path) do |f|
-  -if @course.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this section from being saved:"
-      %ul
-        - @course.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :batch
-    = collection_select :batch, :batch_id, Batch.all, :id, :year
-  .students-list= render "students/students_list"
-  .actions
-    = f.submit 'Enroll'
+- unless is_faculty?
+  %h3 Enroll Students
+  = form_for(@course, :url => enroll_students_course_path) do |f|
+    -if @course.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@course.errors.count, "error")} prohibited this section from being saved:"
+        %ul
+          - @course.errors.full_messages.each do |msg|
+            %li= msg
+    .field
+      = f.label :batch
+      = collection_select :batch, :batch_id, Batch.all, :id, :year
+    .students-list= render "students/students_list"
+    .actions
+      = f.submit 'Enroll'
 

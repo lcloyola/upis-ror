@@ -21,7 +21,7 @@
       %td
       %td
     %td
-      - if !s.course_has_grade(@course.id)
+      - if !s.course_has_grade(@course.id) && !is_faculty?
         = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.id}"
       - elsif final.present? && final == 4.0
         = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.id}/pass"

@@ -1,11 +1,7 @@
 class DepartmentsController < ApplicationController
-  # GET /departments
-  # GET /departments.json
-  before_filter :authenticate_user!, :except => [:index]
-  before_filter do
-    redirect_to new_user_session_path unless current_user && current_user.admin?
-  end
-  
+  before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 } # everyone except faculty
+  before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
+
   def index
     @departments = Department.all
 
@@ -86,3 +82,4 @@ class DepartmentsController < ApplicationController
     end
   end
 end
+

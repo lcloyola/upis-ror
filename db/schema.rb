@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807100555) do
+ActiveRecord::Schema.define(:version => 20120808092423) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120807100555) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "yearlong",      :default => true
+    t.integer  "is_locked",     :default => 0
   end
 
   add_index "courses", ["faculty_id"], :name => "index_courses_on_faculty_id"

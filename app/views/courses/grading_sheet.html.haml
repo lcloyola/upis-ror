@@ -1,10 +1,17 @@
-%h4
-  = @course.semname
-  = @course.schoolyear.name
-%h1= @course.subject.details
-%h2= @course.faculty.fullname
-%h3= @course.section.name
-%h3= "#{@course.my_students.length} students"
+.span6{:style =>"margin-left: 0"}
+  %h4
+    = @course.semname
+    = @course.schoolyear.name
+  %h1= @course.subject.details
+  %h2= @course.faculty.fullname
+  %h3= @course.section.name
+  %h3= "#{@course.my_students.length} students"
+
+.alert.alert-info.span5
+  %li For incomplete, leave the text box blank. You may fill this anytime.
+  %li Removals options will be available after you submit the grades of the student for all quarters.
+  %li After submitting the grades, you will not be able to change them unless the APAP approves your request for change grade.
+#clear
 %ul.nav.nav-tabs
   %li= link_to 'Classlist', @course
   %li.active= link_to 'Update Grades', grading_sheet_course_path(@course)
@@ -45,10 +52,18 @@
                 %td
                   = grade_f.text_field :value, :class => "gradesheetinput", :disabled => !grade.writable?
       .actions
-        = f.submit 'Save', :class => "btn-large btn-warning"
+        - notice =  "Change grade will require approval from APAP. <br> Saving might require a few seconds."
+        - instructions = "Send/cancel a request to the APAP to unlock your grading sheet and allow change of grade."
+        = f.submit 'Save', :class => "btn-large btn-warning", :onclick => "return confirm('Are you sure?')", :id => "submit", "data-content"=>notice,"data-title"=>"Are you sure?"
         - if @course.is_closed?
           - if @course.is_locked == CourseStatus::Pending
-            .btn-large.btn-info{:style => "float:right"}= link_to "Cancel unlock request", "/request_unlock/#{@course.id}"
+            .btn-large.btn-info{:style => "float:right"}= link_to "Cancel unlock request", "/request_unlock/#{@course.id}", "data-content"=> instructions, :id => "cancel", "data-title"=>"Are you sure?"
           - else
-            .btn-large.btn-danger{:style => "float:right"}= link_to "Request change grade", "/request_unlock/#{@course.id}"
+            .btn-large.btn-danger{:style => "float:right"}= link_to "Request change grade", "/request_unlock/#{@course.id}", "data-content"=> instructions, :id => "request", "data-title"=>"Are you sure?"
+
+= javascript_include_tag "application"
+:javascript
+  $('#submit').popover({placement:'right'})
+  $('#cancel').popover({placement:'left'})
+  $('#request').popover({placement:'left'})
 

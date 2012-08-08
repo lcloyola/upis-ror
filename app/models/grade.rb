@@ -9,4 +9,9 @@ class Grade < ActiveRecord::Base
     return true unless !self.value.nil?
     return false
   end
+  def writable?
+    return false if (self.course.is_closed? and self.value.present?)
+    return true
+  end
 end
+

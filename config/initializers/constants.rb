@@ -4,4 +4,9 @@ module Role
   RecordStaff = 2
   Faculty = 3
 end
+module CourseStatus
+  Open = 0
+  Close = 1
+  Pending = 2
+end
 

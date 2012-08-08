@@ -149,6 +149,7 @@ class CoursesController < ApplicationController
       @grade = Grade.find(e[0])
       @grade.update_attributes(e[1])
     end
+    @course.update_attributes ({:is_locked => CourseStatus::Close})
     respond_to do |format|
       format.html {redirect_to @course }
     end

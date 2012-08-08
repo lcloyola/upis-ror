@@ -70,5 +70,9 @@ class Course < ActiveRecord::Base
   def unenroll_students
     self.grades.delete_all if !self.has_grade?
   end
+
+  def is_closed?
+    return true if self.is_locked != CourseStatus::Open
+  end
 end
 

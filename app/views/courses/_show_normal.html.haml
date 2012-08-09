@@ -24,7 +24,7 @@
       %td
         - if !s.course_has_grade(@course.id) && !is_faculty?
           = link_to "unenroll" , "/courses/#{@course.id}/unenroll/#{s.id}"
-        - elsif final.present? && final == 4.0
+        - elsif final.present? and final == 4.0 && (is_faculty? or is_admin?) and !@course.is_closed?
           = link_to 'Pass', "/courses/removal/#{@course.id}/#{s.id}/pass"
           |
           = link_to 'Fail', "/courses/removal/#{@course.id}/#{s.id}/fail"

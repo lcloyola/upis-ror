@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
   before_filter :only => [:enroll_students, :unenroll_students, :unenroll_student] { |c| c.allow_access! 14 } # everyone except faculty
   before_filter :only => [:grading_sheet, :update_grades, :removal] { |c| c.allow_access! 9 } # admin and faculty
-  before_filter :only => [:grading_sheet, :update_grades,:request_unlock,:removal] { |c| c.allow_access! 1 and c.class_owned?} # faculty
+  before_filter :only => [:grading_sheet, :update_grades,:request_unlock,:removal] { |c| c.allow_access! 9 and c.class_owned?} # faculty
   before_filter :only => [:process_request] { |c| c.allow_access! 8 }
 
   def index
@@ -158,16 +158,16 @@ class CoursesController < ApplicationController
   end
 
   def removal
-    @course = Course.find(params[:course_id])
+    @course = Course.find(params[:id])
     @student = Student.find(params[:student_id])
     @removal = Removal.where('student_id = ? AND course_id = ?', @student.id, @course.id).first
-    if !@removal.nil?
+    if !@removal.nil? && !@course.is_closed?                                    # no removal grade yet and grading sheet is open
       if params[:verdict] == "pass"
         @removal.update_attributes({:pass => true})
       else
         @removal.update_attributes({:pass => false})
       end
-    else
+    elsif @removal.nil?                                                         # no removal grade yet
       if params[:verdict] == "pass"
         @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => true)
       else
@@ -175,6 +175,7 @@ class CoursesController < ApplicationController
       end
       @newremove.save
     end
+    @course.update_attributes(:is_locked => true)
     redirect_to @course
   end
   def my_classes
@@ -198,7 +199,7 @@ class CoursesController < ApplicationController
   end
   def class_owned?
     @course = Course.find(params[:id])
-    return true if @course.faculty.id == current_user.id
+    return true if @course.faculty.id == current_user.id or current_user.role == Role::Admin
     redirect_to @course, notice: RESTRICTED_NOTICE
   end
   def process_request

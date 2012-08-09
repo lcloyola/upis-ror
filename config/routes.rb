@@ -31,7 +31,7 @@ Upis::Application.routes.draw do
   match 'sections/for_sectionid/:id' => 'sections#for_sectionid'
 
   match 'courses/new/:schoolyear_id/' => 'courses#new'
-  match 'courses/removal/:course_id/:student_id/:verdict' => 'courses#removal'
+  match 'courses/removal/:id/:student_id/:verdict' => 'courses#removal'
 
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
   match 'grades/quarter-report/:batch_id' => 'grades#quarterreport'

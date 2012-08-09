@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808092423) do
+ActiveRecord::Schema.define(:version => 20120809183126) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20120808092423) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   add_index "grades", ["course_id"], :name => "index_grades_on_course_id"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20120808092423) do
     t.boolean  "pass"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   add_index "removals", ["course_id"], :name => "index_removals_on_course_id"

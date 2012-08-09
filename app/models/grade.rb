@@ -2,7 +2,7 @@ class Grade < ActiveRecord::Base
   validates :course_id, :student_id,  :presence => true
   validates_inclusion_of :value, :in => 0..100, :allow_nil => true, :message => "can only be between 0 and 100."
   validates_numericality_of :value, :only_integer => true, :allow_nil => true, :message => "can only be whole number."
-  attr_accessible :course_id, :student_id, :value, :id, :quarter
+  attr_accessible :course_id, :student_id, :value, :id, :quarter, :updated_by
   belongs_to :course
   belongs_to :student
   def blank

@@ -148,7 +148,11 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     params[:course][:grade].each do |e|
       @grade = Grade.find(e[0])
-      @grade.update_attributes(e[1])
+      # refactor? find rails option which only updates "dirty attributes"
+      if @grade.value != e[1][:value] and e[1][:value] != ""
+        @grade.update_attributes(e[1])
+        @grade.update_attributes(:updated_by => current_user.id) if e[1][:value] != ""
+      end
     end
     @course.update_attributes ({:is_locked => CourseStatus::Close})
     respond_to do |format|
@@ -163,15 +167,15 @@ class CoursesController < ApplicationController
     @removal = Removal.where('student_id = ? AND course_id = ?', @student.id, @course.id).first
     if !@removal.nil? && !@course.is_closed?                                    # no removal grade yet and grading sheet is open
       if params[:verdict] == "pass"
-        @removal.update_attributes({:pass => true})
+        @removal.update_attributes({:pass => true, :updated_by => current_user.id})
       else
-        @removal.update_attributes({:pass => false})
+        @removal.update_attributes({:pass => false, :updated_by => current_user.id})
       end
     elsif @removal.nil?                                                         # no removal grade yet
       if params[:verdict] == "pass"
-        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => true)
+        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => true, :updated_by => current_user.id)
       else
-        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => false)
+        @newremove = Removal.new("student_id" => @student.id, "course_id" => @course.id, "pass" => false, :updated_by => current_user.id)
       end
       @newremove.save
     end

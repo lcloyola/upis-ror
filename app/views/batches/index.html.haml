@@ -8,7 +8,7 @@
 
 
 %h3 Current Batches
-= link_to 'New Batch', new_batch_path
+= link_to 'New Batch', new_batch_path unless is_faculty?
 %table
   %thead
     %tr
@@ -22,10 +22,11 @@
         %td= batch.year
         %td= batch.remarks
         %td= batch.students.count
-        %td= link_to 'New Student', new_batch_student_url(batch)
         %td= link_to 'Show', batch_students_path(batch)
-        %td= link_to 'Edit', edit_batch_path(batch)
-        
+        - unless is_faculty?
+          %td= link_to 'New Student', new_batch_student_url(batch)
+          %td= link_to 'Edit', edit_batch_path(batch)
+
 %h3 All Batches
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
@@ -40,6 +41,8 @@
         %td= batch.year
         %td= batch.remarks
         %td= batch.students.count
-        %td= link_to 'New Student', new_batch_student_url(batch)
         %td= link_to 'Show', batch_students_path(batch)
-        %td= link_to 'Edit', edit_batch_path(batch)
+        - unless is_faculty?
+          %td= link_to 'New Student', new_batch_student_url(batch)
+          %td= link_to 'Edit', edit_batch_path(batch)
+

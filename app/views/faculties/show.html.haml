@@ -19,10 +19,10 @@
 %p
   %b Mobile:
   = @faculty.mobile
-
-= link_to 'Edit', edit_faculty_path(@faculty)
-\|
-= link_to 'Back', faculties_path
-|
-= link_to 'New Faculty', new_faculty_path
+- unless is_faculty?
+  = link_to 'Edit', edit_faculty_path(@faculty)
+  \|
+  = link_to 'Back', faculties_path
+  |
+  = link_to 'New Faculty', new_faculty_path
 

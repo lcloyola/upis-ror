@@ -1,5 +1,5 @@
 %h1 Listing departments
-= link_to 'New Department', new_department_path
+= link_to 'New Department', new_department_path  unless is_faculty?
 
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
@@ -12,4 +12,5 @@
         %td= department.name
         %td= department.faculties.count
         %td= link_to 'Show', department
-        %td= link_to 'Edit', edit_department_path(department)
+        %td= link_to 'Edit', edit_department_path(department)  unless is_faculty?
+

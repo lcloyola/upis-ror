@@ -1,4 +1,4 @@
-= link_to 'Edit', edit_department_path(@department)
+= link_to 'Edit', edit_department_path(@department)  unless is_faculty?
 |
 = link_to 'Back', departments_path
 |
@@ -20,4 +20,5 @@
         %td= f.mobile
         %td= f.appointment
         %td= link_to "Show", faculty_path(f)
-        %td= link_to "Edit", edit_faculty_path(f)
+        %td= link_to "Edit", edit_faculty_path(f)  unless is_faculty?
+

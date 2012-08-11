@@ -8,7 +8,7 @@
 
 
 -if !Faculty.all.empty? && !Schoolyear.all.empty? && !Batch.all.empty?
-  = link_to 'New Section', new_section_path
+  = link_to 'New Section', new_section_path unless is_faculty?
 
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
@@ -32,7 +32,7 @@
           %td= section.courses.count
           %td= section.faculty.fullname
           %td= link_to 'Show', section
-          %td= link_to 'Edit', edit_section_path(section)
+          %td= link_to 'Edit', edit_section_path(section) unless is_faculty?
 
 -else
   Please create faculties, schoolyear and batch first.

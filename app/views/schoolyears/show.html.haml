@@ -6,7 +6,7 @@
   %li= link_to "Sections", sections_path
   %li.active= link_to "Classes", schoolyear_path(@schoolyear.id)
 
-%td= link_to 'New Class', "/courses/new/#{@schoolyear.id}"
+%td= link_to 'New Class', "/courses/new/#{@schoolyear.id}" unless is_faculty?
 %p= @schoolyear.remarks
 
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}

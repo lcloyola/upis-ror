@@ -203,7 +203,7 @@ class CoursesController < ApplicationController
   end
   def class_owned?
     @course = Course.find(params[:id])
-    return true if @course.faculty.id == current_user.id or current_user.role == Role::Admin
+    return true if @course.faculty.user_id == current_user.id or current_user.role == Role::Admin
     redirect_to @course, notice: RESTRICTED_NOTICE
   end
   def process_request

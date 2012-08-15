@@ -145,13 +145,14 @@ class CoursesController < ApplicationController
   end
 
   def update_grades
+    #warning: possible race condition -- when faculty and admin edits at the same time.
     @course = Course.find(params[:id])
     params[:course][:grade].each do |e|
       @grade = Grade.find(e[0])
       # refactor? find rails option which only updates "dirty attributes"
-      if @grade.value != e[1][:value] and e[1][:value] != ""
+      if @grade.value != e[1][:value].to_i
         @grade.update_attributes(e[1])
-        @grade.update_attributes(:updated_by => current_user.id) if e[1][:value] != ""
+        @grade.update_attributes(:updated_by => current_user.id) unless (e[1][:value] == "" and @grade.value.nil?)
       end
     end
     @course.update_attributes ({:is_locked => CourseStatus::Close})

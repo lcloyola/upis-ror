@@ -6,7 +6,7 @@
     - unless (is_faculty? and !faculty_owned?)
       - grades.each do |g|
         - !g.value.nil? && g.value < 50 ? emphasize = "emphasize" : emphasize = "nope"
-        %td{:class => emphasize}= g.value
+        %td{:class => emphasize, :title => "by user: #{g.updated_by} #{g.updated_at}"}= g.value
       - if !grades.any? {|grade| grade.value.nil?}
         %td= ave = (grades.map(&:value).sum.to_f/grades.length).round
         %td

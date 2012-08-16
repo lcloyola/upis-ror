@@ -69,7 +69,7 @@ class Student < ActiveRecord::Base
       total = (c.student_average(self.id) * c.subject.units) + total
       units = c.subject.units + units
     end
-    return total/units
+    return (total/units).round(5) if units != 0
   end
   def gwa_final_schoolyear(sy)
     total = units = 0
@@ -77,7 +77,7 @@ class Student < ActiveRecord::Base
       total = (c.student_final(self.id) * c.subject.units) + total
       units = c.subject.units + units
     end
-    return total/units if units != 0
+    return (total/units).round(5) if units != 0
     return ""
   end
   def has_grades?

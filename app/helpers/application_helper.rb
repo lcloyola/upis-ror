@@ -20,10 +20,10 @@ module ApplicationHelper
     return false
   end
   def allow_access(x)
-    return true if (current_user.role == 0) and x >= 8
-    return true if (current_user.role == 3) and x.odd?
-    return true if (current_user.role == 1) and ((4..7).include?(x) or (11..14).include?(x))
-    return true if (current_user.role == 2) and ([2,3,6,7,10,11,13,14].include?(x))
+    return true if (current_user.role == Role::Admin) and x >= 8
+    return true if (current_user.role == Role::Faculty) and x.odd?
+    return true if (current_user.role == Role::Moderator) and ((4..7).include?(x) or (11..14).include?(x))
+    return true if (current_user.role == Role::RecordStaff) and ([2,3,6,7,10,11,13,14].include?(x))
   end
   def faculty_owned?
     return true if @course.faculty.id == current_user.id

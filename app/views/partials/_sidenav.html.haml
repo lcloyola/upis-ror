@@ -15,6 +15,12 @@
           %i.icon-pencil
           = 'My Classes'
 
+    - if !is_faculty?
+      %li
+        %a{:href => "/schoolyears"}
+          %i.icon-calendar
+          Schoolyears
+
     - else
       %li
         %a{:href => "/sections/new/#{Schoolyear.current_schoolyear.first.id}"}

@@ -1,5 +1,6 @@
 class SchoolyearsController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:show]
+  before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 }
+  before_filter :only => [:destroy, :make_current] { |c| c.allow_access! 12 }
 
   def index
     @schoolyears = Schoolyear.order("start DESC")

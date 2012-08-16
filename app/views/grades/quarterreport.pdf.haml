@@ -12,7 +12,7 @@
       #quarter-stub
         .background{:style => "z-index: 3; position:absolute;"}= pdf_image_tag '/images/logo-trans.png', :style => "margin: 50px 85px;"
         %h5
-          = student.fullname
+          .capslock= student.fullname
           %span{:style => "float: right"}= @sy.name
         %h5= student.section(@sy.id).fullname if student.section(@sy.id).present?
         %table.smaller{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable", :style => "background: pdf_image_tag '/images/upislogo.JPG'"}

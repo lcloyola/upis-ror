@@ -1,5 +1,6 @@
 %h1.capslock= @student.fullname
 %h2= @student.student_no
+.btn.btn-warning= link_to "Print Quarter Class Stubs", "/grades/quarter-report/student/#{@student.id}.pdf"
 
 %ul.nav.nav-tabs
   %li= link_to "Transcript", "/students/transcript/#{@student.id}"

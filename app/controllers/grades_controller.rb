@@ -92,8 +92,15 @@ class GradesController < ApplicationController
     end
   end
   def quarterreport
-    @students = Batch.find(params[:batch_id]).students
     @sy = Schoolyear.current_schoolyear.first
+    if params[:type] == "batch"
+      @students = Batch.find(params[:id]).students
+    elsif params[:type] == "section"
+      @students = Section.find(params[:id]).students
+    elsif params[:type] == "student"
+      @students = Student.where(:id => params[:id])
+    end
+
     respond_to do |format|
       format.pdf do
         render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10

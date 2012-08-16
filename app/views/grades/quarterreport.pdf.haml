@@ -48,4 +48,6 @@
           = student.section(@sy.id).faculty.fullname if student.section(@sy.id).present? ## REFACTOOOOR
         %p Records Officer:
         %h6 This stub represents the report card on the specified quarter(s) only. A final report card will be given on the last quarter. Please keep this for future reference.
+        Generated:
+        = Time.now
 

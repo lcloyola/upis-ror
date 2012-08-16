@@ -10,7 +10,7 @@
   .page
     - slice.each do |student|
       #quarter-stub
-        .background{:style => "z-index: 3; opacity: .12; position:absolute;"}= pdf_image_tag '/images/logo.png', :style => "margin: 50px 85px;"
+        .background{:style => "z-index: 3; position:absolute;"}= pdf_image_tag '/images/logo-trans.png', :style => "margin: 50px 85px;"
         %h5
           = student.fullname
           %span{:style => "float: right"}= @sy.name

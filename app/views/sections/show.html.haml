@@ -14,12 +14,12 @@
       Grade Level:
       = @section.year
     - unless is_faculty?
-      .btn.btn-warning= link_to "Print Quarter Class Stubs", "/grades/quarter-report/section/#{@section.id}.pdf"
+      .btn.btn-warning= link_to "Print Quarter Class Stubs", "/grades/quarter-report/section/#{@section.id}.pdf", :target => "_blank"
       = link_to 'Edit', edit_section_path(@section)
       \|
       = link_to 'Back', sections_path
 
-    %h4= link_to 'pdf form', section_path(@section, :format => :pdf)
+    %h4= link_to 'pdf form', section_path(@section, :format => :pdf), :target => "_blank"
 
   .span4
     %h3 Subjects

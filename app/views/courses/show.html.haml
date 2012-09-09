@@ -8,7 +8,7 @@
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)
-  %li= link_to 'pdf form', course_path(@course, :format => :pdf)
+  %li= link_to 'pdf form', course_path(@course, :format => :pdf), :target => "_blank"
   - if !@course.has_grade? && !is_faculty?
     %li= link_to 'Destroy Class', @course, :confirm => 'Are you sure?', :method => :delete
     %li= link_to 'Unenroll All', "/courses/#{@course.id}/unenroll_students", :confirm => 'Are you sure?'

@@ -15,8 +15,8 @@
               %h4
                 = "AY #{sy.name}"
                 - unless @student.section(sy.id).nil?
-                  %p.float-right
-                    %span= @student.section(sy.id).name
+                  %p.float-right.capslock
+                    %span= "#{@student.section(sy.id).year} #{@student.section(sy.id).name}"
                     = "- #{@student.section(sy.id).faculty.fullname}"
               Weighted Average:
               %b= @student.gwa_raw_schoolyear(sy)

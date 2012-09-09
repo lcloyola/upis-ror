@@ -50,7 +50,7 @@
                     = grade_f.text_field :value, :class => "gradesheetinput", :disabled => true
               - else
                 %td
-                  = grade_f.text_field :value, :class => "gradesheetinput", :disabled => !grade.writable?
+                  = grade_f.text_field :value, :class => "gradesheetinput", :disabled => !grade.writable?, :tabIndex => "#{grade.quarter}"
       .actions
         - notice =  "Change grade will require approval from APAP. <br> Saving might require a few seconds."
         - instructions = "Send/cancel a request to the APAP to unlock your grading sheet and allow change of grade."

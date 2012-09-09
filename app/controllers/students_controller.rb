@@ -103,6 +103,9 @@ class StudentsController < ApplicationController
     @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
     respond_to do |format|
       format.html
+      format.pdf do
+        render :pdf => "transcript.pdf", :layout => "pdf.html"
+      end
     end
   end
   def honorroll
@@ -111,7 +114,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "honorroll.pdf", :layout => "pdf.html"
+        render :pdf => "honorroll.pdf"
       end
     end
   end

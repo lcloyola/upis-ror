@@ -5,7 +5,6 @@
   %li.active= link_to "Transcript", "/students/transcript/#{@student.id}"
   %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li= link_to "Profile", @student
-.btn.btn-info= link_to "Transcript PDF", "/students/transcript/#{@student.id}.pdf", :target => "_blank"
 %br
 -#TODO: refactor!!!
 - @schoolyear.each do |sy|

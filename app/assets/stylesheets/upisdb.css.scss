@@ -41,10 +41,10 @@ input.gradesheetinput {
 #quarter-stub {
   border: 2px solid #000;
   min-height: 390px;
-  margin: 2px;
+  margin: 4px;
   padding: 7px;
-  width: 47%;
-  float: left;
+  width: 98%;
+  clear: both;
 }
 .page {
   display: inline-block;
@@ -52,6 +52,12 @@ input.gradesheetinput {
   page-break-after: auto;
   height: 1600px;
   width: 1050px;
+}
+.page_col {
+  width: 48%;
+  float: left;
+  padding: 0px;
+  margin: 5px;
 }
 .halfpage {
   display: inline-block;

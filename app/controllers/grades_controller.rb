@@ -92,11 +92,16 @@ class GradesController < ApplicationController
     end
   end
   def quarterreport
+    @per_page = 4
     @sy = Schoolyear.current_schoolyear.first
     if params[:type] == "batch"
       @students = Batch.find(params[:id]).students
     elsif params[:type] == "section"
-      @students = Section.find(params[:id]).students
+      section = Section.find(params[:id])
+      @students = section.students
+      if section.year < 4
+        @per_page = 6
+      end
     elsif params[:type] == "student"
       @students = Student.where(:id => params[:id])
     end

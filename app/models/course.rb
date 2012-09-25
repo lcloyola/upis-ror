@@ -27,15 +27,9 @@ class Course < ActiveRecord::Base
   end
   def student_average(student_id)
     @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE IS NOT NULL', student_id, self.id)
-    sum = @grades.sum('value')
-    return 0 if self.subject.is_pe?
-    return 0 if @grades.empty?
+    sum = @grades.sum('value').to_f
+    return 0 if self.subject.is_pe? or @grades.empty?
     return (sum / @grades.count).round
-    #if self.yearlong
-    #  return (@grades / 4.00).round
-    #else
-    #  return (@grades / 2.00).round
-    #end
   end
   def student_final(student_id)
     return 0 if self.subject.is_pe?

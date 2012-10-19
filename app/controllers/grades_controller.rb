@@ -92,23 +92,21 @@ class GradesController < ApplicationController
     end
   end
   def quarterreport
-    @per_page = 4
+    params[:orientation] == "landscape" ? @orientation = "landscape" : @orientation = "portrait"
+    @orientation == "landscape" ? @per_page = 2 : @per_page = 4
     @sy = Schoolyear.current_schoolyear.first
+
     if params[:type] == "batch"
       @students = Batch.find(params[:id]).students
     elsif params[:type] == "section"
-      section = Section.find(params[:id])
-      @students = section.students
-      if section.year < 4
-        @per_page = 6
-      end
+      @students = Section.find(params[:id]).students
     elsif params[:type] == "student"
       @students = Student.where(:id => params[:id])
     end
 
     respond_to do |format|
       format.pdf do
-        render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10
+        render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10, :orientation => @orientation
       end
     end
   end

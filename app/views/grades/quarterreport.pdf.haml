@@ -12,12 +12,13 @@
       .page_col
         - pair.each do |student|
           #quarter-stub
-            .background{:style => "z-index: 3; position:absolute;"}= pdf_image_tag '/images/logo-trans.png', :style => "margin: 50px 85px;"
+            .background{:style => "z-index: 3; position:absolute; margin-left: #{@orientation == "landscape" ? '13%;' : '9%'}"}
+              = pdf_image_tag '/images/logo-trans.png', :style => "margin-top: 15%;"
             %h5
               .capslock= student.fullname
               %span{:style => "float: right"}= @sy.name
             %h5= student.section(@sy.id).fullname if student.section(@sy.id).present?
-            %table.smaller{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable", :style => "background: pdf_image_tag '/images/upislogo.JPG'"}
+            %table{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable"}
               %thead
                 %tr
                   %th Subject
@@ -45,11 +46,16 @@
                     - if !c.yearlong && c.sem == 1
                       %td -
                       %td -
+            #transtable.right{:style=>"width: 67%;"}= render "classcard/transmutation_table"
             %p
               %b Adviser
-              = student.section(@sy.id).faculty.fullname if student.section(@sy.id).present? ## REFACTOOOOR
-            %p Records Officer:
+              %p
+              %br= student.section(@sy.id).faculty.fullname if student.section(@sy.id).present? ## REFACTOOOOR
+            %p
+              %b Records Officer:
+              %br
             %h6 This stub represents the report card on the specified quarter(s) only. A final report card will be given on the last quarter. Please keep this for future reference.
             Generated:
             = Time.now
+            #clear
 

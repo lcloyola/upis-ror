@@ -2,7 +2,7 @@
 |
 = link_to 'Back', batches_path
 %h1= "Batch #{@batch.year}"
-.btn.btn-warning= link_to "Print Quarter Class Stubs", "/grades/quarter-report/batch/#{@batch.id}.pdf"
+.btn.btn-warning= link_to "Print Quarter Class Stubs", "/grades/quarter-report/batch/#{@batch.id}/landscape.pdf"
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead
     %tr

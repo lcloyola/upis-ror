@@ -106,7 +106,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :font_size => 10, :orientation => @orientation
+        render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :orientation => @orientation
       end
     end
   end

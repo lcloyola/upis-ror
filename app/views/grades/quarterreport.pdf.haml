@@ -18,6 +18,7 @@
               .capslock= student.fullname
               %span{:style => "float: right"}= @sy.name
             %h5= student.section(@sy.id).fullname if student.section(@sy.id).present?
+            %br
             %table{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable"}
               %thead
                 %tr
@@ -46,6 +47,8 @@
                     - if !c.yearlong && c.sem == 1
                       %td -
                       %td -
+            = render "classcard/attendance"
+            #clear
             #transtable.right{:style=>"width: 67%;"}= render "classcard/transmutation_table"
             %p
               %b Adviser

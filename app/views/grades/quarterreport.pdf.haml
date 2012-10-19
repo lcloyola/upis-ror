@@ -7,12 +7,12 @@
       background: #FFF;
     }
 - @students.each_slice(@per_page) do |slice|
-  .page
+  .page{:id => @orientation}
     - slice.each_slice(@per_page/2) do |pair|
       .page_col
         - pair.each do |student|
           #quarter-stub
-            .background{:style => "z-index: 3; position:absolute; margin-left: #{@orientation == "landscape" ? '13%;' : '9%'}"}
+            .background{:style => "z-index: 3; position:absolute; margin-left: #{@orientation == "landscape" ? '15%;' : '9%'}"}
               = pdf_image_tag '/images/logo-trans.png', :style => "margin-top: 15%;"
             %h5
               .capslock= student.fullname

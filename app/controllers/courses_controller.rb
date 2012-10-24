@@ -53,13 +53,11 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @schoolyear = Schoolyear.find(params[:course][:schoolyear_id])
-    if params[:yearsem] == "1"
-      params[:course][:yearlong] = false
-    elsif params[:yearsem] == "2"
-      params[:course][:sem] = 2
-      params[:course][:yearlong] = false
-    else
+    if params[:yearsem] == "0"
       params[:course][:yearlong] = true
+    else # if yearsem == 1, 2, 3 or 4
+      params[:course][:yearlong] = false
+      params[:course][:sem] = params[:yearsem]
     end
     params[:course].delete :id
     @course = @schoolyear.courses.new(params[:course])
@@ -229,21 +227,24 @@ private
   end
   def enroll_individual_student
     unless @student.enrolled?(@course.id)
-      startq = 1
       if @course.yearlong
-        endq = 4
+        quarters = [1..4]
       elsif @course.sem == 1
-        endq = 2
-      else
-        startq = 3
-        endq = 4
+        quarters = [1, 2]
+      elsif @course.sem == 2
+        quarters = [3, 4]
+      elsif @course.sem == 3
+        quarters = [1, 3]
+      elsif @course.sem == 4
+        quarters = [2, 4]
       end
 
-      for j in startq..endq
+      for j in quarters
         @enrollment = Grade.new("course_id" => @course.id, "student_id" => @student.id, "quarter" => j)
         @enrollment.save
       end
     end
   end
+
 end
 

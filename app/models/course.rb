@@ -55,8 +55,13 @@ class Course < ActiveRecord::Base
   def semname
     if self.sem == 1
       return "1st sem"
+    elsif self.sem == 2
+      return "2nd sem"
+    elsif self.sem == 3
+      return "1st & 2nd qtr"
+    elsif self.sem == 4
+      return "3rd & 4th qtr"
     end
-    return "2nd sem"
   end
   def dq_students(quarter)
     return self.grades.find(:all, :conditions => ["value IS NULL AND quarter = ?", quarter])

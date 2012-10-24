@@ -15,17 +15,7 @@
         %th Student No
         %th Student
         - unless (is_faculty? and !faculty_owned?)
-          - if @course.yearlong == true
-            %th 1st Q
-            %th 2nd Q
-            %th 3rd Q
-            %th 4th Q
-          - elsif @course.sem == 1
-            %th 1st Q
-            %th 2nd Q
-          - else
-            %th 3rd Q
-            %th 4th Q
+          = render 'partials/table_header_quarter'
           %th Average
           %th Final
           %th Remarks

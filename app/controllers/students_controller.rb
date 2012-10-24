@@ -104,7 +104,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "transcript.pdf", :layout => "pdf.html"
+        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"
       end
     end
   end

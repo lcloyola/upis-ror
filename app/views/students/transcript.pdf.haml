@@ -1,37 +1,65 @@
-%h1.capslock= @student.fullname
-%h2= @student.student_no
-
-%ul.nav.nav-tabs
-  %li.active= link_to "Transcript", "/students/transcript/#{@student.id}"
-  %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
-  %li= link_to "Profile", @student
-%br
 -#TODO: refactor!!!
-- @schoolyear.each do |sy|
-  %h4= sy.name
-  Weighted Average:
-  = @student.gwa_final_schoolyear(sy)
-  %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable"}
-    %thead
-      %tr
-        %th Subject
-        %th Final
-        %th Units
-    %tbody
-      - @student.courses_year(sy.id).each do |c|
-        %tr
-          %td= link_to c.subject.name, c
-          - if @student.course_has_blank(c.id)
-            %td n/a
-          - else
-            - @ave = c.student_average(@student.id)
-            %td
-              = @final = c.student_final(@student.id)
-              - if @final == 4.0
-                - @removal = @student.course_removed(c)
-                - if @removal.present? && @removal.pass
-                  (3.0)
-                - elsif @removal.present? && !@removal.pass
-                  (5.0)
-          %td= c.subject.units
+- @schoolyear.each_slice(4) do |slice|
+  .page{:style=>"height: 1400;"}
+    %h2.center{:style => "clear: right;"}
+      = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
+      University of the Philippines Integrated School
+    %h3.center{:style=>"margin-bottom: 10px;"} GRADES 7 - 12 (Secondary School Record)
+
+    %h3.capslock
+      = @student.fullname
+    %p
+      %b Student Number:
+      = @student.student_no
+      %span.right
+        %b Sex:
+        = @student.sex
+        %b Date of Birth:
+        = @student.birthday
+    %p
+      %b Address:
+      = @student.address.present? ? @student.address.present : "----"
+      %span.right
+        %b Tel. No:
+        = @student.landline.present? ? @student.landline : "----"
+    = #end page header
+
+    - slice.each_slice(2) do |pair|
+      .page_col
+        - pair.each do |sy|
+
+          %table{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable", |
+                  :style => "border: 1px solid #AAA;" }
+            %thead
+              %tr
+                %th= "School Year: #{sy.name}"
+                %th{:colspan => 2}= "Weighted Average: #{@student.gwa_final_schoolyear(sy)}"
+              %tr
+                %th Subject
+                %th Final
+                %th Units
+            %tbody
+              - @student.courses_year(sy.id).each do |c|
+                %tr
+                  %td= c.subject.name
+                  - if @student.course_has_blank(c.id)
+                    %td n/a
+                  - else
+                    - @ave = c.student_average(@student.id)
+                    %td
+                      = @final = c.student_final(@student.id)
+                      - if @final == 4.0
+                        - @removal = @student.course_removed(c)
+                        - if @removal.present? && @removal.pass
+                          (3.0)
+                        - elsif @removal.present? && !@removal.pass
+                          (5.0)
+                  %td= c.subject.units
+.page_col
+  %p Prepared by:
+  %p Checked by:
+  %p= "Generated: #{Time.now}"
+.page_col.center
+  .capslock Ronaldo M. San Jose, Ph.D
+  Principal
 

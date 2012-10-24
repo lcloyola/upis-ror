@@ -22,11 +22,8 @@
             %table{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable"}
               %thead
                 %tr
-                  %th Subject
-                  %th Q1
-                  %th Q2
-                  %th Q3
-                  %th Q4
+                  - for x in ["Subject", "Q1", "Q2", "Q3", "Q4"]
+                    %th= x
               %tbody
                 - student.courses_year(@sy.id).each do |c|
                   %tr
@@ -35,6 +32,8 @@
                       %td -
                       %td -
                     - student.course_grades(c.id).each do |g|
+                      - if c.sem == 3
+                        %th -
                       - if c.subject.is_pe?
                         - if pe(g.value) == 'F'
                           %td.emphasize= pe(g.value)
@@ -44,6 +43,8 @@
                         %td.emphasize= g.value
                       - else
                         %td= g.value
+                      - if c.sem == 4
+                        %th -
                     - if !c.yearlong && c.sem == 1
                       %td -
                       %td -

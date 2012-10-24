@@ -37,6 +37,8 @@
             %td -
             %td -
           - @student.course_grades(c.id).each do |g|
+            - if c.sem == 3
+              %td -
             - if c.subject.is_pe?
               - if pe(g.value) == 'F'
                 %td.emphasize= pe(g.value)
@@ -46,6 +48,8 @@
               %td.emphasize= g.value
             - else
               %td= g.value
+            - if c.sem == 4
+              %td -
           - if !c.yearlong && c.sem == 1
             %td -
             %td -
@@ -108,3 +112,4 @@
     Ibinibigay ang kard na ito bawat markahan para maparating sa inyo ang pag-unlad ng inyong anak sa gawaing pang-akademiko,
     ang reguralidad ng kanyang pagpasok, at ang pagbuti niya bilang isag tao sa kilos at ugali. Kung nais ninyong makausap
     ang mga guro at guidance counselor tungkol sa inyong anak, mangyari po lamang puntahan sila sa UPIS sa oras ng konsultasyon.
+

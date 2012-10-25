@@ -2,20 +2,18 @@
 = render "defnav"
 %h4= link_to 'pdf form', "/grades/deficiency/#{@quarter}.pdf"
 
-%table{:id => "sortable", :class => "zebra-striped tablesorter"}
+%table{:class => "zebra-striped tablesorter sortable"}
   %thead
     %tr
       %th Course
       %th Section
       %th Students
-
   %tbody
-    - @courses.each do |c|
+    - @def.each do |c|
       %tr
-        %td= link_to c.subject.name, c
-        %td= "#{c.section.year} #{c.section.name}" unless c.section.nil?
+        %td= link_to c[0].subject.name, c[0]
+        %td= "#{c[0].section.year} #{c[0].section.name}"
         %td
-          - c.dq_students(@quarter).each do |g|
-            %li
-              = g.student.fullname
+          - c[1].each do |grade|
+            %li= grade.student.fullname
 

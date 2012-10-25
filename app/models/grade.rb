@@ -13,5 +13,8 @@ class Grade < ActiveRecord::Base
     return false if (self.course.is_closed? and self.value.present?)
     return true
   end
+  def self.deficiencies(quarter, schoolyear)
+    return Grade.joins(:course).where('courses.schoolyear_id' => schoolyear, 'quarter' => quarter, 'value' => nil).group_by(&:course)
+  end
 end
 

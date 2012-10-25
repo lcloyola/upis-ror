@@ -63,10 +63,6 @@ class Course < ActiveRecord::Base
       return "3rd & 4th qtr"
     end
   end
-  def dq_students(quarter)
-    return self.grades.find(:all, :conditions => ["value IS NULL AND quarter = ?", quarter])
-  end
-
   def has_grade?
     self.grades.reject! { |item|
       return true  if item.value != nil

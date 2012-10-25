@@ -82,7 +82,7 @@ class GradesController < ApplicationController
   end
   def deficiency
     @quarter = params['quarter']
-    @courses = Schoolyear.current_schoolyear.first.courses.with_deficiency(@quarter)
+    @def = Grade.deficiencies(params['quarter'], Schoolyear.current_schoolyear.first)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }

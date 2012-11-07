@@ -58,9 +58,9 @@ class Course < ActiveRecord::Base
     elsif self.sem == 2
       return "2nd sem"
     elsif self.sem == 3
-      return "1st & 2nd qtr"
+      return "1st & 3rd qtr"
     elsif self.sem == 4
-      return "3rd & 4th qtr"
+      return "2nd & 4th qtr"
     end
   end
   def has_grade?

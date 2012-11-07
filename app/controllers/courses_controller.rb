@@ -228,7 +228,7 @@ private
   def enroll_individual_student
     unless @student.enrolled?(@course.id)
       if @course.yearlong
-        quarters = [1..4]
+        quarters = [1, 2, 3, 4]
       elsif @course.sem == 1
         quarters = [1, 2]
       elsif @course.sem == 2

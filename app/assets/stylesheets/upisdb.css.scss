@@ -56,7 +56,8 @@ input.gradesheetinput {
 .page {
   display: inline-block;
   clear: both;
-  page-break-after: auto;
+  page-break-after: always;
+  border: white 1px solid;
 }
 #portrait.page {
   height: 1600px;
@@ -65,6 +66,12 @@ input.gradesheetinput {
 #landscape.page {
   width: 2000px;
   height: 1440px;
+}
+.page_break {
+  page-break-after: always;
+  display: block;
+  clear: both;
+  height: 1px;
 }
 .page_col {
   width: 48%;

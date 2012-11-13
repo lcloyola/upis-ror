@@ -32,8 +32,8 @@
                       %td -
                       %td -
                     - student.course_grades(c.id).each do |g|
-                      - if c.sem == 3
-                        %th -
+                      - if c.sem == 4
+                        %td -
                       - if c.subject.is_pe?
                         - if pe(g.value) == 'F'
                           %td.emphasize= pe(g.value)
@@ -43,8 +43,8 @@
                         %td.emphasize= g.value
                       - else
                         %td= g.value
-                      - if c.sem == 4
-                        %th -
+                      - if c.sem == 3
+                        %td -
                     - if !c.yearlong && c.sem == 1
                       %td -
                       %td -
@@ -63,3 +63,4 @@
             = Time.now
             #clear
   .page_break
+

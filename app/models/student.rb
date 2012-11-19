@@ -1,10 +1,10 @@
 class Student < ActiveRecord::Base
   belongs_to :batch
   has_many :grades, :foreign_key => :student_id, :dependent => :destroy
-  has_many :courses, :through => :grades, :source => :course, :dependent => :destroy
+  has_many :courses, :through => :grades, :uniq => true, :source => :course, :dependent => :destroy
   has_many :members, :foreign_key => :student_id, :dependent => :destroy
   has_many :sections, :through => :members, :source => :section, :dependent => :destroy
-  has_many :subjects, :through => :courses, :source => :subject
+  has_many :subjects, :through => :courses, :uniq => true, :source => :subject
   has_many :schoolyears, :through => :courses, :source => :schoolyear
   def fullname
     "#{last} #{given} #{middle}"
@@ -83,6 +83,18 @@ class Student < ActiveRecord::Base
   def has_grades?
     return true if self.sections.present? || self.grades.present?
     return false
+  end
+  def units_overall
+    return self.subjects.to_a.sum(&:units)
+  end
+  def gwa_final_overall
+    total = units = 0
+    self.courses.each do |c|
+      total = (c.student_final(self.id) * c.subject.units) + total
+      units = c.subject.units + units
+    end
+    return (total/units).round(5) if units != 0
+    return ""
   end
 end
 

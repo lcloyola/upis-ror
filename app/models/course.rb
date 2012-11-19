@@ -11,7 +11,7 @@ class Course < ActiveRecord::Base
   belongs_to :schoolyear
   belongs_to :section
   has_many :grades, :foreign_key => :course_id, :dependent => :destroy
-  has_many :students, :through => :grades, :source => :student, :dependent => :destroy
+  has_many :students, :through => :grades, :uniq => true, :source => :student, :dependent => :destroy
 
   scope :first_sem, :conditions => ['sem = ?', 1]
   scope :with_deficiency, lambda { |quarter|

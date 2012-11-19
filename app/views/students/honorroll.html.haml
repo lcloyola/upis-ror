@@ -5,8 +5,16 @@
   %li= link_to "Transcript", "/students/transcript/#{@student.id}"
   %li.active= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li= link_to "Profile", @student
+%h3
+  Overall GWA:
+  = @student.gwa_final_overall
+%h4
+  Overall Units:
+  = @student.units_overall
 .btn.btn-info= link_to "Honorroll PDF", "/students/honorroll/#{@student.id}.pdf", :target => "_blank"
 
+
+%br
 -#TODO: refactor!!!
 - if !@schoolyear.empty?
   - @schoolyear.each do |sy|
@@ -50,19 +58,15 @@
               %td -
 
             %td= c.subject.units
-            - if @student.course_has_blank(c.id)
-              %td
-              %td
-            - else
-              - ave = c.student_average(@student.id)
-              - !c.subject.is_pe? &&  !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
-              %td{:class => emphasize}= ave
-              %td
-                = @final = c.student_final(@student.id)
-                - if @final == 4.0
-                  - @removal = @student.course_removed(c)
-                  - if @removal.present? && @removal.pass
-                    (3.0)
-                  - elsif @removal.present? && !@removal.pass
-                    (5.0)
+            - ave = c.student_average(@student.id)
+            - !c.subject.is_pe? &&  !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
+            %td{:class => emphasize}= ave
+            %td
+              = @final = c.student_final(@student.id)
+              - if @final == 4.0
+                - @removal = @student.course_removed(c)
+                - if @removal.present? && @removal.pass
+                  (3.0)
+                - elsif @removal.present? && !@removal.pass
+                  (5.0)
 

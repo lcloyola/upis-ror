@@ -4,7 +4,7 @@
 %h1= @course.subject.details
 %h2= @course.faculty.fullname
 %h3= @course.section.name
-%h3="#{@course.my_students.length} students"
+%h3="#{@course.students.count} students"
 %ul.nav.nav-tabs
   %li.active= link_to 'Classlist', @course
   %li= link_to 'Update Grades', grading_sheet_course_path(@course)

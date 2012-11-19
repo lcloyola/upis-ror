@@ -1,8 +1,15 @@
 %head
   = wicked_pdf_stylesheet_link_tag "application"
 
-%h3.capslock= @student.fullname
-%h3= @student.student_no
+%h3
+  .float-right
+    Overall GWA:
+    = @student.gwa_final_overall
+  .capslock= @student.fullname
+  = @student.student_no
+  .float-right
+    Overall Units:
+    = @student.units_overall
 
 -#TODO: refactor!!!
 - if !@schoolyear.empty?
@@ -26,7 +33,12 @@
         %tbody
           - @student.courses_year(sy.id).each do |c|
             %tr
-              %td{:style => "text-align: left;"}= c.subject.name
+              - if @student.course_has_blank(c.id)
+                %td{:style => "text-align: left; color: #999; font-weight: bold;"}= c.subject.name
+              - else
+                %td{:style => "text-align: left;"}= c.subject.name
+
+
               - if !c.yearlong && c.sem == 2
                 %td -
                 %td -
@@ -49,19 +61,15 @@
                 %td -
 
               %td= c.subject.units
-              - if @student.course_has_blank(c.id)
-                %td
-                %td
-              - else
-                - ave = c.student_average(@student.id)
-                - !c.subject.is_pe? && !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
-                %td{:class => emphasize}= ave
-                %td
-                  = @final = c.student_final(@student.id)
-                  - if @final == 4.0
-                    - @removal = @student.course_removed(c)
-                    - if @removal.present? && @removal.pass
-                      (3.0)
-                    - elsif @removal.present? && !@removal.pass
-                      (5.0)
+              - ave = c.student_average(@student.id)
+              - !c.subject.is_pe? && !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
+              %td{:class => emphasize}= ave
+              %td
+                = @final = c.student_final(@student.id)
+                - if @final == 4.0
+                  - @removal = @student.course_removed(c)
+                  - if @removal.present? && @removal.pass
+                    (3.0)
+                  - elsif @removal.present? && !@removal.pass
+                    (5.0)
 

@@ -64,9 +64,5 @@
             %td
               = @final = c.student_final(@student.id)
               - if @final == 4.0
-                - @removal = @student.course_removed(c)
-                - if @removal.present? && @removal.pass
-                  (3.0)
-                - elsif @removal.present? && !@removal.pass
-                  (5.0)
+                = @student.course_removed(c).value if @student.course_removed(c).present?
 

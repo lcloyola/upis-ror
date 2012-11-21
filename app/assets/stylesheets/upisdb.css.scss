@@ -74,7 +74,7 @@ input.gradesheetinput {
   height: 1px;
 }
 .page_col {
-  width: 48%;
+  width: 45%;
   float: left;
   padding: 0px;
   margin: 5px;
@@ -139,6 +139,9 @@ table.smallest th {
 }
 .right {
   float: right;
+}
+.text-left {
+  text-align: left;
 }
 /* must refactor later! */
 

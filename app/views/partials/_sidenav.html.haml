@@ -1,7 +1,7 @@
 .sidebar-nav.well
   %img{:src => "/images/thumblogo.png", :style => "width: 65px; float: left; padding: 0 15px;"}
   %h3 Academic Year
-  %h1= Schoolyear.current_schoolyear.first.name
+  %h1= Schoolyear.current.name
   %ul.nav.nav-pills.nav-stacked{:style => "padding-top: 10px;"}
     %li.divider-vertical &nbsp;
     %li
@@ -21,16 +21,16 @@
           %i.icon-calendar
           Schoolyears
       %li
-        %a{:href => "/sections/new/#{Schoolyear.current_schoolyear.first.id}"}
+        %a{:href => "/sections/new/#{Schoolyear.current.id}"}
           %i.icon-star
           = "New Section"
       %li
-        %a{:href => "/courses/new/#{Schoolyear.current_schoolyear.first.id}"}
+        %a{:href => "/courses/new/#{Schoolyear.current.id}"}
           %i.icon-star-empty
           = 'New Class'
 
     %li
-      %a{:href => schoolyear_path(Schoolyear.current_schoolyear.first)}
+      %a{:href => schoolyear_path(Schoolyear.current)}
         %i.icon-book
         = 'All Classes'
     %li

@@ -1,10 +1,10 @@
 %h1 Listing schoolyears
 = link_to 'New Schoolyear', new_schoolyear_path
 %br
-%h3= Schoolyear.current_schoolyear.first.name
-= link_to "Classes", schoolyear_path(Schoolyear.current_schoolyear.first)
+%h3= Schoolyear.current.name
+= link_to "Classes", schoolyear_path(Schoolyear.current)
 |
-= link_to "Sections", "sections/year/#{Schoolyear.current_schoolyear.first.id}"
+= link_to "Sections", "sections/year/#{Schoolyear.current.id}"
 %br
 %table{:id => "sortable", :class => "zebra-striped tablesorter"}
   %thead

@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
   }
 
   def self.pending_requests
-    return Course.where('schoolyear_id = ? AND is_locked = ?', Schoolyear.current_schoolyear.first.id, CourseStatus::Pending)
+    return Course.where('schoolyear_id = ? AND is_locked = ?', Schoolyear.current.id, CourseStatus::Pending)
   end
 
   def my_students

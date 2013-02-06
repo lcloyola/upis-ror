@@ -3,7 +3,7 @@ class BatchesController < ApplicationController
   before_filter :only => [:destroy] { |c| c.allow_access! 12 }
   def index
     @batches = Batch.all
-    @schoolyear = Schoolyear.current_schoolyear.first
+    @schoolyear = Schoolyear.current
 
     respond_to do |format|
       format.html # index.html.erb

@@ -182,7 +182,7 @@ class CoursesController < ApplicationController
     redirect_to @course
   end
   def my_classes
-    @schoolyear = Schoolyear.current_schoolyear.first
+    @schoolyear = Schoolyear.current
     @courses = current_user.my_classes
 
     respond_to do |format|

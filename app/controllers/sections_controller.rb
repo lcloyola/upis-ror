@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
   before_filter :only => [:destroy] { |c| c.allow_access! 12 }
 
   def index
-    @schoolyear = Schoolyear.current_schoolyear.first
+    @schoolyear = Schoolyear.current
     @sections = Section.where("schoolyear_id = ?", @schoolyear.id)
 
     respond_to do |format|
@@ -29,7 +29,7 @@ class SectionsController < ApplicationController
   # GET /sections/new
   # GET /sections/new.json
   def new
-    @section = Section.new(:schoolyear_id => Schoolyear.current_schoolyear.first.id)
+    @section = Section.new(:schoolyear_id => Schoolyear.current.id)
 
     respond_to do |format|
       format.html # new.html.erb

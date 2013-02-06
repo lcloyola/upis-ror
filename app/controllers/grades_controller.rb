@@ -82,7 +82,7 @@ class GradesController < ApplicationController
   end
   def deficiency
     @quarter = params['quarter']
-    @def = Grade.deficiencies(params['quarter'], Schoolyear.current_schoolyear.first)
+    @def = Grade.deficiencies(params['quarter'], Schoolyear.current)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }
@@ -94,7 +94,7 @@ class GradesController < ApplicationController
   def quarterreport
     params[:orientation] == "landscape" ? @orientation = "landscape" : @orientation = "portrait"
     @orientation == "landscape" ? @per_page = 2 : @per_page = 4
-    @sy = Schoolyear.current_schoolyear.first
+    @sy = Schoolyear.current
 
     if params[:type] == "batch"
       @students = Batch.find(params[:id]).students
@@ -109,6 +109,10 @@ class GradesController < ApplicationController
         render :pdf => "show.pdf", :margin => {:top => 7, :bottom => 3}, :orientation => @orientation
       end
     end
+  end
+
+  def gwa
+    batch = Batch.find()
   end
 end
 

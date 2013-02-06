@@ -2,7 +2,13 @@ class GwasController < ApplicationController
   # GET /gwas
   # GET /gwas.json
   def index
-    @gwas = Gwa.all
+    if params[:gwa].present?
+      @mode = params[:gwa][:mode]
+      @batch = Batch.find(params[:gwa][:batch_id])
+      @schoolyear = Schoolyear.find(params[:gwa][:schoolyear_id])
+      
+      Gwa.search(@schoolyear, @batch, @mode)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

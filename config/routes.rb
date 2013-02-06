@@ -1,5 +1,5 @@
 Upis::Application.routes.draw do
-  resources :gwas
+  resources :gwas, :only => [:index, :create]
 
   resources :sections do
     member do

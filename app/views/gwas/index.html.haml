@@ -1,27 +1,29 @@
-%h1 Listing gwas
+= form_tag("/gwas", :method => "get") do
+  = select :gwa, :mode, [['Overall',"overall"],['Schoolyear',"schoolyear"],['Semester/Principal List',"semester"]]
+  = collection_select :gwa, :batch_id, Batch.all, :id, :year
+  = collection_select :gwa, :schoolyear_id, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
+  = submit_tag("Search")
+  
+- if @mode.present?
+  %h3= "Search Results for: #{@batch.year} A.Y. #{@schoolyear.name} #{@mode} mode"
 
-%table
-  %tr
-    %th Student
-    %th Schoolyear
-    %th Gwa type
-    %th Raw
-    %th Elevenpt
-    %th
-    %th
-    %th
-
-  - @gwas.each do |gwa|
+- if @gwas.present?
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+  %thead
     %tr
-      %td= gwa.student
-      %td= gwa.schoolyear
-      %td= gwa.gwa_type
-      %td= gwa.raw
-      %td= gwa.elevenpt
-      %td= link_to 'Show', gwa
-      %td= link_to 'Edit', edit_gwa_path(gwa)
-      %td= link_to 'Destroy', gwa, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Gwa', new_gwa_path
+      %th Student no
+      %th Last
+      %th Given
+      %th Middle
+      %th raw GWA
+      %th elvenpt GWA
+      %th Remarks
+  %tbody
+    - @gwas.each do |g|
+      %tr
+        %td= g.student.student_no
+        %td.capslock= g.student.last
+        %td.capslock= g.student.given
+        %td.capslock= g.student.middle
+        %td= g.raw
+        %td= g.elevenpt 

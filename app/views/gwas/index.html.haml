@@ -1,0 +1,27 @@
+%h1 Listing gwas
+
+%table
+  %tr
+    %th Student
+    %th Schoolyear
+    %th Gwa type
+    %th Raw
+    %th Elevenpt
+    %th
+    %th
+    %th
+
+  - @gwas.each do |gwa|
+    %tr
+      %td= gwa.student
+      %td= gwa.schoolyear
+      %td= gwa.gwa_type
+      %td= gwa.raw
+      %td= gwa.elevenpt
+      %td= link_to 'Show', gwa
+      %td= link_to 'Edit', edit_gwa_path(gwa)
+      %td= link_to 'Destroy', gwa, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Gwa', new_gwa_path

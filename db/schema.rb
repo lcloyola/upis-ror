@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206021412) do
+ActiveRecord::Schema.define(:version => 20130206031350) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -85,6 +85,19 @@ ActiveRecord::Schema.define(:version => 20130206021412) do
 
   add_index "grades", ["course_id"], :name => "index_grades_on_course_id"
   add_index "grades", ["student_id"], :name => "index_grades_on_student_id"
+
+  create_table "gwas", :force => true do |t|
+    t.integer  "student_id"
+    t.integer  "schoolyear_id"
+    t.integer  "gwa_type"
+    t.integer  "raw"
+    t.integer  "elevenpt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gwas", ["schoolyear_id"], :name => "index_gwas_on_schoolyear_id"
+  add_index "gwas", ["student_id"], :name => "index_gwas_on_student_id"
 
   create_table "members", :force => true do |t|
     t.integer  "section_id"

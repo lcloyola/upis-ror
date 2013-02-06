@@ -110,9 +110,4 @@ class GradesController < ApplicationController
       end
     end
   end
-
-  def gwa
-    batch = Batch.find()
-  end
 end
-

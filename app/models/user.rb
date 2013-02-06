@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role, :is_active
 
   def my_classes
-    return self.faculty.courses.where('schoolyear_id = ?', Schoolyear.current_schoolyear.first.id)
+    return self.faculty.courses.where('schoolyear_id = ?', Schoolyear.current.id)
   end
 end
 

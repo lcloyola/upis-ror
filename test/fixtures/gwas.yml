@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  student: 
+  schoolyear: 
+  gwa_type: 1
+  raw: 1
+  elevenpt: 1
+
+two:
+  student: 
+  schoolyear: 
+  gwa_type: 1
+  raw: 1
+  elevenpt: 1

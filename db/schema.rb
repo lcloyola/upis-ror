@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206031350) do
+ActiveRecord::Schema.define(:version => 20130207040427) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -91,9 +91,9 @@ ActiveRecord::Schema.define(:version => 20130206031350) do
     t.integer  "schoolyear_id"
     t.integer  "gwa_type"
     t.integer  "raw"
-    t.integer  "elevenpt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "final",         :precision => 10, :scale => 5
   end
 
   add_index "gwas", ["schoolyear_id"], :name => "index_gwas_on_schoolyear_id"

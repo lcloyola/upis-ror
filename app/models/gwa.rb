@@ -29,6 +29,7 @@ class Gwa < ActiveRecord::Base
     self.save
   end
 
+  # this is not valid for semestral case.
   def self.gwa_final(courses, student, sem)
   	total = units = 0
   	courses.each do |c|
@@ -38,8 +39,8 @@ class Gwa < ActiveRecord::Base
       else # semestral case
         final = c.student_sem_final(student.id, sem)
       end
- 			total = (final * c.subject.units) + total
- 			units = c.subject.units + units 		
+      total = (final * c.subject.units) + total
+   		units = c.subject.units + units
   	end
   	return (total / units).round(5) if units != 0
   	return ""
@@ -53,8 +54,10 @@ class Gwa < ActiveRecord::Base
       else  # semestral case
         raw = c.student_sem_average(student.id, sem)
       end
- 			total = (raw * c.subject.units) + total
- 			units = c.subject.units + units 		
+ 			unless raw == 0
+        total = (raw * c.subject.units) + total
+        units = c.subject.units + units
+      end
   	end
   	return (total / units).round(5) if units != 0
   	return ""

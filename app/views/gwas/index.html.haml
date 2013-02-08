@@ -1,29 +1,42 @@
 = form_tag("/gwas", :method => "get") do
-  = select :gwa, :mode, [['Overall',"overall"],['Schoolyear',"schoolyear"],['Semester/Principal List',"semester"]]
+  = select :gwa, :mode, [['Cumulative',GwaMode::Cumulative],['Current Schoolyear',GwaMode::Schoolyear],['Semester 1',GwaMode::Semester1],['Semester 2',GwaMode::Semester2]]
   = collection_select :gwa, :batch_id, Batch.all, :id, :year
   = collection_select :gwa, :schoolyear_id, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
   = submit_tag("Search")
-  
+
 - if @mode.present?
-  %h3= "Search Results for: #{@batch.year} A.Y. #{@schoolyear.name} #{@mode} mode"
+  Search Results for:
+  %h3
+    = "Batch #{@batch.year}"
+    - if @mode == GwaMode::Cumulative
+      Cumulative Mode
+    - else
+      = "A.Y. #{@schoolyear.name}"
+      = "#{gwalabel(2)} mode"
+
+  = form_tag("/gwas", :method => "post") do
+    = hidden_field_tag(:mode, @mode)
+    = hidden_field_tag(:batch_id, @batch.id)
+    = hidden_field_tag(:schoolyear_id, @schoolyear.id)
+    = submit_tag 'update/ generate this GWA', :class => "btn btn-info"
 
 - if @gwas.present?
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
-  %thead
-    %tr
-      %th Student no
-      %th Last
-      %th Given
-      %th Middle
-      %th raw GWA
-      %th elvenpt GWA
-      %th Remarks
-  %tbody
-    - @gwas.each do |g|
+    %thead
       %tr
-        %td= g.student.student_no
-        %td.capslock= g.student.last
-        %td.capslock= g.student.given
-        %td.capslock= g.student.middle
-        %td= g.raw
-        %td= g.elevenpt 
+        %th Student no
+        %th Last
+        %th Given
+        %th Middle
+        %th raw GWA
+        %th elvenpt GWA
+        %th Remarks
+    %tbody
+      - @gwas.each do |g|
+        %tr
+          %td= link_to g.student.student_no, g.student
+          %td.capslock= g.student.last
+          %td.capslock= g.student.given
+          %td.capslock= g.student.middle
+          %td= g.raw
+          %td= g.final 

@@ -57,6 +57,9 @@ class Student < ActiveRecord::Base
   def courses_year(sy)
     return self.courses.joins(:subject).where('schoolyear_id = ?', sy).order("units DESC, year DESC,sem ASC, name ASC").group("subject_id")
   end
+  def courses_sem(sy, sem)
+    return self.courses.joins(:subject).where('schoolyear_id = ?', sy, sem).order("units DESC, year DESC,sem ASC, name ASC").group("subject_id")
+  end
   def course_removed(course)
     return Removal.where('student_id = ? and course_id = ?', self.id, course.id).first
   end
@@ -72,6 +75,15 @@ class Student < ActiveRecord::Base
   def section(schoolyear_id)
     return self.sections.where('schoolyear_id =?', schoolyear_id).first
   end
+  def has_grades?
+    return true if self.sections.present? || self.grades.present?
+    return false
+  end
+  def units_overall
+    return self.subjects.to_a.sum(&:units)
+  end
+  
+
   def gwa_raw_schoolyear(sy)
     total = units = 0
     self.courses_year(sy.id).each do |c|
@@ -80,6 +92,7 @@ class Student < ActiveRecord::Base
     end
     return (total/units).round(5) if units != 0
   end
+  
   def gwa_final_schoolyear(sy)
     total = units = 0
     self.courses_year(sy.id).each do |c|
@@ -89,13 +102,7 @@ class Student < ActiveRecord::Base
     return (total/units).round(5) if units != 0
     return ""
   end
-  def has_grades?
-    return true if self.sections.present? || self.grades.present?
-    return false
-  end
-  def units_overall
-    return self.subjects.to_a.sum(&:units)
-  end
+  
   def gwa_final_overall
     total = units = 0
     self.courses.each do |c|
@@ -108,4 +115,3 @@ class Student < ActiveRecord::Base
     return ""
   end
 end
-

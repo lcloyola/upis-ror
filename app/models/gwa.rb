@@ -36,7 +36,7 @@ class Gwa < ActiveRecord::Base
     		final = c.student_final(student.id)
     		final = student.course_removal_grade(c) if student.course_removed(c).present?
       else # semestral case
-        final = c.student_sem_average(student.id, sem)
+        final = c.student_sem_final(student.id, sem)
       end
  			total = (final * c.subject.units) + total
  			units = c.subject.units + units 		

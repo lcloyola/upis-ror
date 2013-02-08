@@ -9,4 +9,9 @@ module CourseStatus
   Close = 1
   Pending = 2
 end
-
+module GwaMode
+	Cumulative = 0
+	Schoolyear = 1
+	Semester1 = 2
+	Semester2 = 3
+end

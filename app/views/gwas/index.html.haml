@@ -12,7 +12,7 @@
       Cumulative Mode
     - else
       = "A.Y. #{@schoolyear.name}"
-      = "#{gwalabel(2)} mode"
+      = "#{gwalabel(@mode)} mode"
 
   = form_tag("/gwas", :method => "post") do
     = hidden_field_tag(:mode, @mode)

@@ -25,16 +25,41 @@ class Course < ActiveRecord::Base
   def my_students
     return Grade.where('course_id = ?', self.id).group_by(&:student)
   end
+
+  # get course grades of students that belong to specific sem
+  # get the average (not rounded)
+  def student_sem_average(student_id, sem)
+    query = 'student_id = ? AND course_id = ? AND VALUE IS NOT NULL '
+    sem == 1 ? query << 'AND quarter <= 2' : query << 'AND quarter > 2'
+    @grades = Grade.where(query, student_id, self.id)
+
+    sum = @grades.sum('value').to_f
+    return 0 if self.subject.is_pe? or @grades.empty?
+    return (sum / @grades.count)
+  end
+  # translate student sem averege to 11pt system
+  def student_sem_final(student_id, sem)
+    return 0 if self.subject.is_pe?
+    return elevenpt(self.student_sem_average(student_id, sem))
+  end
+
+
+  # get course grades of students (disregard null)
+  # get the average (rounded)
   def student_average(student_id)
     @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE IS NOT NULL', student_id, self.id)
     sum = @grades.sum('value').to_f
     return 0 if self.subject.is_pe? or @grades.empty?
     return (sum / @grades.count).round
   end
+  # translate student averege to 11pt system
+  # refactor?
   def student_final(student_id)
     return 0 if self.subject.is_pe?
     return elevenpt(self.student_average(student_id))
   end
+
+
   def student_decision(student)
     return "" if self.subject.is_pe?
     final = self.student_final(student.id)
@@ -78,4 +103,3 @@ class Course < ActiveRecord::Base
   end
 
 end
-

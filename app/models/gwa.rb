@@ -6,27 +6,38 @@ class Gwa < ActiveRecord::Base
   	return Gwa.joins(:student).where('students.batch_id' => batch.id, 'schoolyear_id' => schoolyear.id, 'gwa_type' => mode)
   end
 
+  # refactor? computation involves 1 controller and 3 models >.<
   def recompute
-  	if self.gwa_type == GwaMode::Cumulative
+    # get involved courses
+    if self.gwa_type == GwaMode::Cumulative
   		courses = self.student.courses
-  	elsif self.gwa_type == GwaMode::Schoolyear
+  	else
   		courses = self.student.courses_year(self.schoolyear_id)
-  	elsif self.gwa_type == GwaMode::Semester1
-  		# TODO: confirm case for sems 3 & 4
-  		courses = self.student.courses_sem(self.schoolyear_id, 1)
-  	elsif self.gwa_type == GwaMode::Semester2
-  		# TODO: confirm case for sems 3 & 4
-  		courses = self.student.courses_sem(self.schoolyear_id, 2)
   	end
-  	self.update_attribute(:raw, Gwa.gwa_raw_compute(courses, self.student))
-  	self.update_attribute(:final, Gwa.gwa_final_compute(courses, self.student))
+
+    # compute raw and final gwa
+    if self.gwa_type == GwaMode::Semester1
+      self.raw = Gwa.gwa_raw(courses, self.student, 1)
+      self.final = Gwa.gwa_final(courses, self.student, 1)
+    elsif self.gwa_type == GwaMode::Semester2
+      self.raw = Gwa.gwa_raw(courses, self.student, 2)
+      self.final = Gwa.gwa_final(courses, self.student, 2)
+    else
+      self.raw = Gwa.gwa_raw(courses, self.student, 0)
+      self.final = Gwa.gwa_final(courses, self.student, 0)
+    end
+    self.save
   end
 
-  def self.gwa_final_compute(courses, student)
+  def self.gwa_final(courses, student, sem)
   	total = units = 0
   	courses.each do |c|
-  		final = c.student_final(student.id)
-  		final = student.course_removal_grade(c) if student.course_removed(c).present?
+      if sem == 0
+    		final = c.student_final(student.id)
+    		final = student.course_removal_grade(c) if student.course_removed(c).present?
+      else # semestral case
+        final = c.student_sem_average(student.id, sem)
+      end
  			total = (final * c.subject.units) + total
  			units = c.subject.units + units 		
   	end
@@ -34,10 +45,14 @@ class Gwa < ActiveRecord::Base
   	return ""
   end
 
-  def self.gwa_raw_compute(courses, student)
+  def self.gwa_raw(courses, student, sem)
   	total = units = 0
   	courses.each do |c|
-  		raw = c.student_average(student.id)
+      if sem == 0
+  		  raw = c.student_average(student.id)
+      else  # semestral case
+        raw = c.student_sem_average(student.id, sem)
+      end
  			total = (raw * c.subject.units) + total
  			units = c.subject.units + units 		
   	end

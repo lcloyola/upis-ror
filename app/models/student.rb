@@ -57,9 +57,6 @@ class Student < ActiveRecord::Base
   def courses_year(sy)
     return self.courses.joins(:subject).where('schoolyear_id = ?', sy).order("units DESC, year DESC,sem ASC, name ASC").group("subject_id")
   end
-  def courses_sem(sy, sem)
-    return self.courses.joins(:subject).where('schoolyear_id = ?', sy, sem).order("units DESC, year DESC,sem ASC, name ASC").group("subject_id")
-  end
   def course_removed(course)
     return Removal.where('student_id = ? and course_id = ?', self.id, course.id).first
   end

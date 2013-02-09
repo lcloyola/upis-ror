@@ -24,19 +24,16 @@
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
       %tr
-        %th Student no
-        %th Last
-        %th Given
-        %th Middle
+        %th Name
         %th raw GWA
         %th elvenpt GWA
         %th Remarks
     %tbody
       - @gwas.each do |g|
         %tr
-          %td= link_to g.student.student_no, g.student
-          %td.capslock= g.student.last
-          %td.capslock= g.student.given
-          %td.capslock= g.student.middle
+          %td.capslock= link_to g.student.fullname, g.student
           %td= g.raw
           %td= g.final 
+          %td
+            - if g.student.disciplinary
+              %i.icon-warning-sign

@@ -19,7 +19,6 @@
     = hidden_field_tag(:batch_id, @batch.id)
     = hidden_field_tag(:schoolyear_id, @schoolyear.id)
     = submit_tag 'update/ generate this GWA', :class => "btn btn-info"
-
 - if @gwas.present?
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
     %thead
@@ -37,3 +36,5 @@
           %td
             - if g.student.disciplinary
               %i.icon-warning-sign
+            - if g.deficiency
+              %i.icon-remove

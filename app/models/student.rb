@@ -79,7 +79,17 @@ class Student < ActiveRecord::Base
   def units_overall
     return self.subjects.to_a.sum(&:units)
   end
-  
+
+  def has_deficiency?(sy, sem)
+    grades = self.grades.joins(:course).where('courses.schoolyear_id = ? AND (value IS NULL OR value = 0)', sy.id)
+    if sem == 1
+      grades = grades.where('quarter <= 2')
+    elsif sem == 2
+      grades = grades.where('quarter > 2')
+    end
+    return false if grades.empty?
+    return true
+  end
 
   def gwa_raw_schoolyear(sy)
     total = units = 0

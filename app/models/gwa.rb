@@ -3,7 +3,9 @@ class Gwa < ActiveRecord::Base
   belongs_to :schoolyear
 
   def self.search(schoolyear, batch, mode)
-  	return Gwa.joins(:student).where('students.batch_id' => batch.id, 'schoolyear_id' => schoolyear.id, 'gwa_type' => mode)
+  	gwas = Gwa.joins(:student)
+    gwas = gwas.where('students.batch_id' => batch.id, 'schoolyear_id' => schoolyear.id, 'gwa_type' => mode)
+    return gwas.each{|s| s[:deficiency] = s.student.has_deficiency?(schoolyear, 0)}
   end
 
   # refactor? computation involves 1 controller and 3 models >.<

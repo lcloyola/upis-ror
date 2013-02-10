@@ -34,12 +34,12 @@ class Course < ActiveRecord::Base
     @grades = Grade.where(query, student_id, self.id)
 
     sum = @grades.sum('value').to_f
-    return 0 if self.subject.is_pe? or @grades.empty?
+    return 0 if self.subject.is_pe or @grades.empty?
     return (sum / @grades.count)
   end
   # translate student sem averege to 11pt system
   def student_sem_final(student_id, sem)
-    return 0 if self.subject.is_pe?
+    return 0 if self.subject.is_pe
     return elevenpt(self.student_sem_average(student_id, sem))
   end
 
@@ -49,19 +49,19 @@ class Course < ActiveRecord::Base
   def student_average(student_id)
     @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE IS NOT NULL', student_id, self.id)
     sum = @grades.sum('value').to_f
-    return 0 if self.subject.is_pe? or @grades.empty?
+    return 0 if self.subject.is_pe or @grades.empty?
     return (sum / @grades.count).round
   end
   # translate student averege to 11pt system
   # refactor?
   def student_final(student_id)
-    return 0 if self.subject.is_pe?
+    return 0 if self.subject.is_pe
     return elevenpt(self.student_average(student_id))
   end
 
 
   def student_decision(student)
-    return "" if self.subject.is_pe?
+    return "" if self.subject.is_pe
     final = self.student_final(student.id)
     removal = Student.find(student.id).course_removed(self)
     final = removal if removal.present?

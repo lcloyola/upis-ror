@@ -10,7 +10,7 @@ class Subject < ActiveRecord::Base
   def details
     "#{name} ( #{units} units )"
   end
-  def is_pe?
+  def is_pe
     return true if [59, 38, 9, 70, 104, 105, 106, 107].include?(self.id)
   end
 end

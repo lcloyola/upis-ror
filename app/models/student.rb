@@ -42,9 +42,9 @@ class Student < ActiveRecord::Base
   def course_has_failing(course_id)
     course = Course.find(course_id)
     self.course_grades(course_id).each do |g|
-      if !course.subject.is_pe? && !g.value.nil? && g.value < 50
+      if !course.subject.is_pe && !g.value.nil? && g.value < 50
         return true
-      elsif course.subject.is_pe? && g.value == 0
+      elsif course.subject.is_pe && g.value == 0
         return true
       end
     end
@@ -91,6 +91,17 @@ class Student < ActiveRecord::Base
     return true
   end
 
+  def has_failing?(sy, sem)
+    grades = self.grades.joins(:course)
+    grades = grades.where('courses.schoolyear_id = ? AND (value IS NULL OR value = 0)', sy.id)
+    if sem == 1
+      grades = grades.where('quarter <= 2')
+    elsif sem == 2
+      grades = grades.where('quarter > 2')
+    end
+    return false if grades.empty?
+    return true
+  end
   def gwa_raw_schoolyear(sy)
     total = units = 0
     self.courses_year(sy.id).each do |c|

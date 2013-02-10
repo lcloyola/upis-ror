@@ -25,7 +25,7 @@
           %th Final
           %th Action
     %tbody
-      - if @course.subject.is_pe?
+      - if @course.subject.is_pe
         = render 'show_pe'
       - else
         = render 'show_normal'

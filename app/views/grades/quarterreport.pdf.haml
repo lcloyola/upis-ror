@@ -34,7 +34,7 @@
                     - student.course_grades(c.id).each do |g|
                       - if c.sem == 4
                         %td -
-                      - if c.subject.is_pe?
+                      - if c.subject.is_pe
                         - if pe(g.value) == 'F'
                           %td.emphasize= pe(g.value)
                         - else

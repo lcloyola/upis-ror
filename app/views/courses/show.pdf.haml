@@ -24,14 +24,14 @@
       - @my_students.keys.sort!{ |a,b| a.fullname.downcase <=> b.fullname.downcase }.each do |s|
         - grades = @my_students[s]
         %tr
-          - if grades.any? {|grade| !grade.value.nil? && grade.value < 50} && !@course.subject.is_pe?
+          - if grades.any? {|grade| !grade.value.nil? && grade.value < 50} && !@course.subject.is_pe
             %td.emphasize= s.student_no
           - else
             %td= s.student_no
           %td.capslock= s.fullname
           - unless (is_faculty? and !faculty_owned?)
             - grades.each do |g|
-              - if @course.subject.is_pe?
+              - if @course.subject.is_pe
                 - if pe(g.value) == 'F'
                   %td.emphasize= pe(g.value)
                 - else
@@ -41,7 +41,7 @@
                   %td.emphasize= g.value
                 - else
                   %td= g.value
-            - if !@course.subject.is_pe? && !grades.any? {|grade| grade.value.nil?}
+            - if !@course.subject.is_pe && !grades.any? {|grade| grade.value.nil?}
               %td
                 = ave = (grades.map(&:value).sum.to_f/grades.length).round
               %td

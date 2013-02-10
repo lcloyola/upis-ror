@@ -32,7 +32,7 @@
           %td.capslock= s.fullname
           - grades.each do |grade|
             = f.fields_for grade, :index => grade.id do |grade_f|
-              - if @course.subject.is_pe?
+              - if @course.subject.is_pe
                 %td
                   - if grade.writable?
                     = grade_f.select :value, [[' ',nil],['F',0],['S',1],['P',2],['G',3],['VG',4],['E',5]]

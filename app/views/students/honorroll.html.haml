@@ -42,7 +42,7 @@
             - @student.course_grades(c.id).each do |g|
               - if c.sem == 4
                 %td -
-              - if c.subject.is_pe?
+              - if c.subject.is_pe
                 - if pe(g.value) == 'F'
                   %td.emphasize= pe(g.value)
                 - else
@@ -59,7 +59,7 @@
 
             %td= c.subject.units
             - ave = c.student_average(@student.id)
-            - !c.subject.is_pe? &&  !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
+            - !c.subject.is_pe &&  !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
             %td{:class => emphasize}= ave
             %td
               = @final = c.student_final(@student.id)

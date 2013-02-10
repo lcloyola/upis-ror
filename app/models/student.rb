@@ -87,20 +87,19 @@ class Student < ActiveRecord::Base
     elsif sem == 2
       grades = grades.where('quarter > 2')
     end
-    return false if grades.empty?
-    return true
+    return grades.first
   end
 
   def has_failing?(sy, sem)
-    grades = self.grades.joins(:course)
-    grades = grades.where('courses.schoolyear_id = ? AND (value IS NULL OR value = 0)', sy.id)
+    grades = self.grades.joins(:course => :subject)
+    grades = grades.where('courses.schoolyear_id = ? AND value IS NOT NULL AND value < 50', sy.id)
+    grades = grades.where('subjects.is_pe = ?', false)
     if sem == 1
       grades = grades.where('quarter <= 2')
     elsif sem == 2
       grades = grades.where('quarter > 2')
     end
-    return false if grades.empty?
-    return true
+    return grades.first
   end
   def gwa_raw_schoolyear(sy)
     total = units = 0

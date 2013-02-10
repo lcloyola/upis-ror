@@ -5,7 +5,8 @@ class Gwa < ActiveRecord::Base
   def self.search(schoolyear, batch, mode)
   	gwas = Gwa.joins(:student)
     gwas = gwas.where('students.batch_id' => batch.id, 'schoolyear_id' => schoolyear.id, 'gwa_type' => mode)
-    return gwas.each{|s| s[:deficiency] = s.student.has_deficiency?(schoolyear, 0)}
+    gwas = gwas.each{|s| s[:deficiency] = s.student.has_deficiency?(schoolyear, 0)}
+    return gwas.each{|s| s[:failing] = s.student.has_failing?(schoolyear, 0)}
   end
 
   # refactor? computation involves 1 controller and 3 models >.<

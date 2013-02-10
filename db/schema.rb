@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208064432) do
+ActiveRecord::Schema.define(:version => 20130210063221) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20130208064432) do
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_pe",                                        :default => false
   end
 
   add_index "subjects", ["department_id"], :name => "index_subjects_on_department_id"

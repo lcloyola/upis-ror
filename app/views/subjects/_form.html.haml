@@ -1,3 +1,4 @@
+
 = form_for @subject, :html => {:class=>"form-stacked"} do |f|
   -if @subject.errors.any?
     #error_explanation
@@ -18,6 +19,9 @@
   .field
     = f.label :year
     = f.select :year, [['Elective',-1],['k',0],['1',1],['2',2],['3',3],['4',4],['5',5],['6',6],['1st',7],['2nd',8],['3rd',9],['4th',10],['5th', 11],['6th', 12]]
+  .field
+    = f.check_box :is_pe
+    = f.label :is_PE?
   .actions
     = f.submit 'Save'
 

@@ -18,17 +18,12 @@ class Gwa < ActiveRecord::Base
   		courses = self.student.courses_year(self.schoolyear_id)
   	end
 
-    # compute raw and final gwa
-    if self.gwa_type == GwaMode::Semester1
-      self.raw = Gwa.gwa_raw(courses, self.student, 1)
-      self.final = Gwa.gwa_final(courses, self.student, 1)
-    elsif self.gwa_type == GwaMode::Semester2
-      self.raw = Gwa.gwa_raw(courses, self.student, 2)
-      self.final = Gwa.gwa_final(courses, self.student, 2)
-    else
-      self.raw = Gwa.gwa_raw(courses, self.student, 0)
-      self.final = Gwa.gwa_final(courses, self.student, 0)
-    end
+    sem = self.gwa_type - 1 # 1st sem and 2nd sem cases
+    sem = 0 if self.gwa_type == GwaMode::Schoolyear || self.gwa_type == GwaMode::Cumulative
+
+    self.raw = Gwa.gwa_raw(courses, self.student, sem)
+    self.final = Gwa.gwa_final(courses, self.student, sem)
+
     self.save
   end
 

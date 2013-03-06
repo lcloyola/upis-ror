@@ -13,22 +13,28 @@
 
   #student_details.capslock
     %h4= @student.fullname
-    %h4= @section.fullname if @section.present?
+    %h4
+      = @section.fullname if @section.present?
+      .span.float-right
+        Kasarian:
+        = @student.sex
+        &nbsp; Kapanganakan:
+        = @student.birthday
 
   %h4.capslock.center gawaing pang-akademiko
-  %table.smaller.center.withborder{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px"}
+  %table.smaller.center.withborder{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px; table-layout:fixed;"}
     %thead
       %tr
-        %th{:style => "width:85%;"} Asignatura
-        %th{:style => "width:10%;"} Q1
-        %th{:style => "width:10%;"} Q2
-        %th{:style => "width:10%;"} Q3
-        %th{:style => "width:10%;"} Q4
-        %th Average
-        %th{:style => "font-size:11px;"} Panghuling Marka
-        %th{:style => "font-size:11px; padding:7px 5px;"} Completion Grade
-        %th{:style => "font-size:11px; padding:7px 5px;"} Desisyon
-        %th{:style => "font-size:11px; padding:7px 5px;"} Nakuhang Kredit
+        %td{:style => "width:155px;"} Asignatura
+        %td{:style => "width:37px;"} Q1
+        %td{:style => "width:37px;"} Q2
+        %td{:style => "width:37px;"} Q3
+        %td{:style => "width:37px;"} Q4
+        %td{:style => "font-size:10px; width:55px;"}  Average
+        %td{:style => "font-size:10px; padding: 1px; width:65px;"} Panghuling Marka
+        %td{:style => "font-size:10px; padding: 1px; width:65px;"} Completion Grade
+        %td{:style => "font-size:10px; padding: 1px; width:75px;"} Desisyon
+        %td{:style => "font-size:10px; padding: 1px; width:60px;"} Nakuhang Kredit
     %tbody
       - @student.courses_year(@sy.id).each do |c|
         %tr
@@ -64,28 +70,28 @@
               - if @final == 4.0
                 - @removal = @student.course_removed(c)
                 = @removal.value if @removal.present?
-            %td= c.student_decision(@student)
+            %td{:style => "font-size:10px;"}= c.student_decision(@student)
             %td= c.subject.units
       %tr
         %td{:colspan => 10, :style => "text-align: left;"}
           %b General Weighted Average:
           = @student.gwa_final_schoolyear(@sy)
+  %br
+  %h5.capslock Transmutation Table
 
-  %h4.capslock Transmutation Table
-
-  #transmutation_table{ :style=>"width:58%; float:left; bottom: 0"}
+  #transmutation_table{ :style=>"width:58%; float:left; bottom: 0;"}
     = render 'classcard/transmutation_table'
 
-  %p{:style=>"float:right; width: 40%"}
+  %p{:style=>"float:right; width: 40%; font-size:11px;"}
     Ang panghuling marka sa anumang taunang asignatura ang katumbas na marka ng average
     ng mga nakuhang puntos sa apat na markahan. Ang pangunahing marka sa anumang asignaturang semestral
     ay katumbas na marka ng average ng mga nakuhang puntos sa dalawang markahan.
     %br
     %br Maaari nang ilipan/tanggapin sa gradong ___________
     %span{:style => "float:right; margin-right: 25px;"}=# Grado
-    %br May pangunang kredit sa asignaturang ___________
+    %br May pangunang kredit sa  ___________
     %span{:style => "float:right; margin-right: 30px;"}=# Asignatura
-    %br Kulang na kredit sa asignaturang ___________
+    %br Kulang na kredit sa  ___________
     %span{:style => "float:right; margin-right: 45px;"}=# Asignatura
 
   #cardfooter{:style => "width: 100%"}

@@ -16,19 +16,19 @@
     %h4= @section.fullname if @section.present?
 
   %h4.capslock.center gawaing pang-akademiko
-  %table.smaller.center{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px"}
+  %table.smaller.center.withborder{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px"}
     %thead
       %tr
-        %th{:style => "width:45%;"} Asignatura
+        %th{:style => "width:85%;"} Asignatura
         %th{:style => "width:10%;"} Q1
         %th{:style => "width:10%;"} Q2
         %th{:style => "width:10%;"} Q3
         %th{:style => "width:10%;"} Q4
         %th Average
-        %th Panghuling Marka
-        %th{:style => "font-size:12px; padding:7px 5px;"} Completion Grade
-        %th{:style => "font-size:12px; padding:7px 5px;"} Desisyon
-        %th{:style => "font-size:12px; padding:7px 5px;"} Nakuhang Kredit
+        %th{:style => "font-size:11px;"} Panghuling Marka
+        %th{:style => "font-size:11px; padding:7px 5px;"} Completion Grade
+        %th{:style => "font-size:11px; padding:7px 5px;"} Desisyon
+        %th{:style => "font-size:11px; padding:7px 5px;"} Nakuhang Kredit
     %tbody
       - @student.courses_year(@sy.id).each do |c|
         %tr
@@ -92,7 +92,7 @@
     #date{:style => "float:left; width: 49%;"}
       _________________________________
       %p{:style => "margin-left: 90px;" }Petsa
-    #principal.center{:style => "float: right; width: 50%;"}
+    #principal.center{:style => "float: right; width: 50%; padding-top: 20px;"}
       .capslock Ronaldo M. San Jose, Ph.D.
       Prinsipal
 

@@ -106,6 +106,9 @@ table.smaller th{
 table.smallest th {
   font-size: 13.5px;
 }
+table.withborder td {
+  border: 1px solid #AAA;
+}
 .vertical-text{
   -webkit-transform:rotate(90deg);
 	-moz-transform:rotate(90deg);

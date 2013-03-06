@@ -1,41 +1,41 @@
-%table.smallest.center{:style=>"margin: 10px 0px 20px;"}
+%table.smallest.center.withborder{:style=>"margin: 10px 0px 20px;"}
   %thead
     %tr
-      %th{:style => "width:140px;"}
+      %th{:style => "width:140px; font-size:11px;"}
         Average ng mga
         nakuhang
         puntos (sa %)
-      %th Katumbas na Marka
-      %th Deskripsyon ng Marka
+      %th{:style => "font-size:12px;"} Katumbas na Marka
+      %th{:style => "font-size:12px;"} Deskripsyon ng Marka
   %tbody
     %tr
       %td 96 - 100
       %td 1.0
+      %td{:rowspan => 2}Pinakamahusay
     %tr
       %td 91 - 95
       %td 1.25
-      %td{:colspan => 2}Pinakamahusay
     %tr
       %td 86 - 90
       %td 1.5
+      %td{:rowspan => 2} Mas Mahusay
     %tr
       %td 80 - 85
       %td 1.75
-      %td{:colspan => 2} Mas Mahusay
     %tr
       %td 74 - 79
       %td 2.0
+      %td{:rowspan => 2} Mahusay
     %tr
       %td 68 - 73
       %td 2.25
-      %td{:colspan => 2} Mahusay
     %tr
       %td 62 - 67
       %td 2.5
+      %td{:rowspan => 2} Katamtamang Husay
     %tr
       %td 56 - 61
       %td 2.75
-      %td{:colspan => 2} Katamtamang Husay
     %tr
       %td 50 - 55
       %td 3.0

@@ -1,1 +1,1 @@
-rvm --create use 1.9.2@upis-ror # > /dev/nul
+rvm --create use ruby-1.9.3-p392@Rails3.2.12_upis-ror # > /dev/nul

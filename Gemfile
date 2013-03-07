@@ -17,6 +17,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
 end
+gem "wkhtmltopdf-binary"
 gem 'wicked_pdf'
 gem "less-rails"
 gem 'twitter-bootstrap-rails'

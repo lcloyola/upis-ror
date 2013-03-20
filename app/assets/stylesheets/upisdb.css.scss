@@ -111,6 +111,13 @@ table.withborder td {
   border: 1px solid #AAA;
   padding: 3px 4px;
 }
+
+table.honoroll td, table.honoroll th,  {
+  padding: 0px 3px;
+  font-size:10px;
+  background: none;
+  
+}
 .vertical-text{
   -webkit-transform:rotate(90deg);
 	-moz-transform:rotate(90deg);

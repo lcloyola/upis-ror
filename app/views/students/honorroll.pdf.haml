@@ -1,7 +1,7 @@
 %head
   = wicked_pdf_stylesheet_link_tag "application"
 
-%h3
+%h5
   .float-right
     Overall GWA:
     = @student.gwa_final_overall
@@ -15,7 +15,7 @@
 - if !@schoolyear.empty?
   .page
     - @schoolyear.each do |sy|
-      %h4
+      %h5
         = "AY #{sy.name}"
         - unless @student.section(sy.id).nil?
           %p.float-right.capslock
@@ -25,7 +25,7 @@
       %b= @student.gwa_raw_schoolyear(sy)
       = "( #{@student.gwa_final_schoolyear(sy)} )"
 
-      %table.smallest{:id => "year-#{sy.id}", :class => "zebra-striped"}
+      %table.honoroll{:id => "year-#{sy.id}", :class => "zebra-striped"}
         %thead
           %tr
             - for x in ["Subject", "Q1", "Q2", "Q3", "Q4", "Units", "Average", "Final"]

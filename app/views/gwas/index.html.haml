@@ -32,14 +32,14 @@
       %tr
         %th Name
         %th raw GWA
-        %th elvenpt GWA
+        / %th elvenpt GWA
         %th Remarks
     %tbody
       - @gwas.each do |g|
         %tr
           %td.capslock= link_to g.student.fullname, g.student
           %td= g.raw
-          %td= g.final 
+          / %td= g.final
           %td
             - if g.student.disciplinary
               %i.icon-warning-sign

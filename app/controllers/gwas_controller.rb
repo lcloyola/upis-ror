@@ -1,6 +1,6 @@
 class GwasController < ApplicationController
-  # GET /gwas
-  # GET /gwas.json
+  before_filter { |c| c.allow_access! 12 } # admin and moderator
+
   def index
     if params[:gwa].present?
       @mode = params[:gwa][:mode].to_i

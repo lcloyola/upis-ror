@@ -116,7 +116,11 @@ table.honoroll td, table.honoroll th,  {
   padding: 0px 3px;
   font-size:10px;
   background: none;
-  
+}
+
+table.gradingsheet td, table.gradingsheet th,  {
+  padding: 3px 3px;
+  font-size:12px;
 }
 .vertical-text{
   -webkit-transform:rotate(90deg);
@@ -154,6 +158,10 @@ table.honoroll td, table.honoroll th,  {
 }
 .text-left {
   text-align: left;
+}
+
+.footer_pdf {
+  padding-top: 13px;
 }
 /* must refactor later! */
 

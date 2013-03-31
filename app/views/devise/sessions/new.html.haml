@@ -1,0 +1,11 @@
+.span8.center.well{:style => "margin: 0px auto; float: none;"}
+	%h2 Sign in
+
+	= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class=>"form-stacked"}) do |f|
+		%h4 email
+		.center= f.email_field :email
+
+		%h4 password
+		.center= f.password_field :password
+
+		.center= f.submit "Sign in"

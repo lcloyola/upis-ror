@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def choose_layout
     if !user_signed_in?
-      "application"
+      "landing"
     elsif current_user.role == Role::Admin
       "application"
     else

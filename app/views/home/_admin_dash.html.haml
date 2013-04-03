@@ -6,6 +6,7 @@
       %th Faculty
       %th Subject
       %th Section
+      %th Schoolyear
   %tbody
     - @requests.each do |s|
       %tr
@@ -15,4 +16,5 @@
         %td= s.faculty.fullname
         %td= s.subject.name
         %td= s.section.name
+        %td= s.schoolyear.name
 

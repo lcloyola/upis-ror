@@ -65,8 +65,6 @@ class Student < ActiveRecord::Base
     if removal.present?
       return 3.0 if removal.pass
       return 5.0
-    else
-      return 4.0
     end
   end
   def section(schoolyear_id)

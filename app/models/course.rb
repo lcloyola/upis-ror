@@ -68,7 +68,7 @@ class Course < ActiveRecord::Base
 
   def student_decision(student)
     final = self.student_final(student.id)
-    removal = Student.find(student.id).course_removed(self)
+    removal = Student.find(student.id).course_removal_grade(self)
     final = removal if removal.present?
 
     grade = final

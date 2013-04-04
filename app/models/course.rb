@@ -47,21 +47,26 @@ class Course < ActiveRecord::Base
   # get course grades of students (disregard null)
   # get the average (rounded)
   def student_average(student_id)
-    @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE IS NOT NULL', student_id, self.id)
-    sum = @grades.sum('value').to_f
-    return 0 if self.subject.is_pe or @grades.empty?
-    return (sum / @grades.count).round
+
+    if self.subject.is_pe
+      @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE = 0', student_id, self.id)
+      return 0 if @grades.present? # fail
+      return 50
+    else
+      @grades = Grade.where('student_id = ? AND course_id = ? AND VALUE IS NOT NULL', student_id, self.id)
+      sum = @grades.sum('value').to_f
+      return 0 if @grades.empty?
+      return (sum / @grades.count).round
+    end
   end
   # translate student averege to 11pt system
   # refactor?
   def student_final(student_id)
-    return 0 if self.subject.is_pe
     return elevenpt(self.student_average(student_id))
   end
 
 
   def student_decision(student)
-    return "" if self.subject.is_pe
     final = self.student_final(student.id)
     removal = Student.find(student.id).course_removed(self)
     final = removal if removal.present?
@@ -74,7 +79,8 @@ class Course < ActiveRecord::Base
       when "(3.0)" then "Pasado"
       when "(5.0)" then "Di Pasado"
       else "Di Pasado"
-    end
+    end  
+
     return decision
   end
   def semname

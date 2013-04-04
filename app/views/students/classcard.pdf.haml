@@ -67,7 +67,8 @@
               - unless c.subject.is_pe
                 = c.student_average(@student.id)
             %td
-              = @final = c.student_final(@student.id)
+              - unless c.subject.is_pe
+                = @final = c.student_final(@student.id)
             %td
               - if @final == 4.0
                 - @removal = @student.course_removed(c)

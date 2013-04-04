@@ -1,6 +1,6 @@
 #left.halfpage
   #header.center{:style => "width: 50%; margin: 0 auto 12px;"}
-    %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 100px; padding-top: 15px; float: right;"
+    %a= pdf_image_tag '/images/upislogo.JPG', :style => "width: 100px; padding-top: 15px; float: left;"
     Unibersidad ng Pilipinas
     %br
     Kolehiyo ng Edukasyon
@@ -20,7 +20,7 @@
         = @student.sex
         &nbsp; Kapanganakan:
         = @student.birthday
-
+  %br
   %h4.capslock.center gawaing pang-akademiko
   %table.smaller.center.withborder{:id => "year-#{@sy.id}", :style=>"margin: 5px 0 8px; padding: 5px; table-layout:fixed;"}
     %thead
@@ -82,12 +82,12 @@
   #transmutation_table{ :style=>"width:58%; float:left; bottom: 0;"}
     = render 'classcard/transmutation_table'
 
-  %p{:style=>"float:right; width: 40%; font-size:11px;"}
+  %p{:style=>"float:right; width: 40%; font-size:11px; padding-top: 15px;"}
     Ang panghuling marka sa anumang taunang asignatura ang katumbas na marka ng average
-    ng mga nakuhang puntos sa apat na markahan. Ang pangunahing marka sa anumang asignaturang semestral
-    ay katumbas na marka ng average ng mga nakuhang puntos sa dalawang markahan.
+    ng mga nakuhang puntos sa apat na markahan. Ang panghuling marka sa anumang asignaturang semestral
+    ang katumbas na marka ng average ng mga nakuhang puntos sa dalawang markahan.
     %br
-    %br Maaari nang ilipan/tanggapin sa gradong ___________
+    %br Maaari nang ilipat/tanggapin sa gradong ___________
     %span{:style => "float:right; margin-right: 25px;"}=# Grado
     %br May pangunang kredit sa  ___________
     %span{:style => "float:right; margin-right: 30px;"}=# Asignatura
@@ -116,6 +116,6 @@
   %h3.capslock.center Sa mga Magulang o Tumatayong Magulang
   %p
     Ibinibigay ang kard na ito bawat markahan para maparating sa inyo ang pag-unlad ng inyong anak sa gawaing pang-akademiko,
-    ang reguralidad ng kanyang pagpasok, at ang pagbuti niya bilang isag tao sa kilos at ugali. Kung nais ninyong makausap
+    ang regularidad ng kanyang pagpasok, at ang pagbuti niya bilang isag tao sa kilos at ugali. Kung nais ninyong makausap
     ang mga guro at guidance counselor tungkol sa inyong anak, mangyari po lamang puntahan sila sa UPIS sa oras ng konsultasyon.
 

@@ -63,7 +63,9 @@
             %td
             %td
           - else
-            %td= c.student_average(@student.id)
+            %td
+              - unless c.subject.is_pe
+                = c.student_average(@student.id)
             %td
               = @final = c.student_final(@student.id)
             %td

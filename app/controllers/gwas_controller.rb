@@ -1,5 +1,5 @@
 class GwasController < ApplicationController
-  before_filter { |c| c.allow_access! 12 } # admin and moderator
+  before_filter { |c| c.allow_access! 14 }
 
   def index
     if params[:gwa].present?

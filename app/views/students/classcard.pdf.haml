@@ -74,7 +74,10 @@
                 - @removal = @student.course_removed(c)
                 = @removal.value if @removal.present?
             %td{:style => "font-size:10px;"}= c.student_decision(@student)
-            %td= c.subject.units
+            - if @final == 5.0
+              %td= 0.0
+            - else
+              %td= c.subject.units
       %tr
         %td{:colspan => 10, :style => "text-align: left;"}
           %b General Weighted Average:

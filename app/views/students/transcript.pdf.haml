@@ -1,6 +1,6 @@
 -#TODO: refactor!!!
-- @schoolyear.each_slice(4) do |slice|
-  .page{:style=>"height: 1400;"}
+- @schoolyear.each_slice(2) do |slice|
+  .page{:style=>"height: 1000;"}
     %h3.center{:style => "clear: right;"}
       = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
       University of the Philippines Integrated School
@@ -23,7 +23,7 @@
 
     - slice.each_slice(2) do |pair|
       - pair.each do |sy|
-        %table.smallest.span5{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable", |
+        %table.smallest{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable", |
                 :style => "border: 1px solid #AAA;" }
           %thead
             %tr

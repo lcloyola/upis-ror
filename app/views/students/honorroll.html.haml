@@ -60,9 +60,11 @@
             %td= c.subject.units
             - ave = c.student_average(@student.id)
             - !c.subject.is_pe &&  !ave.nil? && ave < 50 ? emphasize = "emphasize" : emphasize = "nope"
-            %td{:class => emphasize}= ave
+            %td{:class => emphasize}
+              = ave unless c.subject.is_pe
             %td
-              = @final = c.student_final(@student.id)
+              - @final = c.student_final(@student.id)
+              = @final unless c.subject.is_pe
               - if @final == 4.0
                 = @student.course_removed(c).value if @student.course_removed(c).present?
 

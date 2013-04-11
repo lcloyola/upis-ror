@@ -70,14 +70,15 @@
               - unless c.subject.is_pe
                 = @final = c.student_final(@student.id)
             %td
+              - @removal = @student.course_removed(c)
               - if @final == 4.0
-                - @removal = @student.course_removed(c)
                 = @removal.value if @removal.present?
             %td{:style => "font-size:10px;"}= c.student_decision(@student)
-            - if @final == 5.0
+            - if @final == 5.0 or (@removal.present? and !@removal.pass)
               %td= 0.0
             - else
               %td= c.subject.units
+      / refactor these. please. huhuhu T___T
       %tr
         %td{:colspan => 10, :style => "text-align: left;"}
           %b General Weighted Average:

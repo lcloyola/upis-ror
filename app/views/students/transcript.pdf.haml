@@ -1,14 +1,16 @@
 -#TODO: refactor!!!
 - @schoolyear.each_slice(2) do |slice|
-  .page{:style=>"height: 1000;"}
+  .page{:style=>"height: 940;"}
     %h3.center{:style => "clear: right;"}
       = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
       University of the Philippines Integrated School
-    %h4.center{:style=>"margin-bottom: 10px;"} GRADES 7 - 12 (Secondary School Record)
+    %h4.center{:style=>"margin-bottom: 10px;"}
+      GRADES 7 - 12 (Secondary School Record)
+      %br Form 137
 
     %h3.capslock
       = @student.fullname
-      %p.right
+      %p.pull-right
         %b Sex:
         = @student.sex
         %b Date of Birth:
@@ -16,10 +18,13 @@
     %p
       %b Address:
       = @student.address.present? ? @student.address : "----"
-      %span.right
+      %span.pull-right
         %b Tel. No:
         = @student.landline.present? ? @student.landline : "----"
+      %br
+      %b Elementary Course completed in:
     = #end page header
+
 
     - slice.each_slice(2) do |pair|
       - pair.each do |sy|
@@ -36,7 +41,7 @@
             %tr
               %th Subject
               %th Final
-              %th Units
+              %th Credits Earned
           %tbody
             - @student.courses_year(sy.id).each do |c|
               %tr
@@ -54,10 +59,10 @@
                       - elsif @removal.present? && !@removal.pass
                         (5.0)
                 %td= c.subject.units
-    #clear
-    .span5
-      %p Prepared by:
-      %p Checked by:
-    .span5.center
-      .capslock Ronaldo M. San Jose, Ph.D
-      Principal
+#clear
+.span5
+  %p Prepared by:
+  %p Checked by:
+.span5.center
+  .capslock Ronaldo M. San Jose, Ph.D
+  Principal

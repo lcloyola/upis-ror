@@ -49,15 +49,14 @@
                 - if @student.course_has_blank(c.id)
                   %td n/a
                 - else
-                  - @ave = c.student_average(@student.id)
                   %td
                     = @final = c.student_final(@student.id)
-                    - if @final == 4.0
+                    - if @final == 4.00
                       - @removal = @student.course_removed(c)
                       - if @removal.present? && @removal.pass
-                        (3.0)
+                        (3.00)
                       - elsif @removal.present? && !@removal.pass
-                        (5.0)
+                        (5.00)
                 %td= c.subject.units
 #clear
 .span5

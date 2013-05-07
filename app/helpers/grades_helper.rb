@@ -3,7 +3,7 @@ module GradesHelper
   def elevenpt(average)
     grade = average
     final = case grade
-      when 96..100 then 1.0
+      when 96..100 then 1.00
       when 91..95 then 1.25
       when 86..90 then 1.50
       when 80..85 then 1.75

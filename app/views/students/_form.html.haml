@@ -23,7 +23,7 @@
     = f.text_area :address, :rows => 10
   .field
     = f.label :birthday
-    = f.date_select :birthday, :start_year => Time.now.year - 25
+    = f.date_select :birthday, :start_year => Time.now.year - 25, :end_year => Time.now.year - 4
   .field
     = f.label :sex
     = f.radio_button(:sex, :M)

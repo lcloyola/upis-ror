@@ -1,6 +1,6 @@
 -#TODO: refactor!!!
 - @schoolyear.each_slice(2) do |slice|
-  .page{:style=>"height: 940;"}
+  .page{:style=>"height: 825;"}
     %h3.center{:style => "clear: right;"}
       = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
       University of the Philippines Integrated School
@@ -22,7 +22,6 @@
         %b Tel. No:
         = @student.landline.present? ? @student.landline : "----"
       %br
-      %b Elementary Course completed in:
     = #end page header
 
 
@@ -32,12 +31,8 @@
                 :style => "border: 1px solid #AAA;" }
           %thead
             %tr
-              %th
-                School Year:
-                %p= sy.name
-              %th{:colspan => 2}
-                Weighted Average:
-                %p= @student.gwa_final_schoolyear(sy)
+              %th{:colspan => 3}
+                = "School Year #{sy.name}"
             %tr
               %th Subject
               %th Final
@@ -59,9 +54,20 @@
                         (5.00)
                 %td= c.subject.units
 #clear
+.span6{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
+  = check_box("test", "test", {}, "test", "test")
+  Valid to Transfer
+  %br
+  = check_box("test", "test", {}, "test", "test")
+  Eligible for admission to college
+  %br
+  = check_box("test", "test", {}, "test", "test")
+  Copy for ______________
+#clear
 .span5
   %p Prepared by:
   %p Checked by:
+  %p= Time.now.to_s
 .span5.center
   .capslock Ronaldo M. San Jose, Ph.D
   Principal

@@ -17,6 +17,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
 end
+
+gem "rails-settings-cached", "0.2.4"
 gem "wkhtmltopdf-binary"
 gem 'wicked_pdf'
 gem "less-rails"

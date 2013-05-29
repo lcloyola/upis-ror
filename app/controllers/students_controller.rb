@@ -108,6 +108,19 @@ class StudentsController < ApplicationController
       end
     end
   end
+  def transcript_builder
+    @student = Student.find(params[:student_id])
+    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
+
+    @settings = Setting.transcript
+    @gradecol = 2
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"
+      end
+    end
+  end
   def honorroll
     @student = Student.find(params[:student_id])
     @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')

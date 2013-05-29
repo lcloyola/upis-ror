@@ -39,6 +39,7 @@ Upis::Application.routes.draw do
   match 'grades/quarter-report/:type/:id/:orientation' => 'grades#quarterreport'
 
   match 'students/transcript/:student_id' => 'students#transcript'
+  match 'students/transcript_builder/:student_id' => 'students#transcript_builder'
   match 'students/honorroll/:student_id' => 'students#honorroll'
   match 'students/classcard/:student_id' => 'students#classcard'
   match 'students/get_students_list/:id' =>'students#get_students_list'

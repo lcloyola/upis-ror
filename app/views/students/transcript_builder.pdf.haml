@@ -1,0 +1,80 @@
+-#TODO: refactor!!!
+- @schoolyear.each_slice(@settings[:syperpage]) do |slice|
+  .page{:style=>"height: #{@settings[:height]};"}
+    %h3.center{:style => "clear: right;"}
+      = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
+      University of the Philippines Integrated School
+    %h4.center{:style=>"margin-bottom: 10px;"}
+      = @settings[:headera]
+      %br= @settings[:headerb]
+
+    %h3.capslock
+      = @student.fullname
+      %p.pull-right
+        %b Sex:
+        = @student.sex
+        %b Date of Birth:
+        = @student.birthday
+    %p
+      %b Address:
+      = @student.address.present? ? @student.address : "----"
+      %span.pull-right
+        %b Tel. No:
+        = @student.landline.present? ? @student.landline : "----"
+      %br
+    = #end page header
+
+    - slice.each do |sy|
+      %table.smallest{:id => "year-#{sy.id}", :class => "tablesorter sortable"}
+        %thead
+          %tr
+            %th{:colspan => 2 + @gradecol}
+              = "School Year #{sy.name}"
+          %tr
+            %th{:width => "40%"} Subject
+            - if @settings[:raw]
+              %th Raw
+            - if @settings[:elevenpt]
+              %th Final
+            %th Credits Earned
+        %tbody
+          - @student.courses_year(sy.id).each do |c|
+            %tr
+              %td{:style => "text-align: left;"}= c.subject.name
+              - if @student.course_has_blank(c.id)
+                %td n/a
+                - if @settings[:raw] && @settings[:elevenpt]
+                  %td n/a
+              - else
+                - if @settings[:raw]
+                  %td
+                    = @final = c.student_final(@student.id)
+                    - if @final == 4.00
+                      - @removal = @student.course_removed(c)
+                      - if @removal.present? && @removal.pass
+                        (3.00)
+                      - elsif @removal.present? && !@removal.pass
+                        (5.00)
+                - if @settings[:elevenpt]
+                  %td= c.student_average(@student.id)
+
+              %td= c.subject.units
+#clear
+.span5{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
+  = check_box("test", "test", {}, "test", "test")
+  Valid to Transfer
+  %br
+  = check_box("test", "test", {}, "test", "test")
+  Eligible for admission to college
+  %br
+  = check_box("test", "test", {}, "test", "test")
+  Copy for 
+  = @settings[:copyfor]
+#clear
+.span7
+  %p Prepared by:
+  %p Checked by:
+  %p= Time.now.to_s
+.span4.center
+  .capslock Ronaldo M. San Jose, Ph.D
+  Principal

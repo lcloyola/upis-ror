@@ -1,0 +1,28 @@
+%h3 Transcript Settings
+= form_tag("settings/update", :method => "udpate", :class=>"form-stacked") do
+  .field
+    = label_tag :header_a
+    = text_field_tag "headera", @settings[:headera]
+  .field
+    = label_tag :header_b
+    = text_field_tag "headerb", @settings[:headerb]
+  .field
+    = label_tag :include_raw_grade
+    = check_box_tag "raw", true, @settings[:raw]
+  .field
+    = label_tag :include_eleven_point_grade
+    = check_box_tag "elevenpt", true, @settings[:elevenpt]
+  .field
+    = label_tag :schoolyear_per_page
+    = number_field_tag "syperpage", @settings[:syperpage]
+  .field
+    = label_tag :height
+    = number_field_tag "height", @settings[:height]
+  .field
+    = label_tag :copy_for
+    = text_field_tag "copyfor", @settings[:copyfor]
+  .field
+    = label_tag :prepared_by
+    = text_field_tag "prepared_by", @settings[:prepared_by]
+  .actions
+    = submit_tag 'Save'

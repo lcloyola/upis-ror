@@ -44,6 +44,8 @@ Upis::Application.routes.draw do
   match 'students/classcard/:student_id' => 'students#classcard'
   match 'students/get_students_list/:id' =>'students#get_students_list'
 
+  match 'settings' => 'settings#edit'
+  match 'settings/update' => 'settings#update'
   resources :subjects
 
   resources :departments

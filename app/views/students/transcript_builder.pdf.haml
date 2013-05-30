@@ -1,6 +1,6 @@
 -#TODO: refactor!!!
 - @schoolyear.each_slice(@settings[:syperpage]) do |slice|
-  .page{:style=>"height: #{@settings[:height]};"}
+  .page{:style=>"max-height: #{@settings[:height]};"}
     %h3.center{:style => "clear: right;"}
       = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
       University of the Philippines Integrated School
@@ -72,7 +72,7 @@
   = @settings[:copyfor]
 #clear
 .span7
-  %p Prepared by:
+  %p= "Prepared by: #{@settings[:prepared_by]}"
   %p Checked by:
   %p= Time.now.to_s
 .span4.center

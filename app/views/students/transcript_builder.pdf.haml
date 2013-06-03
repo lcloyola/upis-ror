@@ -32,10 +32,10 @@
               = "School Year #{sy.name}"
           %tr
             %th{:width => "40%"} Subject
-            - if @settings[:raw]
-              %th Raw
             - if @settings[:elevenpt]
               %th Final
+            - if @settings[:raw]
+              %th Raw
             %th Credits Earned
         %tbody
           - @student.courses_year(sy.id).each do |c|
@@ -46,19 +46,20 @@
                 - if @settings[:raw] && @settings[:elevenpt]
                   %td n/a
               - else
-                - if @settings[:raw]
-                  %td
-                    = @final = c.student_final(@student.id)
-                    - if @final == 4.00
-                      - @removal = @student.course_removed(c)
-                      - if @removal.present? && @removal.pass
-                        (3.00)
-                      - elsif @removal.present? && !@removal.pass
-                        (5.00)
+                - @removal = @student.course_removed(c)
+                - @final = c.student_final(@student.id)
                 - if @settings[:elevenpt]
+                  %td
+                    = @final
+                    - if @final == 4.0
+                      = @removal.value if @removal.present?
+                - if @settings[:raw]
                   %td= c.student_average(@student.id)
+                - if @final == 5.0 or (@removal.present? and !@removal.pass)
+                  %td= 0.0
+                - else
+                  %td= c.subject.units
 
-              %td= c.subject.units
 #clear
 .span5{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
   = check_box("test", "test", {}, "test", "test")

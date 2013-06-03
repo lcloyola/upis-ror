@@ -52,7 +52,10 @@
                         (3.00)
                       - elsif @removal.present? && !@removal.pass
                         (5.00)
-                %td= c.subject.units
+                - if @final == 5.0 or (@removal.present? and !@removal.pass)
+                  %td= 0.0
+                - else
+                  %td= c.subject.units
 #clear
 .span5{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
   = check_box("test", "test", {}, "test", "test")

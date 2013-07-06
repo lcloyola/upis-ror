@@ -17,7 +17,7 @@
       %th Students
       %th{:colspan => 3} Action
   %tbody
-    - Batch.current.each do |batch|
+    - @current_batches.each do |batch|
       %tr
         %td= batch.year
         %td= batch.remarks

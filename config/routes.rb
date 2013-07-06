@@ -38,6 +38,7 @@ Upis::Application.routes.draw do
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
   match 'grades/quarter-report/:type/:id/:orientation' => 'grades#quarterreport'
 
+  get 'students/new/:batch_id' => 'students#new'
   match 'students/transcript/:student_id' => 'students#transcript'
   match 'students/transcript_builder/:student_id' => 'students#transcript_builder'
   match 'students/honorroll/:student_id' => 'students#honorroll'
@@ -52,9 +53,7 @@ Upis::Application.routes.draw do
 
   resources :students
 
-  resources :batches do
-    resources :students, :on => :member
-  end
+  resources :batches
 
   devise_for :users do
     root :to => "home#index"

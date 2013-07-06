@@ -8,8 +8,8 @@
   %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li.active= link_to "Profile", @student
   %li= link_to 'Edit', edit_student_path(@student)
-  %li= link_to 'Back to Batchmates', batch_students_path(@student.batch)
-  %li= link_to 'New Student', new_batch_student_url(@student.batch)
+  %li= link_to 'Back to Batchmates', batch_path(@student.batch)
+  %li= link_to 'New Student', "/students/new/#{@student.batch_id}"
 %p#notice= notice
 .row_fluid
   - if !@student.has_grades?

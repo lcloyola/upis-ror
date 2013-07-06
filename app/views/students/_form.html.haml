@@ -1,11 +1,12 @@
 %h3= "Batch #{@batch.year}"
-= form_for [@batch, @batch.students.build], :html => {:class=>"form-stacked"} do |f|
+= form_for [@student], :html => {:class=>"form-stacked"} do |f|
   -if @batch.errors.any?
     #error_explanation
       %h2= "#{pluralize(@batch.errors.count, "error")} prohibited this student from being saved:"
       %ul
         - @batch.students.errors.full_messages.each do |msg|
           %li= msg
+  = hidden_field_tag :batch_id, @batch.id
   .field
     = f.label :Surname
     = f.text_field :last

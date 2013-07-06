@@ -15,6 +15,7 @@ class BatchesController < ApplicationController
   # GET /batches/1.json
   def show
     @batch = Batch.find(params[:id])
+    @students = Student.where('batch_id = ?', @batch.id)
 
     respond_to do |format|
       format.html # show.html.erb

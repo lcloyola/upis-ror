@@ -45,11 +45,11 @@
                 %li= link_to "Log in!", new_user_session_path
     .container-fluid
       .row-fluid
-        .span3
+        .span2
           - if user_signed_in?
             = render 'partials/sidenav'
 
-        .span9
+        .span10
           = yield
 
       %footer

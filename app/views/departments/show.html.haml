@@ -13,7 +13,7 @@
     %th Contact
     %th Appointment
   %tbody
-    - @department.faculties.each do |f|
+    - @faculties.each do |f|
       %tr
         %td= f.fullname
         %td= f.email

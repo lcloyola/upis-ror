@@ -17,6 +17,7 @@ class BatchesController < ApplicationController
   def show
     @batch = Batch.find(params[:id])
     @students = Student.where('batch_id = ?', @batch.id)
+    @schoolyear = Schoolyear.current
 
     respond_to do |format|
       format.html # show.html.erb

@@ -51,7 +51,7 @@ Upis::Application.routes.draw do
 
   resources :departments
 
-  resources :students
+  resources :students, :except => [:index]
 
   resources :batches
 

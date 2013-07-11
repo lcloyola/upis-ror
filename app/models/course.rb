@@ -65,6 +65,15 @@ class Course < ActiveRecord::Base
     return elevenpt(self.student_average(student_id))
   end
 
+  # temporary fix. refactor!
+  def student_pe_final(student_id)
+    if self.student_average(student_id) >= 50
+      return "Pass"
+    else
+      return "Fail"
+    end
+  end
+
 
   def student_decision(student)
     final = self.student_final(student.id)

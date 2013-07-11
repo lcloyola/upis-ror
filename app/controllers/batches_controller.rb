@@ -4,6 +4,7 @@ class BatchesController < ApplicationController
   def index
     @batches = Batch.all
     @schoolyear = Schoolyear.current
+    @current_batches = Batch.current
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,6 +16,8 @@ class BatchesController < ApplicationController
   # GET /batches/1.json
   def show
     @batch = Batch.find(params[:id])
+    @students = Student.where('batch_id = ?', @batch.id)
+    @schoolyear = Schoolyear.current
 
     respond_to do |format|
       format.html # show.html.erb

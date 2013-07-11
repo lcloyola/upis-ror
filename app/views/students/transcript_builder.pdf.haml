@@ -48,13 +48,23 @@
               - else
                 - @removal = @student.course_removed(c)
                 - @final = c.student_final(@student.id)
+
                 - if @settings[:elevenpt]
                   %td
-                    = @final
-                    - if @final == 4.0
-                      = @removal.value if @removal.present?
+                    - if c.subject.is_pe
+                      = c.student_pe_final(@student_id)
+                    - else
+                      = @final
+                      - if @final == 4.0
+                        = @removal.value if @removal.present?
+
                 - if @settings[:raw]
-                  %td= c.student_average(@student.id)
+                  %td
+                    - if c.subject.is_pe
+                      = c.student_pe_final(@student_id)
+                    - else
+                      = c.student_average(@student.id)
+
                 - if @final == 5.0 or (@removal.present? and !@removal.pass)
                   %td= 0.0
                 - else

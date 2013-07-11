@@ -7,16 +7,6 @@ class StudentsController < ApplicationController
     render :partial => "students_list", :locals => { :students => @students }
   end
 
-  def index
-    @batch = Batch.find(params[:batch_id])
-    @students = Student.where('batch_id = ?', params[:batch_id])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @students }
-    end
-  end
-
   # GET /students/1
   # GET /students/1.json
   def show
@@ -94,7 +84,7 @@ class StudentsController < ApplicationController
     @student.destroy if !@student.has_grades?
 
     respond_to do |format|
-      format.html { redirect_to "/batches/#{@student.batch.id}/students" }
+      format.html { redirect_to "/batches" }
       format.json { head :ok }
     end
   end

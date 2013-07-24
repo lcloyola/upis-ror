@@ -1,8 +1,27 @@
-= form_tag("/gwas", :method => "get") do
-  = select :gwa, :mode, [['Cumulative',GwaMode::Cumulative],['Current Schoolyear',GwaMode::Schoolyear],['Semester 1',GwaMode::Semester1],['Semester 2',GwaMode::Semester2]]
-  = collection_select :gwa, :batch_id, Batch.all, :id, :year
-  = collection_select :gwa, :schoolyear_id, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
-  = submit_tag("Search")
+.row-fluid
+  .span6
+    %h3 Preset GWA calculations
+    = form_tag("/gwas", :method => "get") do
+      %br Mode
+      = select :gwa, :mode, [['Cumulative',GwaMode::Cumulative],['Current Schoolyear',GwaMode::Schoolyear],['Semester 1',GwaMode::Semester1],['Semester 2',GwaMode::Semester2]]
+      %br Batch
+      = collection_select :gwa, :batch_id, Batch.all, :id, :year
+      %br Schoolyear
+      = collection_select :gwa, :schoolyear_id, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
+      = submit_tag("Search")
+  .span6
+    %h3 Range GWA calculations
+    = form_tag("/gwas/range", :method => "get") do
+      %br Batch
+      = collection_select :gwa, :batch_id, Batch.all, :id, :year
+      %br Start Schoolyear
+      = collection_select :gwa, :schoolyear_id_start, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
+      %br End Schoolyear
+      = collection_select :gwa, :schoolyear_id_end, Schoolyear.all, :id, :name, :selected => Schoolyear.current.id
+      = submit_tag("Search")
+- if @range.present?
+  %h3= "Batch #{@batch.year}"
+  %h3= "from #{@start.name} to #{@end.name}"
 
 - if @mode.present?
   Search Results for:
@@ -25,6 +44,27 @@
     deficiency
     %i.icon-exclamation-sign
     failing
+
+- if @students.present?
+  %table{:id => "sortable", :class => "zebra-striped tablesorter"}
+    %thead
+      %tr
+        %th Name
+        %th elvenpt GWA
+        %th raw GWA
+        %th Remarks
+    %tbody
+      - @students.each do |s|
+        %tr
+          %td.capslock= link_to s.fullname, s
+          %td= s.gwa[:final]
+          %td= s.gwa[:raw]
+          %td
+            - if s.disciplinary
+              %i.icon-warning-sign
+
+
+
 
 - if @gwas.present?
   %table{:id => "sortable", :class => "zebra-striped tablesorter"}
@@ -49,3 +89,4 @@
             - if g.failing.present?
               %i.icon-exclamation-sign
               = g.failing.course.subject.name
+

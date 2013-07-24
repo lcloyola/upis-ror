@@ -47,6 +47,9 @@ Upis::Application.routes.draw do
 
   match 'settings' => 'settings#edit'
   match 'settings/update' => 'settings#update'
+
+  get 'gwas/range' => 'gwas#range'
+
   resources :subjects
 
   resources :departments

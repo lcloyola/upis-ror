@@ -37,6 +37,7 @@ Upis::Application.routes.draw do
 
   match 'grades/deficiency/:quarter/' => 'grades#deficiency'
   match 'grades/quarter-report/:type/:id/:orientation' => 'grades#quarterreport'
+  match 'grades/transcript/:student_id/' => 'grades#transcript'
 
   get 'students/new/:batch_id' => 'students#new'
   match 'students/transcript/:student_id' => 'students#transcript'
@@ -47,6 +48,9 @@ Upis::Application.routes.draw do
 
   match 'settings' => 'settings#edit'
   match 'settings/update' => 'settings#update'
+
+  get 'gwas/range' => 'gwas#range'
+
   resources :subjects
 
   resources :departments

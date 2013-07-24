@@ -1,4 +1,6 @@
 class Student < ActiveRecord::Base
+  include GradesHelper
+
   belongs_to :batch
   has_many :grades, :foreign_key => :student_id, :dependent => :destroy
   has_many :courses, :through => :grades, :uniq => true, :source => :course, :dependent => :destroy
@@ -66,6 +68,7 @@ class Student < ActiveRecord::Base
       return 3.0 if removal.pass
       return 5.0
     end
+    return nil
   end
   def section(schoolyear_id)
     return self.sections.where('schoolyear_id =?', schoolyear_id).first
@@ -107,7 +110,7 @@ class Student < ActiveRecord::Base
     end
     return (total/units).round(5) if units != 0
   end
-  
+
   def gwa_final_schoolyear(sy)
     total = units = 0
     self.courses_year(sy.id).each do |c|
@@ -117,7 +120,7 @@ class Student < ActiveRecord::Base
     return (total/units).round(5) if units != 0
     return ""
   end
-  
+
   def gwa_final_overall
     total = units = 0
     self.courses.each do |c|
@@ -129,4 +132,39 @@ class Student < ActiveRecord::Base
     return (total/units).round(5) if units != 0
     return ""
   end
+
+  def courses_sy_range(sy_start, sy_end)
+    sql = "select
+              student_id, course_id, schoolyear_id, start, subjects.units,
+              name, IF(AVG(value) IS NULL, 0, AVG(value)) as raw
+          from grades
+          join courses on grades.course_id = courses.id
+          join subjects on courses.subject_id = subjects.id
+          join schoolyears on courses.schoolyear_id = schoolyears.id
+          where start >= "+sy_start+" AND
+               start <= "+sy_end+" AND
+               student_id ="+self.id.to_s+"
+          group by course_id;";
+    return Student.connection.select_all(sql)
+  end
+
+  def final_gwa_range(sy_start, sy_end)
+    courses = self.courses_sy_range(sy_start, sy_end)
+    total = total_raw = units = 0
+    a = Hash.new
+    courses.each do |c|
+      course = Course.find(c["course_id"])
+      raw = c["raw"].round
+      final = elevenpt(raw)
+      final = self.course_removal_grade(course) unless self.course_removal_grade(course).nil?
+
+      total = (final * c["units"]) + total
+      total_raw = (raw * c["units"]) + total_raw
+   		units = c["units"] + units
+    end
+    a[:final] = (total / units).round(5) if units != 0
+    a[:raw] = (total_raw / units).round(5) if units != 0
+    return a
+  end
 end
+

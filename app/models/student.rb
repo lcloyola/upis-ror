@@ -153,10 +153,11 @@ class Student < ActiveRecord::Base
     total = total_raw = units = 0
     a = Hash.new
     courses.each do |c|
-      course = Course.find(c["course_id"])
       raw = c["raw"].round
       final = elevenpt(raw)
-      final = self.course_removal_grade(course) unless self.course_removal_grade(course).nil?
+
+      removal = Removal.where('student_id = ? and course_id = ?', self.id, c["course_id"]).first
+      final = removal.final if removal.present?
 
       total = (final * c["units"]) + total
       total_raw = (raw * c["units"]) + total_raw

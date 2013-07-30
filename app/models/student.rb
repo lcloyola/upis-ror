@@ -9,7 +9,7 @@ class Student < ActiveRecord::Base
   has_many :subjects, :through => :courses, :uniq => true, :source => :subject
   has_many :schoolyears, :through => :courses, :source => :schoolyear
   def fullname
-    "#{last} #{given} #{middle}"
+    "#{last} #{given} #{middle}".upcase
   end
 
   def sn_fullname

@@ -10,8 +10,6 @@
       %th Last
       %th Given
       %th Middle
-      %th raw GWA for the year
-      %th elvenpt GWA for the year
       %th{:colspan => 5 } Action
   %tbody
     - @students.each do |student|
@@ -20,12 +18,6 @@
         %td.capslock= student.last
         %td.capslock= student.given
         %td.capslock= student.middle
-        - if student.courses_year(@schoolyear).present?
-          %td= student.gwa_raw_schoolyear(@schoolyear)
-          %td= student.gwa_final_schoolyear(@schoolyear)
-        - else
-          %td
-          %td
         %td= link_to 'Profile', student
         - unless is_faculty?
           %td= link_to 'Transcript', "/students/transcript/#{student.id}"

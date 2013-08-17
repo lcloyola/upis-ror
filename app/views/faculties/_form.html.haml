@@ -20,10 +20,10 @@
     = collection_select(:faculty, :department_id, Department.all, :id, :name, options ={:prompt => "--select one--"})
   .field
     = f.label :appointment
-    = f.date_select :appointment, :start_year => Time.now.year - 25
+    = f.date_select :appointment, :start_year => Time.now.year - 45, :end_year => Time.now.year
   .field
     = f.label :birthday
-    = f.date_select :birthday, :start_year => Time.now.year - 60
+    = f.date_select :birthday, :start_year => Time.now.year - 75, :end_year => Time.now.year - 19
   - if !@faculty.new_record?
     .field
       = f.label :email

@@ -134,6 +134,7 @@ class Student < ActiveRecord::Base
   end
 
   def courses_sy_range(sy_start, sy_end)
+    sy_end = sy_start if sy_start > sy_end
     sql = "select
               student_id, course_id, schoolyear_id, start, subjects.units,
               name, IF(AVG(value) IS NULL, 0, AVG(value)) as raw
@@ -166,6 +167,16 @@ class Student < ActiveRecord::Base
     a[:final] = (total / units).round(5) if units != 0
     a[:raw] = (total_raw / units).round(5) if units != 0
     return a
+  end
+
+  def sy_string(mode)
+    x = "asc"
+    x = "desc" if mode == "end"
+    sy = self.schoolyears.group(:schoolyear_id).order("start #{x}").first
+    unless sy.nil?
+      return (sy.start - 1).to_s if mode == "end"
+      return sy.start.to_s
+    end
   end
 end
 

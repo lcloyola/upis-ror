@@ -16,10 +16,13 @@
           %td n/a
         - else
           %td
-            = @final = c.student_final(@student.id)
-            - @removal = @student.course_removed(c)
-            - if @final == 4.0
-              = @removal.value if @removal.present?
+            - if c.subject.is_pe
+              = c.student_pe_final(@student_id)
+            - else
+              = @final = c.student_final(@student.id)
+              - @removal = @student.course_removed(c)
+              - if @final == 4.0
+                = @removal.value if @removal.present?
         - if @final == 5.0 or (@removal.present? and !@removal.pass) or @student.course_has_blank(c.id)
           %td= 0.0
         - else

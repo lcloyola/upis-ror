@@ -45,6 +45,7 @@
                 %td n/a
                 - if @settings[:raw] && @settings[:elevenpt]
                   %td n/a
+                %td n/a
               - else
                 - @removal = @student.course_removed(c)
                 - @final = c.student_final(@student.id)
@@ -79,7 +80,7 @@
   Eligible for admission to college
   %br
   = check_box("test", "test", {}, "test", "test")
-  Copy for 
+  Copy for
   = @settings[:copyfor]
 #clear
 .span7
@@ -89,3 +90,4 @@
 .span4.center
   .capslock Ronaldo M. San Jose, Ph.D
   Principal
+

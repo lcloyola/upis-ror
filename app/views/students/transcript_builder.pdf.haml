@@ -45,7 +45,7 @@
                 %td n/a
                 - if @settings[:raw] && @settings[:elevenpt]
                   %td n/a
-                %td n/a
+                %td 0.0
               - else
                 - @removal = @student.course_removed(c)
                 - @final = c.student_final(@student.id)

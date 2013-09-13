@@ -7,5 +7,13 @@ class Removal < ActiveRecord::Base
     return "(3.0)" if self.pass
     return "(5.0)"
   end
+
+  def final
+    if self.pass
+      return 3.0
+    else
+      return 5.0
+    end
+  end
 end
 

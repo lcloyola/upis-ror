@@ -9,7 +9,7 @@ class Student < ActiveRecord::Base
   has_many :subjects, :through => :courses, :uniq => true, :source => :subject
   has_many :schoolyears, :through => :courses, :source => :schoolyear
   def fullname
-    "#{last} #{given} #{middle}"
+    "#{last} #{given} #{middle}".upcase
   end
 
   def sn_fullname
@@ -134,6 +134,7 @@ class Student < ActiveRecord::Base
   end
 
   def courses_sy_range(sy_start, sy_end)
+    sy_end = sy_start if sy_start > sy_end
     sql = "select
               student_id, course_id, schoolyear_id, start, subjects.units,
               name, IF(AVG(value) IS NULL, 0, AVG(value)) as raw
@@ -153,10 +154,11 @@ class Student < ActiveRecord::Base
     total = total_raw = units = 0
     a = Hash.new
     courses.each do |c|
-      course = Course.find(c["course_id"])
       raw = c["raw"].round
       final = elevenpt(raw)
-      final = self.course_removal_grade(course) unless self.course_removal_grade(course).nil?
+
+      removal = Removal.where('student_id = ? and course_id = ?', self.id, c["course_id"]).first
+      final = removal.final if removal.present?
 
       total = (final * c["units"]) + total
       total_raw = (raw * c["units"]) + total_raw
@@ -165,6 +167,16 @@ class Student < ActiveRecord::Base
     a[:final] = (total / units).round(5) if units != 0
     a[:raw] = (total_raw / units).round(5) if units != 0
     return a
+  end
+
+  def sy_string(mode)
+    x = "asc"
+    x = "desc" if mode == "end"
+    sy = self.schoolyears.group(:schoolyear_id).order("start #{x}").first
+    unless sy.nil?
+      return (sy.start - 1).to_s if mode == "end"
+      return sy.start.to_s
+    end
   end
 end
 

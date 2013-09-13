@@ -1,0 +1,27 @@
+%table.smallest{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable", |
+                :style => "border: 1px solid #AAA;" }
+  %thead
+    %tr
+      %th{:colspan => 3}
+        = "School Year #{sy.name}"
+    %tr
+      %th{:width => "50%"} Subject
+      %th Final
+      %th Credits Earned
+  %tbody
+    - @student.courses_year(sy.id).each do |c|
+      %tr
+        %td{:style => "text-align: left;"}= c.subject.name
+        - if @student.course_has_blank(c.id)
+          %td n/a
+        - else
+          %td
+            = @final = c.student_final(@student.id)
+            - @removal = @student.course_removed(c)
+            - if @final == 4.0
+              = @removal.value if @removal.present?
+        - if @final == 5.0 or (@removal.present? and !@removal.pass) or @student.course_has_blank(c.id)
+          %td= 0.0
+        - else
+          %td= c.subject.units
+

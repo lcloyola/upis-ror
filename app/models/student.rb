@@ -114,7 +114,10 @@ class Student < ActiveRecord::Base
   def gwa_final_schoolyear(sy)
     total = units = 0
     self.courses_year(sy.id).each do |c|
-      total = (c.student_final(self.id) * c.subject.units) + total
+      final = c.student_final(self.id)
+      final = self.course_removal_grade(c) if self.course_removed(c).present?
+    
+      total = (final * c.subject.units) + total
       units = c.subject.units + units
     end
     return (total/units).round(5) if units != 0

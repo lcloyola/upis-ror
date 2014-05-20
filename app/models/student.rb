@@ -56,8 +56,10 @@ class Student < ActiveRecord::Base
   def course_grades(course_id)
     return Grade.where('course_id = ? and student_id = ?', course_id, self.id)
   end
-  def courses_year(sy)
-    return self.courses.joins(:subject).where('schoolyear_id = ?', sy).order("units DESC, year DESC,sem ASC, name ASC").group("subject_id")
+  def courses_year(sy, ordinal = false)
+    order = "units DESC, year DESC,sem ASC, name ASC"
+    order = "ordinality DESC, " + order if ordinal
+    return self.courses.joins(:subject).where('schoolyear_id = ?', sy).order(order).group("subject_id")
   end
   def course_removed(course)
     return Removal.where('student_id = ? and course_id = ?', self.id, course.id).first

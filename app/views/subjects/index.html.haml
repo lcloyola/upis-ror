@@ -9,6 +9,7 @@
         %th Department
         %th Units
         %th Year
+        %th Ordinality
 
     %tbody
       - @subjects.each do |subject|
@@ -17,6 +18,7 @@
           %td= subject.department.name
           %td= subject.units
           %td= subject.year
+          %td= subject.ordinality
           %td= link_to 'Show', subject
           %td= link_to 'Edit', edit_subject_path(subject)
           - unless !subject.courses.empty?

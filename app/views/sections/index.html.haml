@@ -31,8 +31,11 @@
           %td= section.students.count
           %td= section.courses.count
           %td= section.faculty.fullname
-          %td= link_to 'Show', section
-          %td= link_to 'Edit', edit_section_path(section) unless is_faculty?
+          %td
+            = link_to 'Show', section
+            = link_to 'Edit', edit_section_path(section) unless is_faculty?
+            - if is_admin? && section.students.count ==0
+              = link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
 
 -else
   Please create faculties, schoolyear and batch first.

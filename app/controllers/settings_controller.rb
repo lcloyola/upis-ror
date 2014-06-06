@@ -17,6 +17,6 @@ class SettingsController < ApplicationController
 													:syperpage => params[:syperpage].to_i,
 													:copyfor => params[:copyfor],
 													:prepared_by => params[:prepared_by]}
-		redirect_to "edit"
+		redirect_to "/settings"
 	end
 end

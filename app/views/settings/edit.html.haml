@@ -1,5 +1,5 @@
 %h3 Transcript Settings
-= form_tag("settings/update", :method => "udpate", :class=>"form-stacked") do
+= form_tag settings_update_path, :class=>"form-stacked" do
   .field
     = label_tag :header_a
     = text_field_tag "headera", @settings[:headera]
@@ -25,4 +25,4 @@
     = label_tag :prepared_by
     = text_field_tag "prepared_by", @settings[:prepared_by]
   .actions
-    = submit_tag 'Save'
+    = submit_tag 'Save', name: "submit"

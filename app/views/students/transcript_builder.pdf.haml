@@ -63,6 +63,8 @@
                   %td
                     - if c.subject.is_pe
                       = c.student_pe_final(@student_id)
+                    - elsif @removal.present? and @removal.pass
+                      = 50
                     - else
                       = c.student_average(@student.id)
 

@@ -1,5 +1,5 @@
 class Section < ActiveRecord::Base
-  validates_inclusion_of :year, :in => -2..12, :message => "can only be from -2 and 12."
+  validates_inclusion_of :year, :in => -3..12, :message => "can only be from -2 and 12."
   validates_numericality_of :year, :only_integer => true, :message => "can only be whole number."
   validates_uniqueness_of :name, :scope => [:schoolyear_id]
   validates_presence_of :schoolyear_id, :faculty_id, :batch_id, :year, :name
@@ -13,6 +13,13 @@ class Section < ActiveRecord::Base
 
   def fullname
     return "#{self.year} - #{self.name}"
+  end
+  def year_type
+    return "Extra Curricular" if self.year == -3
+    return "Work Program" if self.year == -2
+    return "Elective" if self.year == -1
+    return "Kinder" if self.year == 0
+    return year
   end
 end
 

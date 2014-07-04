@@ -17,7 +17,7 @@
     = collection_select :section, :batch_id, Batch.all, :id, :year
   .field
     = f.label :year
-    = f.select :year, [['Work Program',-2], ['Elective',-1],['k',0],['1',1],['2',2],['3',3],['4',4],['5',5],['6',6],['1st',7],['2nd',8],['3rd',9],['4th',10],['5th', 11],['6th', 12]]
+    = f.select :year, [['Extra Curricular',-3], ['Work Program',-2], ['Elective',-1],['k',0],['1',1],['2',2],['3',3],['4',4],['5',5],['6',6],['1st',7],['2nd',8],['3rd',9],['4th',10],['5th', 11],['6th', 12]]
   .field
     = f.label :name
     = f.text_field :name

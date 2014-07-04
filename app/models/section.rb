@@ -1,5 +1,5 @@
 class Section < ActiveRecord::Base
-  validates_inclusion_of :year, :in => -1..12, :message => "can only be from -1 and 12."
+  validates_inclusion_of :year, :in => -2..12, :message => "can only be from -2 and 12."
   validates_numericality_of :year, :only_integer => true, :message => "can only be whole number."
   validates_uniqueness_of :name, :scope => [:schoolyear_id]
   validates_presence_of :schoolyear_id, :faculty_id, :batch_id, :year, :name

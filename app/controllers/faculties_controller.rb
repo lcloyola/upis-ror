@@ -1,6 +1,6 @@
 class FacultiesController < ApplicationController
   before_filter :only => [:new, :create, :edit, :update] { |c| c.allow_access! 14 } # everyone except faculty
-  before_filter :only => [:destroy] { |c| c.allow_access! 12 } # admin and moderator
+  before_filter :only => [:destroy] { |c| c.allow_access! 8 } # admin and moderator
   before_filter :only => [:regenerate_password] { |c| c.allow_access! 8 } # admin only
 
   def index
@@ -83,8 +83,11 @@ class FacultiesController < ApplicationController
   # DELETE /faculties/1.json
   def destroy
     @faculty = Faculty.find(params[:id])
-    @faculty.destroy
-
+    if @faculty.sections.empty? && @faculty.courses.empty?
+      @faculty.destroy
+    else
+      flash[:notice] = "Faculty can't be destroyed."
+    end
     respond_to do |format|
       format.html { redirect_to faculties_url }
       format.json { head :ok }

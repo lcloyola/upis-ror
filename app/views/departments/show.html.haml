@@ -21,4 +21,9 @@
         %td= f.appointment
         %td= link_to "Show", faculty_path(f)
         %td= link_to "Edit", edit_faculty_path(f)  unless is_faculty?
+        - if is_admin? && f.sections.empty? && f.courses.empty?
+          %td
+            = link_to 'Destroy', f, :confirm => 'Are you sure?', :method => :delete
+
+
 

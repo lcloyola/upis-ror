@@ -119,9 +119,19 @@ table.honoroll td, table.honoroll th,  {
 }
 
 table.gradingsheet td, table.gradingsheet th,  {
-  padding: 3px 3px;
-  font-size:12px;
+  padding: 4px 8px;
+  font-size:16px;
 }
+table.transcript td, table.transcript th,  {
+  text-align: center;
+  padding: 2px 3px;
+  font-size:10px;
+}
+
+table.left th, table.left td {
+  text-align: left;
+}
+
 .vertical-text{
   -webkit-transform:rotate(90deg);
 	-moz-transform:rotate(90deg);

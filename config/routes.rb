@@ -47,7 +47,7 @@ Upis::Application.routes.draw do
   match 'students/get_students_list/:id' =>'students#get_students_list'
 
   match 'settings' => 'settings#edit'
-  match 'settings/update' => 'settings#update'
+  post 'settings/update' => 'settings#update'
 
   get 'gwas/range' => 'gwas#range'
 

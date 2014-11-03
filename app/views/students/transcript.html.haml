@@ -6,7 +6,12 @@
   %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li= link_to "Profile", @student
 .btn.btn-info= link_to "Transcript PDF", "/students/transcript/#{@student.id}.pdf", :target => "_blank"
-.btn.btn-info= link_to "Transcript Builder", "/students/transcript_builder/#{@student.id}.pdf", :target => "_blank"
+= form_tag "/students/transcript_builder/#{@student.id}.pdf" , id: "cdr_search_form" do
+  = select_tag :start, options_from_collection_for_select(Schoolyear.all, :start, :name)
+  = select_tag :end, options_from_collection_for_select(Schoolyear.all, :start, :name, Schoolyear.current.id)
+  = submit_tag("Transcript Builder", class: "btn btn-info")
+
+  .btn.btn-info= link_to "Transcript Builder", "/students/transcript_builder/#{@student.id}.pdf", :target => "_blank"
 
 %br
 -#TODO: refactor!!!

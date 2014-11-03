@@ -100,8 +100,11 @@ class StudentsController < ApplicationController
   end
   def transcript_builder
     @student = Student.find(params[:student_id])
-    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
-
+    if params[:start].present? && params[:end].present?
+      @schoolyear = Schoolyear.where("start >= ? && start <= ?", params[:start], params[:end]).order('start ASC')
+    else
+      @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
+    end
     @settings = Setting.transcript
     @gradecol = 2
     respond_to do |format|

@@ -11,4 +11,3 @@ class Subject < ActiveRecord::Base
     "#{name} ( #{units} units )"
   end
 end
-

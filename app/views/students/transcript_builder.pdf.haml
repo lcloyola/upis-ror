@@ -1,95 +1,129 @@
 -#TODO: refactor!!!
-- @schoolyear.each_slice(@settings[:syperpage]) do |slice|
-  .page{:style=>"max-height: #{@settings[:height]};"}
-    %h3.center{:style => "clear: right;"}
-      = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
-      University of the Philippines Integrated School
-    %h4.center{:style=>"margin-bottom: 10px;"}
-      = @settings[:headera]
-      %br= @settings[:headerb]
+- @schoolyear.each_slice(4) do |slice4|
+  .page{:style=>"height: 830;"}
+    #transcirpt-heading
+      %h4.center{:style => "margin: 0px auto;"}
+        / = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
+        University of the Philippines Integrated School
+      %h5.center{:style=>"margin-bottom: 10px;"}
+        Secondary School Record
+        %br Form 137
 
-    %h3.capslock
-      = @student.fullname
-      %p.pull-right
-        %b Sex:
-        = @student.sex
-        %b Date of Birth:
-        = @student.birthday
-    %p
-      %b Address:
-      = @student.address.present? ? @student.address : "----"
-      %span.pull-right
-        %b Tel. No:
-        = @student.landline.present? ? @student.landline : "----"
-      %br
-    = #end page header
+      %h5.capslock
+        = @student.fullname
+        %span.pull-right
+          %b Sex:
+          = @student.sex
+          %b Date of Birth:
+          = @student.birthday
+      %p
+        %span.pull-left
+          %b Address:
+          = @student.address.present? ? @student.address : "----"
+        %span.pull-right
+          %b Tel. No:
+          = @student.landline.present? ? @student.landline : "----"
+      %p
+        %span.pull-left
+          %b Address:
+          = @student.address.present? ? @student.address : "----"
+        %span.pull-right
+          %b Tel. No:
+          = @student.landline.present? ? @student.landline : "----"
 
-    - slice.each do |sy|
-      %table.smallest{:id => "year-#{sy.id}", :class => "tablesorter sortable"}
-        %thead
-          %tr
-            %th{:colspan => 2 + @gradecol}
-              = "School Year #{sy.name}"
-          %tr
-            %th{:width => "40%"} Subject
-            - if @settings[:elevenpt]
-              %th Final
-            - if @settings[:raw]
-              %th Raw
-            %th Credits Earned
-        %tbody
-          - @student.courses_year(sy.id, true).each do |c|
-            %tr
-              %td{:style => "text-align: left;"}= c.subject.name
-              - if @student.course_has_blank(c.id)
-                %td n/a
-                - if @settings[:raw] && @settings[:elevenpt]
-                  %td n/a
-                %td 0.0
-              - else
-                - @removal = @student.course_removed(c)
-                - @final = c.student_final(@student.id)
+      - slice4.each_slice(2) do |pair|
+        .row-fluid
+          - pair.each do |sy|
+            .span6
+              %table.transcript{:id => "year-#{sy.id}", :class => "zebra-striped tablesorter sortable", |
+                      :style => "border: 1px solid #AAA;" }
+                %thead
+                  %tr
+                    %th{:colspan => 2 + @gradecol}
+                      = "School Year #{sy.name}"
+                  %tr
+                    %th{:width => "40%"} Subject
+                    - if @settings[:elevenpt]
+                      %th Final
+                    - if @settings[:raw]
+                      %th Raw
+                    %th Credits Earned
+                %tbody
+                  - @student.courses_year(sy.id, true).each do |c|
+                    %tr
+                      %td{:style => "text-align: left;"}= c.subject.name
+                      - if @student.course_has_blank(c.id)
+                        %td n/a
+                        - if @settings[:raw] && @settings[:elevenpt]
+                          %td n/a
+                        %td 0.0
+                      - else
+                        - @removal = @student.course_removed(c)
+                        - @final = c.student_final(@student.id)
 
-                - if @settings[:elevenpt]
-                  %td
-                    - if c.subject.is_pe
-                      = c.student_pe_final(@student_id)
-                    - else
-                      = @final
-                      - if @final == 4.0
-                        = @removal.value if @removal.present?
+                        - if @settings[:elevenpt]
+                          %td
+                            - if c.subject.is_pe
+                              = c.student_pe_final(@student_id)
+                            - else
+                              = @final
+                              - if @final == 4.0
+                                = @removal.value if @removal.present?
 
-                - if @settings[:raw]
-                  %td
-                    - if c.subject.is_pe
-                      = c.student_pe_final(@student_id)
-                    - elsif @removal.present? and @removal.pass
-                      = 50
-                    - else
-                      = c.student_average(@student.id)
+                        - if @settings[:raw]
+                          %td
+                            - if c.subject.is_pe
+                              = c.student_pe_final(@student_id)
+                            - elsif @removal.present? and @removal.pass
+                              = 50
+                            - else
+                              = c.student_average(@student.id)
 
-                - if @final == 5.0 or (@removal.present? and !@removal.pass)
-                  %td= 0.0
-                - else
-                  %td= c.subject.units
+                        - if @final == 5.0 or (@removal.present? and !@removal.pass)
+                          %td= 0.0
+                        - else
+                          %td= c.subject.units
 
 #clear
-.span5{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
-  = check_box("test", "test", {}, "test", "test")
-  Valid to Transfer
-  %br
-  = check_box("test", "test", {}, "test", "test")
-  Eligible for admission to college
-  %br
-  = check_box("test", "test", {}, "test", "test")
-  Copy for
-  = @settings[:copyfor]
-#clear
-.span7
-  %p= "Prepared by: #{@settings[:prepared_by]}"
-  %p Checked by:
-  %p= Time.now.to_s
-.span4.center
-  .capslock Ronaldo M. San Jose, Ph.D
-  Principal
+/ .span12{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
+.row-fluid{:style=>"border:1px solid #888; padding: 5px;"}
+  .span5
+    = check_box("test", "test", {}, "test", "test")
+    Valid to Transfer
+    %br
+    = check_box("test", "test", {}, "test", "test")
+    Eligible for admission to college
+    %br
+    = check_box("test", "test", {}, "test", "test")
+    Copy for ______________
+  
+  .span7
+    %table.transcript.left
+      %tr
+        %td 1.0 - Excellent
+        %td 2.0 - Good
+        %td 3.0 - Pass
 
+      %tr
+        %td 1.25
+        %td 2.25
+        %td 4.0 - Conditional
+
+      %tr
+        %td 1.5 Very Good
+        %td 2.5 - Satisfactory
+        %td 5.0 - Fail
+      %tr
+        %td 1.75
+        %td 2.75
+        %td
+
+
+.row-fluid{style: "padding: 10px;"}
+  .span7
+    %p Prepared by:
+    %p Checked by:
+    %p= Time.now.to_s
+  .span4.center
+    .capslock{style: "padding-top: 40px;"} Ronaldo M. San Jose, Ph.D
+    Principal 

@@ -92,6 +92,15 @@
   .field
     = f.label :contact_details
     = f.text_field :gcontact
+  .field
+    = f.label :citizenship
+    = f.text_field :citizenship
+  .field
+    = f.label :elem_completed_in
+    = f.text_field :elem_completed_in
+  .field
+    = f.label :elem_completed_on
+    = f.date_select :elem_completed_on, :start_year => Time.now.year - 10, :end_year => Time.now.year - 4
   .actions
     = f.submit 'Save'
 

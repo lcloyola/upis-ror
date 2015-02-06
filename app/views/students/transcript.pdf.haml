@@ -1,48 +1,53 @@
 -#TODO: refactor!!!
-- @schoolyear.each_slice(2) do |slice|
-  .page{:style=>"height: 825;"}
-    %h3.center{:style => "clear: right;"}
-      = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
-      University of the Philippines Integrated School
-    %h4.center{:style=>"margin-bottom: 10px;"}
-      Secondary School Record
-      %br Form 137
+- @schoolyear.each_slice(4) do |slice4|
+  .page{:style=>"height: 830;"}
+    = render "transcript_heading"
 
-    %h3.capslock
-      = @student.fullname
-      %p.pull-right
-        %b Sex:
-        = @student.sex
-        %b Date of Birth:
-        = @student.birthday
-    %p
-      %b Address:
-      = @student.address.present? ? @student.address : "----"
-      %span.pull-right
-        %b Tel. No:
-        = @student.landline.present? ? @student.landline : "----"
-      %br
-    = #end page header
-
-
-    - slice.each_slice(2) do |pair|
-      - pair.each do |sy|
-        = render "sy", :sy => sy
+    - slice4.each_slice(2) do |pair|
+      .row-fluid
+        - pair.each do |sy|
+          .span6
+            = render "sy", :sy => sy
 #clear
-.span5{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
-  = check_box("test", "test", {}, "test", "test")
-  Valid to Transfer
-  %br
-  = check_box("test", "test", {}, "test", "test")
-  Eligible for admission to college
-  %br
-  = check_box("test", "test", {}, "test", "test")
-  Copy for ______________
-#clear
-.span7
-  %p Prepared by:
-  %p Checked by:
-  %p= Time.now.to_s
-.span4.center
-  .capslock Ronaldo M. San Jose, Ph.D
-  Principal
+/ .span12{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
+.row-fluid{:style=>"border:1px solid #888; padding: 5px;"}
+  .span5
+    = check_box("test", "test", {}, "test", "test")
+    Valid to Transfer
+    %br
+    = check_box("test", "test", {}, "test", "test")
+    Eligible for admission to college
+    %br
+    = check_box("test", "test", {}, "test", "test")
+    Copy for ______________
+  
+  .span7
+    %table.transcript.left
+      %tr
+        %td 1.0 - Excellent
+        %td 2.0 - Good
+        %td 3.0 - Pass
+
+      %tr
+        %td 1.25
+        %td 2.25
+        %td 4.0 - Conditional
+
+      %tr
+        %td 1.5 Very Good
+        %td 2.5 - Satisfactory
+        %td 5.0 - Fail
+      %tr
+        %td 1.75
+        %td 2.75
+        %td
+
+
+.row-fluid{style: "padding: 10px;"}
+  .span7
+    %p Prepared by:
+    %p Checked by:
+    %p= Time.now.to_s
+  .span4.center
+    .capslock{style: "padding-top: 40px;"} Ronaldo M. San Jose, Ph.D
+    Principal 

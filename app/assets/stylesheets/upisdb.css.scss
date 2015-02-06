@@ -119,9 +119,36 @@ table.honoroll td, table.honoroll th,  {
 }
 
 table.gradingsheet td, table.gradingsheet th,  {
-  padding: 3px 3px;
-  font-size:12px;
+  padding: 4px 8px;
+  font-size:16px;
 }
+table.transcript {
+  margin-bottom: 3px;
+}
+table.transcript td, table.transcript th,  {
+  text-align: center;
+  padding: 1px 3px;
+  font-size:10px;
+}
+table.transcript th {
+  border-bottom: 1px #AAA solid;
+}
+#transcript-heading > table,
+#transcript-heading > table tr,
+#transcript-heading > table td
+ {
+  border: 0px #FFF solid;
+  padding: 0px;
+  margin: 0px;
+}
+#transcript-heading {
+  margin-bottom: 5px;
+}
+
+table.left th, table.left td {
+  text-align: left;
+}
+
 .vertical-text{
   -webkit-transform:rotate(90deg);
 	-moz-transform:rotate(90deg);
@@ -201,4 +228,6 @@ table.gradingsheet td, table.gradingsheet th,  {
   background-image: linear-gradient(top, #333, #7A207D);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333', endColorstr='#7A207D', GradientType=0);
 }
-
+.helvetica {
+   font-family: Arial, Helvetica, serif;
+}

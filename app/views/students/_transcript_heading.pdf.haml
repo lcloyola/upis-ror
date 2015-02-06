@@ -1,0 +1,35 @@
+#transcript-heading
+  %h4.center{:style => "margin: 0px auto;"}
+    / = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
+    University of the Philippines Integrated School
+  %h5.center{:style=>"margin-bottom: 10px;"}
+    Secondary School Record
+    %br Form 137
+
+  %table
+    %tr
+      %td
+        %b.capslock= @student.fullname
+      %td
+        .pull-right
+          %b Sex:
+          = @student.sex
+          %b Date of Birth:
+          = @student.birthday
+    %tr
+      %td
+        %b Address:
+        = @student.address.present? ? @student.address : "----"
+      %td
+        .pull-right
+          %b Tel. No:
+          = @student.landline.present? ? @student.landline : "----"
+    %tr
+      %td
+        %b Elem Completed in:
+        = @student.elem_completed_in.present? ? @student.elem_completed_in : "----"
+        = @student.elem_completed_on.present? ? "(#{@student.elem_completed_on})" : "----"
+      %td
+        .pull-right
+          %b Citizenship:
+          = @student.citizenship.present? ? @student.citizenship : "----"

@@ -8,94 +8,104 @@
         - @student.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .clearfix
     = f.label :student_no
-    = f.text_field :student_no, :readonly => true
-  .field
+    .input= f.text_field :student_no, :readonly => true
+  .clearfix
     = f.label :Surname
-    = f.text_field :last
-  .field
+    .input= f.text_field :last
+  .clearfix
     = f.label :Given
-    = f.text_field :given
-  .field
+    .input= f.text_field :given
+  .clearfix
     = f.label :Middle
-    = f.text_field :middle
-  .field
+    .input= f.text_field :middle
+  .clearfix
     = f.label :Nickname
-    = f.text_field :nick
-  .field
+    .input= f.text_field :nick
+  .clearfix
     = f.label :address
-    = f.text_area :address
-  .field
+    .input= f.text_area :address
+  .clearfix
     = f.label :birthday
-    = f.date_select :birthday, :start_year => Time.now.year - 25, :end_year => Time.now.year - 4
-  .field
+    .input= f.date_select :birthday, :start_year => Time.now.year - 25, :end_year => Time.now.year - 4
+  .clearfix
     = f.label :sex
     = f.radio_button(:sex, :M)
     Male
     = f.radio_button(:sex, :F)
     Female
-  .field
+  .clearfix
     = f.label :mobile
-    = f.text_field :mobile
-  .field
+    .input= f.text_field :mobile
+  .clearfix
     = f.label :landline
-    = f.text_field :landline
-  .field
+    .input= f.text_field :landline
+  .clearfix
     = f.label :email
-    = f.text_field :email
-  .field
+    .input= f.text_field :email
+  .clearfix
     = f.label :religion
-    = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others', :id => "other", :selected => true]], :id => "religion"
-    = text_field :religion, :other, :value => @student.religion
-  .field
+    .input
+      = f.select :religion, [['Catholic','Catholic'],['Protestant','Protestant'],['Muslim','Muslim'],['Iglesia ni Kristo','Iglesia ni Kristo'],['Others', 'Others', :id => "other", :selected => true]], :id => "religion"
+      = text_field :religion, :other, :value => @student.religion
+  .clearfix
     = f.label :entry_point
-    = f.select :entry, [['Kindergarten','Kindergarten'],['Lateral Entry','Lateral Entry'],['Vaas Program','Vaas Program']]
-  .field
+    .input= f.select :entry, [['Kindergarten','Kindergarten'],['Lateral Entry','Lateral Entry'],['Vaas Program','Vaas Program']]
+  .clearfix
     = f.check_box :graduate
     = f.label :alumni
-  .field
+  .clearfix
     = f.check_box :upcat
     = f.label :UPCAT_passer
-  .field
+  .clearfix
     = f.check_box :disciplinary
     = f.label :has_disciplinary_record
-  .field
+  .clearfix
     = f.label :father
-    = f.text_field :father
-  .field
+    .input= f.text_field :father
+  .clearfix
     = f.label :occupation
-    = f.text_field :foccupation
-  .field
+    .input= f.text_field :foccupation
+  .clearfix
     = f.label :office
-    = f.text_field :foffice
-  .field
+    .input= f.text_field :foffice
+  .clearfix
     = f.label :contact_numbers
-    = f.text_field :fcontact
-  .field
+    .input= f.text_field :fcontact
+  .clearfix
     = f.label :mother
-    = f.text_field :mother
-  .field
+    .input= f.text_field :mother
+  .clearfix
     = f.label :occupation
-    = f.text_field :moccupation
-  .field
+    .input= f.text_field :moccupation
+  .clearfix
     = f.label :office
-    = f.text_field :moffice
-  .field
+    .input= f.text_field :moffice
+  .clearfix
     = f.label :contact_numbers
-    = f.text_field :mcontact
-  .field
+    .input= f.text_field :mcontact
+  .clearfix
     = f.label :guardian
-    = f.text_field :guardian
-  .field
+    .input= f.text_field :guardian
+  .clearfix
     = f.label :relationship_with_student
-    = f.text_field :relationship
-  .field
+    .input= f.text_field :relationship
+  .clearfix
     = f.label :address
-    = f.text_field :gaddress
-  .field
+    .input= f.text_field :gaddress
+  .clearfix
     = f.label :contact_details
-    = f.text_field :gcontact
+    .input= f.text_field :gcontact
+  .clearfix
+    = f.label :citizenship
+    .input= f.text_field :citizenship
+  .clearfix
+    = f.label :elem_completed_in
+    .input= f.text_field :elem_completed_in
+  .clearfix
+    = f.label :elem_completed_on
+    .input= f.date_select :elem_completed_on, :start_year => Time.now.year - 10, :end_year => Time.now.year - 4
   .actions
     = f.submit 'Save'
 

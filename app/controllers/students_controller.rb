@@ -100,14 +100,22 @@ class StudentsController < ApplicationController
   end
   def transcript_builder
     @student = Student.find(params[:student_id])
-    @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
-
+    if params[:start].present? && params[:end].present?
+      @schoolyear = Schoolyear.where("start >= ? && start <= ?", params[:start], params[:end]).order('start ASC')
+    else
+      @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
+    end
     @settings = Setting.transcript
+    @copyfor = params[:copyfor]
     @gradecol = 2
+    @gradecol += 1 if @settings[:raw]
+    @gradecol += 1 if @settings[:elevenpt]
+    @eligible_for_admission = params[:eligible_for_admission]
+    @valid_to_transfer = params[:valid_to_transfer]
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"
+        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"#, :show_as_html => true
       end
     end
   end

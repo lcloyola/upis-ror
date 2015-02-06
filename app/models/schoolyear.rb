@@ -13,5 +13,4 @@ class Schoolyear < ActiveRecord::Base
   def self.current
   	return Schoolyear.where(:current => true).first
   end
-  
 end

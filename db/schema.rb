@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140520070542) do
+ActiveRecord::Schema.define(:version => 20150206070131) do
 
   create_table "batches", :force => true do |t|
     t.integer  "year"
@@ -187,7 +187,10 @@ ActiveRecord::Schema.define(:version => 20140520070542) do
     t.string   "gcontact"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "sex",          :default => "M"
+    t.string   "sex",               :default => "M"
+    t.string   "elem_completed_in"
+    t.date     "elem_completed_on"
+    t.date     "citizenship"
   end
 
   add_index "students", ["batch_id"], :name => "index_students_on_batch_id"
@@ -221,6 +224,7 @@ ActiveRecord::Schema.define(:version => 20140520070542) do
     t.boolean  "admin",                                 :default => false
     t.integer  "role",                                  :default => 3
     t.boolean  "is_active",                             :default => true
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

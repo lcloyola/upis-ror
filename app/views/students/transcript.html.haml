@@ -5,13 +5,26 @@
   %li.active= link_to "Transcript", "/students/transcript/#{@student.id}"
   %li= link_to "Honor Roll", "/students/honorroll/#{@student.id}"
   %li= link_to "Profile", @student
-.btn.btn-info= link_to "Transcript PDF", "/students/transcript/#{@student.id}.pdf", :target => "_blank"
-= form_tag "/students/transcript_builder/#{@student.id}.pdf" , id: "cdr_search_form" do
-  = select_tag :start, options_from_collection_for_select(Schoolyear.all, :start, :name)
-  = select_tag :end, options_from_collection_for_select(Schoolyear.all, :start, :name, Schoolyear.current.id)
-  = submit_tag("Transcript Builder", class: "btn btn-info")
 
-  .btn.btn-info= link_to "Transcript Builder", "/students/transcript_builder/#{@student.id}.pdf", :target => "_blank"
+= form_tag "/students/transcript_builder/#{@student.id}.pdf" , id: "cdr_search_form", class: "form-stacked" do
+  .field
+    = check_box_tag "valid_to_transfer", 1, true
+    Valid to Transfer
+  .field
+    = check_box_tag "eligible_for_admission", 1, true
+    Eligible for Admission to College
+  .field
+    %label Copy For
+    = text_field_tag :copyfor, "COPY FOR?",class: "form-control"
+  .field
+    %label Start Schoolyear
+    = select_tag :start, options_from_collection_for_select(Schoolyear.all, :start, :name)
+  .field
+    %label End Schoolyear
+    = select_tag :end, options_from_collection_for_select(Schoolyear.all, :start, :name, Schoolyear.current.id)
+  .field
+    = submit_tag("Generate Transcript", class: "btn btn-primary")
+    .btn.btn-info= link_to "Default Transcript", "/students/transcript/#{@student.id}.pdf", :target => "_blank"
 
 %br
 -#TODO: refactor!!!

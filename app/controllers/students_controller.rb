@@ -106,11 +106,16 @@ class StudentsController < ApplicationController
       @schoolyear = @student.schoolyears.group('schoolyear_id').order('start ASC')
     end
     @settings = Setting.transcript
+    @copyfor = params[:copyfor]
     @gradecol = 2
+    @gradecol += 1 if @settings[:raw]
+    @gradecol += 1 if @settings[:elevenpt]
+    @eligible_for_admission = params[:eligible_for_admission]
+    @valid_to_transfer = params[:valid_to_transfer]
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"
+        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"#, :show_as_html => true
       end
     end
   end

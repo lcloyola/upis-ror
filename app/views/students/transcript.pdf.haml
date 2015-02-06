@@ -1,41 +1,13 @@
 -#TODO: refactor!!!
 - @schoolyear.each_slice(4) do |slice4|
   .page{:style=>"height: 830;"}
-    #transcirpt-heading
-      %h4.center{:style => "margin: 0px auto;"}
-        / = pdf_image_tag '/images/upislogo.JPG', :style => "width: 58px; padding: 0 5px; vertical-align: middle;"
-        University of the Philippines Integrated School
-      %h5.center{:style=>"margin-bottom: 10px;"}
-        Secondary School Record
-        %br Form 137
+    = render "transcript_heading"
 
-      %h5.capslock
-        = @student.fullname
-        %span.pull-right
-          %b Sex:
-          = @student.sex
-          %b Date of Birth:
-          = @student.birthday
-      %p
-        %span.pull-left
-          %b Address:
-          = @student.address.present? ? @student.address : "----"
-        %span.pull-right
-          %b Tel. No:
-          = @student.landline.present? ? @student.landline : "----"
-      %p
-        %span.pull-left
-          %b Address:
-          = @student.address.present? ? @student.address : "----"
-        %span.pull-right
-          %b Tel. No:
-          = @student.landline.present? ? @student.landline : "----"
-
-      - slice4.each_slice(2) do |pair|
-        .row-fluid
-          - pair.each do |sy|
-            .span6
-              = render "sy", :sy => sy
+    - slice4.each_slice(2) do |pair|
+      .row-fluid
+        - pair.each do |sy|
+          .span6
+            = render "sy", :sy => sy
 #clear
 / .span12{:style=>"border:1px solid #555; padding: 10px; margin-bottom: 5px;"}
 .row-fluid{:style=>"border:1px solid #888; padding: 5px;"}

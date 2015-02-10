@@ -8,23 +8,23 @@
 
   %table
     %tr
-      %td
+      %td{style: "width: 70%"}
         %b.capslock= @student.fullname
-      %td
+      %td{style: "width: 30%"}
         .pull-right
           %b Sex:
           = @student.sex
           %b Date of Birth:
           = @student.birthday
-    %tr
+    %tr{style: "font-size: 12px"}
       %td
         %b Address:
-        = @student.address.present? ? @student.address : "----"
+        = @student.address if @student.address.present?
       %td
         .pull-right
           %b Tel. No:
-          = @student.landline.present? ? @student.landline : "----"
-    %tr
+          = @student.landline if  @student.landline.present?
+    %tr{style: "font-size: 12px"}
       %td
         %b Elem Completed in:
         = @student.elem_completed_in.present? ? @student.elem_completed_in : "UP Integrated School"

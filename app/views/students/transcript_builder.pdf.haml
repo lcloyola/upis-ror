@@ -14,7 +14,7 @@
                   %th{:colspan => @gradecol}
                     = "School Year #{sy.name}"
                 %tr
-                  %th{:width => "40%"} Subject
+                  %th{:width => "55%"} Subject
                   - if @settings[:elevenpt]
                     %th Final
                   - if @settings[:raw]
@@ -56,13 +56,13 @@
                       - else
                         %td= c.subject.units
                 - (20 - @student.courses_year(sy.id, true).length).times do |x|
-                  %tr
-                    %td &nbsp;
-                    %td &nbsp;
+                  %tr{style: "padding: 0px; margin: 0px;"}
+                    %td{style: "padding: 0px; margin: 0px; height: 5px;"} &nbsp;
+                    %td{style: "padding: 0px; margin: 0px; height: 5px;"} &nbsp;
                     - if @settings[:elevenpt]
-                      %td &nbsp;
+                      %td{style: "padding: 0px; margin: 0px; height: 8px;"} &nbsp;
                     - if @settings[:raw]
-                      %td &nbsp;
+                      %td{style: "padding: 0px; margin: 0px; height: 8px;"} &nbsp;
 
 
 

@@ -29,7 +29,7 @@
         %b Elem Completed in:
         = @student.elem_completed_in.present? ? @student.elem_completed_in : "UP Integrated School"
         - if @student.elem_completed_on.present?
-          %b Year
+          %b Year:
           = @student.elem_completed_on.year
       %td
         .pull-right

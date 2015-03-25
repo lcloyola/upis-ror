@@ -28,7 +28,9 @@
       %td
         %b Elem Completed in:
         = @student.elem_completed_in.present? ? @student.elem_completed_in : "UP Integrated School"
-        = "(#{@student.elem_completed_on.year})" if @student.elem_completed_on.present?
+        - if @student.elem_completed_on.present?
+          %b Year
+          = @student.elem_completed_on.year
       %td
         .pull-right
           %b Citizenship:

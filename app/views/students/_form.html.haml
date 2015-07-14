@@ -100,7 +100,8 @@
     = f.text_field :elem_completed_in
   .field
     = f.label :elem_completed_on
-    = f.date_select :elem_completed_on, :start_year => Time.now.year - 10, :end_year => Time.now.year - 4
+    = f.date_select :elem_completed_on, :start_year => Time.now.year - 17, :end_year => Time.now.year
+
   .actions
     = f.submit 'Save'
 

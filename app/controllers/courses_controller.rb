@@ -80,6 +80,13 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find(params[:id])
 
+    if params[:yearsem] == "0"
+      params[:course][:yearlong] = true
+    else # if yearsem == 1, 2, 3 or 4
+      params[:course][:yearlong] = false
+      params[:course][:sem] = params[:yearsem]
+    end
+
     respond_to do |format|
       if @course.update_attributes(params[:course])
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }

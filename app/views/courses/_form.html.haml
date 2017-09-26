@@ -18,7 +18,7 @@
   .field
     = f.label :section
     = collection_select(:course, :section_id, Section.find_all_by_schoolyear_id(@course.schoolyear_id), :id, :name, options ={:prompt => "--select one--"})
-  - if @course.new_record?
+  - if @course.new_record? || !@course.new_record?
     .field
       =# f.check_box :yearlong?
       =# f.label :yearlong, :value => true

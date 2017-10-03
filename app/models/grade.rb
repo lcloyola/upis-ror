@@ -5,6 +5,9 @@ class Grade < ActiveRecord::Base
   attr_accessible :course_id, :student_id, :value, :id, :quarter, :updated_by
   belongs_to :course
   belongs_to :student
+
+  belongs_to :updator, foreign_key: "updated_by", class_name: "User"
+
   def blank
     return true unless !self.value.nil?
     return false

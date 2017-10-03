@@ -5,9 +5,9 @@
     - unless (is_faculty? and !faculty_owned?)
       - grades.each do |g|
         - if pe(g.value) == 'F'
-          %td.emphasize= pe(g.value)
+          %td{:class => "emphasize", :title => "by user: #{g.updator.email} #{g.updated_at}"}= pe(g.value)
         - else
-          %td= pe(g.value)
+          %td{:title => "by user: #{g.updator.email} #{g.updated_at}"}= pe(g.value)
       %td
       %td
       %td

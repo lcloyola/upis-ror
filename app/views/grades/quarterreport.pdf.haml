@@ -12,14 +12,14 @@
       .page_col
         - pair.each do |student|
           #quarter-stub
-            .background{:style => "z-index: 3; position:absolute; margin-left: #{@orientation == "landscape" ? '15%;' : '9%'}"}
-              = pdf_image_tag '/images/logo-trans.png', :style => "margin-top: 15%;"
+            .background{:style => "z-index: 1; position:absolute;"}
+              = pdf_image_tag '/images/logo-watermark.png', :style => ""
             %h5
               .capslock= student.fullname
               %span{:style => "float: right"}= @sy.name
             %h5= student.section(@sy.id).fullname if student.section(@sy.id).present?
             %br
-            %table{:id => "year-#{@sy.id}", :class => "zebra-striped tablesorter sortable"}
+            %table{:id => "year-#{@sy.id}", :class => "tablesorter sortable" }
               %thead
                 %tr
                   - for x in ["Subject", "Q1", "Q2", "Q3", "Q4"]

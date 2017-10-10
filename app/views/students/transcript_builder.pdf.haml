@@ -1,5 +1,5 @@
 -#TODO: refactor!!!
-- @schoolyear.each_slice(4) do |slice4|
+- @schoolyear.each_slice(6) do |slice4|
   .page{:style=>"height: 1030;"}
     = render "transcript_heading"
       
@@ -14,7 +14,7 @@
                   %th{:colspan => @gradecol}
                     = "School Year #{sy.name}"
                 %tr
-                  %th{:width => "55%"} Subject
+                  %th{:width => "60%"} Subject
                   - if @settings[:elevenpt]
                     %th Final
                   - if @settings[:raw]
@@ -55,20 +55,20 @@
                         %td= 0.0
                       - else
                         %td= c.subject.units
-                - (20 - @student.courses_year(sy.id, true).length).times do |x|
+                - (17 - @student.courses_year(sy.id, true).length).times do |x|
                   %tr{style: "padding: 0px; margin: 0px;"}
-                    %td{style: "padding: 0px; margin: 0px; height: 5px;"} &nbsp;
-                    %td{style: "padding: 0px; margin: 0px; height: 5px;"} &nbsp;
+                    %td{style: "padding: 0px; margin: 0px; height: 14px;"} &nbsp;
+                    %td{style: "padding: 0px; margin: 0px; height: 14px;"} &nbsp;
                     - if @settings[:elevenpt]
-                      %td{style: "padding: 0px; margin: 0px; height: 8px;"} &nbsp;
+                      %td{style: "padding: 0px; margin: 0px; height: 14px;"} &nbsp;
                     - if @settings[:raw]
-                      %td{style: "padding: 0px; margin: 0px; height: 8px;"} &nbsp;
+                      %td{style: "padding: 0px; margin: 0px; height: 14px;"} &nbsp;
 
 
 
     #clear
     .row-fluid{:style=>"padding: 5px 0px;"}
-      .span5
+      .span6
         - if @valid_to_transfer
           = raw "&#10003;"
         - else
@@ -89,7 +89,7 @@
           = check_box("test", "test", {}, "test", "test")
         = "Copy for #{@copyfor}"
       
-      .span7
+      .span6
         %table.transcript.left
           %tr
             %td 1.0 - Excellent
@@ -111,7 +111,7 @@
             %td
 
 
-    .row-fluid{style: "padding: 10px;"}
+    .row-fluid{style: "padding: 10px; font-size: 12px; line-height: 11px;"}
       .span7
         %p= "Prepared by: #{current_user.name}"
         %p Checked by:

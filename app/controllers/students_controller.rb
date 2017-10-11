@@ -115,7 +115,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html"#, :show_as_html => true
+        render :pdf => "transcript.pdf", :layout => "pdf_noheader.html", page_size: 'A4', margin: {top: '7mm', bottom: '5mm', left: '6mm', right: '6mm' }#, :show_as_html => true
       end
     end
   end

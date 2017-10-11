@@ -124,12 +124,16 @@ table.gradingsheet td, table.gradingsheet th,  {
   font-size:12px;
 }
 table.transcript {
-  margin-bottom: 3px;
+  margin-bottom: 1px;
 }
 table.transcript td, table.transcript th,  {
   text-align: center;
-  padding: 1px 3px;
-  font-size:10px;
+  #padding: 1px 1px;
+  font-size: 10px;
+
+  padding: 2px 7px;
+  line-height: 8px;
+  
 }
 table.transcript th {
   border-bottom: 1px #AAA solid;
